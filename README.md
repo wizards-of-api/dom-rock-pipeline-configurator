@@ -1,7 +1,7 @@
 # dom-rock-pipeline-configurator
 Repositório dedicado ao versionamento do projeto de API do terceiro semestre de Banco de Dados.
 
-# Membros da equipe
+# Team Members
 
 |Nome|Função|LinkedIn|
 | -------- |-------- |-------- |
@@ -14,3 +14,12 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 |**Otavio Calderan Bruguel**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/otavio-calderan-578b48239)|
 |**Pedro Henrique da Silva Bozzano Pereira**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/pedro-bozzano)|
 |**Vinícius da Silva Chaves**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/vinícius-chaves-197353244/)|
+
+# Product Backlog
+
+|Rank|Prioridade|User Story|Sprint|
+| -------- |-------- |-------- |-------- |
+|1|Alta|Eu como usuário de permissão LZ quero importar arquivos de dados em csv ou excel para configurar informações referentes aos dados do arquivo em uma visualização de tabela|1|
+|2|Alta|Eu como usuário de permissão LZ quero informar a fonte dos meus dados e a frequência na qual eles serão enviados para subir essas informações no esquema de banco de dados|1|
+|3|Alta|Eu como usuário de permissão LZ após upload do arquivo, preciso definir os tipos de dados de cada coluna, informar se a coluna pode haver dados "null"/vazios, selecionar colunas que devem ser processadas, nomear cabeçalhos e descrever as regras de negócios de cada cabeçalho para subir essas informações no banco de dados|1|
+|4|Alta|Eu como usuário de permissão LZ preciso ter acesso aos arquivos configurados anteriormente e poder alterar as informações inseridas anteriormente|1|
