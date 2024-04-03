@@ -3,13 +3,16 @@ package com.domrock.utils;
 import org.apache.spark.sql.Dataset;
 import org.apache.spark.sql.Row;
 import org.apache.spark.sql.SparkSession;
-import java.util.Arrays;
+import java.util.ArrayList;
 
 public class CsvConverter {
     
-    public static void main (String [] args) {
+    public ArrayList<String> csvConverter() {
+        int index = 0;
+        ArrayList<String> headers = new ArrayList<String>();
+
         SparkSession spark = SparkSession.builder()
-        .appName("Read CSV with Spark")
+        .appName("Read Excel with Spark")
         .master("local[*]")
         .getOrCreate();
 
@@ -20,18 +23,12 @@ public class CsvConverter {
         .option("inferSchema", "true")
         .load("web-server/people.csv");
 
-        String[] headers = new String[df.columns().length]; 
-        Integer[] index = new Integer[df.columns().length]; 
-
-        df.show();
-
-        headers = df.columns();
-
-        for (int i=0; i<df.columns().length; i++) {
-            df.withColumn("index", df.col(df.DATASET_ID_KEY()))
-            .show(false);
+        for (String column : df.columns()) {
+            headers.add(index + ""); 
+            headers.add(column);
+            index += 1;
         }
-        
-        System.out.println(df);
+
+        return headers;
     }
 }
