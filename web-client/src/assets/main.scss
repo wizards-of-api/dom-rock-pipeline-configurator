@@ -1,6 +1,5 @@
 @import './base.scss';
 
-
 body {
   display: flex;
   place-items: center;
@@ -22,7 +21,7 @@ strong {
   min-width: 100%;
   display: flex;
   flex-direction: column;
-  
+
   // display: grid;
   // grid-template-columns: 1fr 1fr;
   // padding: 0 2rem;

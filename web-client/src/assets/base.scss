@@ -8,9 +8,9 @@
   --dr-c-black-soft: #222222;
   --dr-c-black-mute: #282828;
 
-  --dr-c-blue-light: #00BFFF;
-  --dr-c-tomato-light: #FF6347;
-  --dr-c-green-light: #00FF7F;
+  --dr-c-blue-light: #00bfff;
+  --dr-c-tomato-light: #ff6347;
+  --dr-c-green-light: #00ff7f;
 
   --dr-c-grey: #5c6064;
 
@@ -33,7 +33,7 @@
 
   --color-button-safe: var(--dr-c-green-light);
   --color-button-safe-hover: var(--dr-c-green-light);
-  
+
   --color-button-text: var(--dr-c-text-dark);
 
   /* Banner */
@@ -68,9 +68,7 @@ body {
     color 0.5s,
     background-color 0.5s;
   line-height: 1.6;
-  font-family:
-    HelveticaNeue,
-    sans-serif;
+  font-family: HelveticaNeue, sans-serif;
   font-size: 15px;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;

@@ -8,19 +8,17 @@ No route should lead to this view
 </script>
 
 <template>
-    <div id="sandbox">
-        <h1>Foo</h1>
-        <p>
-            Lorem Ipsum <strong>STRONG</strong> <span class="section-title">Section Title</span>
-        </p>
-        <p>
-            <span class="section-title">Landing Zone</span>
-        </p>
-    </div>
+  <div id="sandbox">
+    <h1>Foo</h1>
+    <p>Lorem Ipsum <strong>STRONG</strong> <span class="section-title">Section Title</span></p>
+    <p>
+      <span class="section-title">Landing Zone</span>
+    </p>
+  </div>
 </template>
 
 <style lang="scss">
-    #sandbox {
-        flex-grow: 1;
-    }
+#sandbox {
+  flex-grow: 1;
+}
 </style>
