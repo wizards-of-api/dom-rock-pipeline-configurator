@@ -1,9 +1,9 @@
 create table lz_config(
-id_arquivo integer auto_increment primary key,
-nome_config varchar(50) not null,
-tipo_arq varchar(50) not null,
-origem_arq varchar(50) not null,
-periodo ENUM('DIA','SEMANA','MES','ANO') not null,
-frequencia int not null,
-header boolean not null
+id_file integer auto_increment primary key,
+file_config_name varchar(50) not null,
+file_type varchar(50) not null,
+file_origin varchar(50) not null,
+file_period varchar(50) not null,
+file_frequency int not null,
+file_has_header int not null
 );
