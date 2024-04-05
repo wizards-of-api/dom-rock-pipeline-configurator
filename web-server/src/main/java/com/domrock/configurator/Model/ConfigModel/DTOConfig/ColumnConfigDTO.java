@@ -4,7 +4,7 @@ public record ColumnConfigDTO(
     String name,
     Integer index,
     String type,
-    Integer CanBeNull,
+    boolean CanBeNull,
     String description,
     Integer status
 ) {}

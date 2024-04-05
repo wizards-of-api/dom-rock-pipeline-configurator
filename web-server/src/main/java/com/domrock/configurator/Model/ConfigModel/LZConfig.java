@@ -1,5 +1,8 @@
 package com.domrock.configurator.Model.ConfigModel;
 
+
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -17,21 +20,37 @@ import lombok.Setter;
 public class LZConfig {
     
     @Id
-    @Column(name = "id_arquivo")
-    private Integer archiveId;
+    @Column(name = "id_file")
+    private Integer fileId;
 
-    @Column(name = "nome_config")
+    @Column(name = "file_config_name")
     private String name;
 
-    @Column(name = "tipo_arq")
-    private String archiveType;
+    @Column(name = "file_type")
+    private String fileType;
 
-    @Column(name = "origem_arq")
-    private String archiveOrigin;
+    @Column(name = "file_origin")
+    private String fileOrigin;
 
-    @Column(name="frequencia")
+    @Column(name = "file_frequency")
     private Integer frequency;
 
-    private Integer header;
-    
+    @Column(name = "file_has_header")
+    private Integer hasHeader;
+
+    @Column(name = "file_period")
+    private String filePeriod;
+
+    @Column(name = "file_name")
+    private String fileName;
+
+    public LZConfig(MetadataConfigDTO file){
+        this.name = file.name();
+        this.fileType = file.fileExtension();
+        this.fileOrigin = file.fileOrigin();
+        this.frequency = file.frequencyNumber();
+        this.filePeriod = file.frequencyType();
+        this.hasHeader = file.hasHeader() == true? 1: 0;
+    }
+
 }

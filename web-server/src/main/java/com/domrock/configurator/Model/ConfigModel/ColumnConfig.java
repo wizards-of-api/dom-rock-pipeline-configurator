@@ -7,6 +7,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
@@ -18,40 +19,40 @@ import lombok.Setter;
 @AllArgsConstructor
 
 @Entity
-@Table(name = "coluna")
+@Table(name = "file_column")
 public class ColumnConfig {
 
     @ManyToOne
-    @Column(name = "id_arquivo")
-    private LZConfig archiveId;
+    @JoinColumn(name = "file_id")
+    private LZConfig fileId;
     
     @Id
-    @Column(name = "id_coluna")
+    @Column(name = "column_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer columnId;
 
     private Integer index;
 
-    @Column(name = "nome_coluna")
+    @Column(name = "column_name")
     private String columnName;
 
-    @Column(name = "tipo")
+    @Column(name = "column_type")
     private String type;
 
-    @Column(name = "vazio")
+    @Column(name = "column_empty")
     private Integer empty;
 
-    @Column(name = "descricao")
+    @Column(name = "column_description")
     private String description;
 
-    @Column(name = "ativo")
+    @Column(name = "column_active")
     private Integer status;
 
     public ColumnConfig (ColumnConfigDTO data){       
         this.index = data.index();
         this.columnName = data.name();
         this.type = data.type();
-        this.empty = data.CanBeNull();
+        this.empty = data.CanBeNull() == true? 1: 0;
         this.description = data.description();
         this.status = data.status();
     }
