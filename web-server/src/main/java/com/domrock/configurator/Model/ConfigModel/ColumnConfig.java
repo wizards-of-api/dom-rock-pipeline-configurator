@@ -1,6 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -22,16 +23,15 @@ import lombok.Setter;
 @Table(name = "file_column")
 public class ColumnConfig {
 
+    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "file_id")
-    private LZConfig fileId;
+    private LZMetadataConfig fileId;
     
     @Id
     @Column(name = "column_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer columnId;
-
-    private Integer index;
 
     @Column(name = "column_name")
     private String columnName;
@@ -48,13 +48,20 @@ public class ColumnConfig {
     @Column(name = "column_active")
     private Integer status;
 
-    public ColumnConfig (ColumnConfigDTO data){       
-        this.index = data.index();
+    public ColumnConfig (LZMetadataConfig lzMetadataConfig, ColumnConfigDTO data){   
+        this.fileId = lzMetadataConfig;    
+        this.columnId = data.index();
         this.columnName = data.name();
         this.type = data.type();
         this.empty = data.CanBeNull() == true? 1: 0;
         this.description = data.description();
         this.status = data.status();
+
+        lzMetadataConfig.getColumns().add(this);
+    }
+
+    public ColumnConfig() {
+
     }
 
 

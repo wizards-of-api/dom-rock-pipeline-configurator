@@ -1,11 +1,18 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -17,11 +24,15 @@ import lombok.Setter;
 
 @Entity
 @Table(name = "lz_config")
-public class LZConfig {
+public class LZMetadataConfig {
     
     @Id
-    @Column(name = "id_file")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "file_id")
     private Integer fileId;
+
+    @OneToMany(mappedBy = "fileId")
+    private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
 
     @Column(name = "file_config_name")
     private String name;
@@ -44,7 +55,8 @@ public class LZConfig {
     @Column(name = "file_name")
     private String fileName;
 
-    public LZConfig(MetadataConfigDTO file){
+    public LZMetadataConfig(MetadataConfigDTO file){
+        this.fileName = file.fileName();
         this.name = file.name();
         this.fileType = file.fileExtension();
         this.fileOrigin = file.fileOrigin();
