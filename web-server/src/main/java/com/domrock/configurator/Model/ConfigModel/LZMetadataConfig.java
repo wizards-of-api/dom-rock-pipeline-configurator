@@ -1,12 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
-
-
 import java.util.ArrayList;
 import java.util.List;
-
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -64,5 +59,4 @@ public class LZMetadataConfig {
         this.filePeriod = file.frequencyType();
         this.hasHeader = file.hasHeader() == true? 1: 0;
     }
-
 }

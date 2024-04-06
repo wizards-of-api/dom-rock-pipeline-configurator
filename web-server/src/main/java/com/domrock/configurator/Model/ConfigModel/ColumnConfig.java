@@ -1,8 +1,6 @@
 package com.domrock.configurator.Model.ConfigModel;
-
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -56,13 +54,11 @@ public class ColumnConfig {
         this.empty = data.CanBeNull() == true? 1: 0;
         this.description = data.description();
         this.status = data.status();
-
+        
         lzMetadataConfig.getColumns().add(this);
     }
 
     public ColumnConfig() {
 
     }
-
-
 }
