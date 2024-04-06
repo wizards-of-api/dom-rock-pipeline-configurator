@@ -1,4 +1,5 @@
 package com.domrock.configurator.Controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -6,6 +7,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
@@ -13,7 +15,6 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.DataConfigDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
 import com.domrock.configurator.Services.ColumnConfigServices;
 import com.domrock.configurator.Services.LZMetadataConfigServices;
-
 
 @RestController
 @RequestMapping("/config")

@@ -1,7 +1,10 @@
 package com.domrock.configurator.Model.ConfigModel;
+
 import java.util.ArrayList;
 import java.util.List;
+
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -59,4 +63,5 @@ public class LZMetadataConfig {
         this.filePeriod = file.frequencyType();
         this.hasHeader = file.hasHeader() == true? 1: 0;
     }
+    public LZMetadataConfig(){}
 }
