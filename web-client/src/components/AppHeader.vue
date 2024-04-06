@@ -1,9 +1,11 @@
 <script setup lang="ts"></script>
+
 <template>
   <header>
     <img src="../assets/dom-rock-logo.png" />
   </header>
 </template>
+
 <style lang="scss" scoped>
 img {
   max-width: 154px;
