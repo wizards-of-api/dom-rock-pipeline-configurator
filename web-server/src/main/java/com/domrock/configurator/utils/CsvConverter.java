@@ -5,13 +5,18 @@ import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Cell;
 
+import org.apache.commons.csv.CSVFormat;
+import org.apache.commons.csv.CSVParser;
+import org.apache.commons.csv.CSVRecord;
+
+import java.io.FileReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 
 public class CsvConverter {
-    public ArrayList<String> csvConverter() {
+    public ArrayList<String> excelConverter() {
         int index = 0;
         ArrayList<String> headers = new ArrayList<String>();
 
@@ -29,6 +34,29 @@ public class CsvConverter {
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return headers;
+    }
+    public ArrayList<String> csvConverter() {
+        int index = 0;
+        ArrayList<String> headers = new ArrayList<String>();
+        try {
+            FileReader reader = new FileReader("web-server/people.csv");
+            CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
+            for (CSVRecord record : csvParser) {
+                for (int i=0; i<(csvParser.getRecords().size()); i++) {
+                    for (String values : record) {
+                        String[] headersArrayList = values.split(";", 0);
+                        for (String header : headersArrayList) {
+                            headers.add(index+"");
+                            index += 1;
+                            headers.add(header);
+                        }
+                    }
+                }
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
