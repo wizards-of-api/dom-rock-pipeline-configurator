@@ -28,7 +28,7 @@ input {
 }
 label {
 	position: relative;
-	width: 1rem;
+	min-width: 1rem;
 	height: 1rem;
 }
 .checkmark {
