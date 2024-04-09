@@ -1,4 +1,4 @@
-package com.domrock.configurator.utils;
+package com.domrock.configurator.Services;
 
 import java.util.ArrayList;
 
