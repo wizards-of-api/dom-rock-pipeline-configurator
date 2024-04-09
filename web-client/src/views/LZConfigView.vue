@@ -176,6 +176,11 @@ const uploadFile = () => {
     "description description description description description";
 }
 main {
+	margin: 0 auto;
+	border: 1px solid var(--color-separator);
+	border-top: 0;
+	border-bottom: 0;
+	width: 1280px;
   position: relative;
   padding: var(--big-gap);
   flex-grow: 1;
