@@ -1,5 +1,7 @@
 package com.domrock.configurator.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
@@ -28,23 +31,35 @@ public class ConfigController {
     @Autowired
     ColumnConfigServices lzColumnConfigServices;
 
-    @GetMapping("/convert")
-    public String convertArrayListToJson() {
-        ArrayListToJson arrayListToJson = new ArrayListToJson();
-        return arrayListToJson.jsonConversion();
+    @Autowired
+    private ArrayListToJson arrayListToJson;
+
+    @GetMapping("/new-excel-to-json")
+    public String newExcelToJson(@RequestParam String filePath) {
+        return arrayListToJson.newExcelToJson(filePath);
     }
 
-    @PostMapping
-    public void addFileCsv(@RequestBody headerCsvDTO dataHeaderCsv){
-        System.out.println(dataHeaderCsv);
+    @GetMapping("/old-excel-to-json")
+    public String oldExcelToJson(@RequestParam String filePath) {
+        return arrayListToJson.oldExcelToJson(filePath);
     }
 
+    @GetMapping("/csv-to-json")
+    public String csvToJson(@RequestParam String filePath) {
+        return arrayListToJson.csvToJson(filePath);
+    }
+
+    // @PostMapping
+    // public void addFileCsv(@RequestBody headerCsvDTO dataHeaderCsv){
+    // System.out.println(dataHeaderCsv);
+    // }
+
     @PostMapping
-    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
+    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data) {
         MetadataConfigDTO metadataConfigDTO = data.metadata();
         try {
             LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
-            LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
+            LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase);
             for (ColumnConfigDTO columnConfigDTO : data.columns()) {
                 System.out.println(columnConfigDTO);
                 ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
