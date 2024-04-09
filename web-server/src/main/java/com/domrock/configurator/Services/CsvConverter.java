@@ -4,7 +4,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.usermodel.HSSFSheet; 
+import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.ss.usermodel.Cell;
 
 import org.apache.commons.csv.CSVFormat;
@@ -45,13 +45,13 @@ public class CsvConverter {
     public ArrayList<String> oldExcelConverter(String filePath) {
         int index = 0;
         ArrayList<String> headers = new ArrayList<String>();
-    
+
         try {
             FileInputStream file = new FileInputStream(filePath);
             HSSFWorkbook hkbk = new HSSFWorkbook(file);
             HSSFSheet sheet = hkbk.getSheetAt(0);
             Row row = sheet.getRow(0);
-    
+
             for (int i = 0; i < (row.getLastCellNum()); i++) {
                 Cell cell = row.getCell(i);
                 headers.add(index + "");
@@ -73,11 +73,11 @@ public class CsvConverter {
             FileReader reader = new FileReader(filePath);
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
             for (CSVRecord record : csvParser) {
-                for (int i=0; i<(csvParser.getRecords().size()); i++) {
+                for (int i = 0; i < (csvParser.getRecords().size()); i++) {
                     for (String values : record) {
                         String[] headersArrayList = values.split(";", 0);
                         for (String header : headersArrayList) {
-                            headers.add(index+"");
+                            headers.add(index + "");
                             index += 1;
                             headers.add(header);
                         }
