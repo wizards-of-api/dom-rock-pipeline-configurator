@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { defineProps } from 'vue'
-
 type Props = {
 	buttonType?: 'careful' | 'safe'
 	clickBehavior: (event: Event) => void
