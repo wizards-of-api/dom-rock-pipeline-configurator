@@ -1,60 +1,66 @@
 @import './base.scss';
 
 body {
-  display: flex;
-  place-items: center;
-  align-items: stretch;
+	display: flex;
+	place-items: center;
+	align-items: stretch;
 }
 
 strong {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 button {
-  cursor: pointer;
-  border: 0;
-  border-radius: var(--border-radius);
-  background-color: var(--color-button-neutral);
-  font-size: 1.2rem;
-  padding: 1rem 3.2rem;
+	cursor: pointer;
+	border: 0;
+	border-radius: var(--border-radius);
+	background-color: var(--color-button-neutral);
+	font-size: 1.2rem;
+	padding: 1rem 3.2rem;
 
-  transition:
-    background-color 0.5s;
+	transition: background-color 0.5s;
 
-  &:hover {
-    background-color: var(--color-button-neutral-hover);
-  }
+	&:hover {
+		background-color: var(--color-button-neutral-hover);
+	}
+}
+
+.input {
+	margin: var(--padding-size) 0;
+	border: 1px solid var(--color-text);
+	border-radius: var(--border-radius);
+	padding: var(--padding-size);
 }
 
 .careful {
-  background-color: var(--color-button-careful);
+	background-color: var(--color-button-careful);
 
-  &:hover {
-    background-color: var(--color-button-careful-hover);
-  }
+	&:hover {
+		background-color: var(--color-button-careful-hover);
+	}
 }
 
 .safe {
-  background-color: var(--color-button-safe);
-  
-  &:hover {
-    background-color: var(--color-button-safe-hover);
-  }
+	background-color: var(--color-button-safe);
+
+	&:hover {
+		background-color: var(--color-button-safe-hover);
+	}
 }
 
 .section-title {
-  font-size: 1.4rem;
+	font-size: 1.4rem;
 }
 
 #app {
-  // max-width: 1280px;
-  margin: 0;
-  font-weight: normal;
-  min-width: 100%;
-  display: flex;
-  flex-direction: column;
+	// max-width: 1280px;
+	margin: 0;
+	font-weight: normal;
+	min-width: 100%;
+	display: flex;
+	flex-direction: column;
 
-  // display: grid;
-  // grid-template-columns: 1fr 1fr;
-  // padding: 0 2rem;
+	// display: grid;
+	// grid-template-columns: 1fr 1fr;
+	// padding: 0 2rem;
 }

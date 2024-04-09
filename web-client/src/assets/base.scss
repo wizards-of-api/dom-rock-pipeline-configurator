@@ -1,75 +1,85 @@
 :root {
-  --dr-c-white: #ffffff;
-  --dr-c-white-soft: #f8f8f8;
-  --dr-c-white-mute: #f2f2f2;
+	--dr-c-white: #ffffff;
+	--dr-c-white-soft: #f8f8f8;
+	--dr-c-white-mute: #f2f2f2;
 
-  --dr-c-black: #181818;
-  --dr-c-black-soft: #222222;
-  --dr-c-black-mute: #282828;
+	--dr-c-black: #181818;
+	--dr-c-black-soft: #222222;
+	--dr-c-black-mute: #282828;
 
-  --dr-c-blue-light: #00bfff;
-  --dr-c-blue: #1E90FF;
+	--dr-c-blue-light: #00bfff;
+	--dr-c-blue: #1e90ff;
 
-  --dr-c-tomato-light: #ff6347;
-  --dr-c-green-light: #00ff7f;
+	--dr-c-tomato-light: #ff6347;
+	--dr-c-green-light: #00ff7f;
 
-  --dr-c-grey: #5c6064;
+	--dr-c-grey: #5c6064;
 
-  --dr-c-text-light: var(--dr-c-white);
-  --dr-c-text-dark: var(--dr-c-black);
+	--dr-c-text-light: var(--dr-c-white);
+	--dr-c-text-dark: var(--dr-c-black);
 }
 
 /* semantic color variables for this project */
 :root {
-  /* Backgorund */
-  --color-background: var(--dr-c-black);
-  --color-background-soft: var(--dr-c-black-mute);
+	/* Backgorund */
+	--color-background: var(--dr-c-black);
+	--color-background-soft: var(--dr-c-black-mute);
 
-  /* Buttons */
-  --color-button-neutral: var(--dr-c-blue-light);
-  --color-button-neutral-hover: var(--dr-c-blue);
+	/* Buttons */
+	--color-button-neutral: var(--dr-c-blue-light);
+	--color-button-neutral-hover: var(--dr-c-blue);
 
-  --color-button-careful: var(--dr-c-tomato-light);
-  --color-button-careful-hover: var(--dr-c-tomato-light);
+	--color-button-careful: var(--dr-c-tomato-light);
+	--color-button-careful-hover: var(--dr-c-tomato-light);
 
-  --color-button-safe: var(--dr-c-green-light);
-  --color-button-safe-hover: var(--dr-c-green-light);
+	--color-button-safe: var(--dr-c-green-light);
+	--color-button-safe-hover: var(--dr-c-green-light);
 
-  --color-button-text: var(--dr-c-text-dark);
+	--color-button-text: var(--dr-c-text-dark);
 
-  /* Banner */
-  --color-banner: var(--dr-c-grey);
-  --color-banner-text: var(--dr-c-text-light);
+	/* Banner */
+	--color-banner: var(--dr-c-grey);
+	--color-banner-text: var(--dr-c-text-light);
 
-  /* General */
-  --border-radius: 6px;
+	/* General */
+	--border-radius: 6px;
+	--padding-size: 12px;
+	--gap: 12px;
 
-  --color-separator: var(--dr-c-grey);
-  --color-text: var(--dr-c-text-light);
+	--color-separator: var(--dr-c-grey);
+	--color-text: var(--dr-c-text-light);
 }
 
 /* Reset */
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
+	box-sizing: border-box;
+	margin: 0;
+	font-weight: normal;
+}
+
+input,
+select {
+	background: transparent;
+	border: 0;
+	outline: none;
+	color: var(--color-text);
 }
 
 @font-face {
-  font-family: HelveticaNeue;
-  src: url('./fonts/HelveticaNeue.ttf');
+	font-family: HelveticaNeue;
+	src: url('./fonts/HelveticaNeue.ttf');
 }
 
 body {
-  min-height: 100vh;
-  color: var(--color-text);
-  background: var(--color-background);
-  line-height: 1.6;
-  font-family: HelveticaNeue, sans-serif;
-  font-size: 15px;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+	min-height: 100vh;
+	color: var(--color-text);
+	background: var(--color-background);
+	line-height: 1.6;
+	font-family: HelveticaNeue, sans-serif;
+	font-size: 15px;
+	text-rendering: optimizeLegibility;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
 }
