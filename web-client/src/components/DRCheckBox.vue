@@ -3,12 +3,15 @@ type Props = {
 	title: String
 }
 const { title } = defineProps<Props>()
+
+const modelValue = defineModel()
+const emit = defineEmits(['update'])
 </script>
 <template>
 	<div class="wrapper">
 		<span>{{ title }}</span>
 		<label>
-			<input class="input" type="checkbox" />
+			<input class="input" type="checkbox"  v-model="modelValue" @input="emit('update', ($event.target as HTMLInputElement).checked)"/>
 			<span class="checkmark"> </span>
 		</label>
 	</div>

@@ -1,22 +1,43 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+
 type Props = {
 	title: string
 	size?: 'small'
 	isTextArea?: boolean
 	customHeight?: number
-	defaultValue?: any
+	disabled?: boolean
+	defaultValue?: string
 }
-const { title, size, isTextArea, customHeight } = defineProps<Props>()
+const modelValue = defineModel<string>({ default: '' })
+const emit = defineEmits(['update'])
+const { title, size, isTextArea, customHeight, defaultValue, disabled } = defineProps<Props>()
+onMounted(() => {
+	if(defaultValue !== undefined) modelValue.value = defaultValue
+})
 </script>
 <template>
 	<div class="wrapper" :class="size">
 		<span>{{ title }}</span>
-		<input class="input" type="text" v-if="!isTextArea" :value="defaultValue"/>
-		<textarea :style="{height: customHeight + 'rem'}" class="input" v-else></textarea>
+		<input
+			class="input"
+			type="text"
+			:disabled="disabled"
+			v-model="modelValue"
+			@input="emit('update', ($event.target as HTMLInputElement).value)"
+			v-if="!isTextArea"
+		/>
+		<textarea
+			:style="{ height: customHeight + 'rem' }"
+			class="input"
+			:disabled="disabled"
+			v-model="modelValue"
+			@input="emit('update', ($event.target as HTMLInputElement).value)"
+			v-else
+		></textarea>
 	</div>
 </template>
 <style scoped lang="scss">
-
 textarea {
 	resize: none;
 }
