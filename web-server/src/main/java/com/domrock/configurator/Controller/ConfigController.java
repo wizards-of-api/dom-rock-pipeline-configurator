@@ -3,6 +3,7 @@ package com.domrock.configurator.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,14 +26,14 @@ public class ConfigController {
     @Autowired
     ColumnConfigServices lzColumnConfigServices;
 
-    @PostMapping
+    @CrossOrigin(origins = "http://localhost:5173")
+    @PostMapping("/save")
     public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
         try {
             LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
             LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
             for (ColumnConfigDTO columnConfigDTO : data.columns()) {
-                System.out.println(columnConfigDTO);
                 ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
                 lzColumnConfigServices.saveConfigModel(columnConfig);
             }
