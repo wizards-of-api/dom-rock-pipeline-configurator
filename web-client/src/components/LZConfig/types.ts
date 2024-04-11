@@ -5,6 +5,7 @@ export type MetadataUploadConfig = {
 	fileExtension: 'csv'
 	hasHeader: boolean
 	fileName: string
+	separator: string
 }
 
 export type MetadataConfig = {

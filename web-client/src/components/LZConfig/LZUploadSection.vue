@@ -17,11 +17,13 @@ const emitUpdate = () => {
 const fileExtension = defineModel<string>('fileExtension')
 const hasHeader = defineModel<string>('hasHeader')
 const fileName = defineModel<string>('fileName')
+const separator = defineModel<string>('separator')
 
 const wrapUpdateMetadata = () => ({
 	fileExtension: fileExtension.value,
 	hasHeader: hasHeader.value === 'Sim',
 	fileName: fileName.value,
+	separador: separator.value,
 })
 
 const uploadFile = () => {
@@ -62,6 +64,13 @@ const uploadFile = () => {
 				v-model="fileExtension"
 				@update="emitUpdate"
 			></DRDropDown>
+			<DRTextInput
+				style="grid-area: separator"
+				title="Separador"
+				v-model="separator"
+				size="small"
+				@update="emitUpdate"
+			></DRTextInput>
 			<DRDropDown
 				style="grid-area: has-header; width: 7rem"
 				title="Terá Header"
@@ -94,7 +103,7 @@ const uploadFile = () => {
 	grid-template-columns: min-content min-content min-content;
 	grid-template-rows: min-content min-content;
 	grid-template-areas:
-		'has-header type upload'
-		'file-name file-name file-name';
+		'has-header type separator upload'
+		'file-name file-name file-name .';
 }
 </style>

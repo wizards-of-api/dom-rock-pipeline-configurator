@@ -34,19 +34,21 @@ const wrapMetadata = () => ({
 		<DRTextInput
 			style="grid-area: origin"
 			title="Origem"
+			size="small"
 			v-model="fileOrigin"
 			@update="emitUpdate"
 		></DRTextInput>
 		<DRTextInput
 			style="grid-area: frequency"
 			title="Frequencia"
+			size="small"
 			v-model="frequencyNumber"
 			@update="emitUpdate"
 		></DRTextInput>
 		<DRDropDown
 			style="grid-area: period"
 			title="Período"
-			:option-list="['Dia', 'Mês', 'Ano']"
+			:option-list="['Dia', 'Mês', 'Ano', 'Semana']"
 			v-model="frequencyType"
 			@update="emitUpdate"
 		></DRDropDown>
@@ -63,12 +65,10 @@ const wrapMetadata = () => ({
 	padding: var(--big-gap) 0;
 }
 .metadata {
-	grid-template-columns: min-content min-content;
+	grid-template-columns: min-content min-content min-content;
 	grid-template-rows: min-content min-content;
 	grid-template-areas:
-		'file-name file-name'
-		'config-name config-name'
-		'origin origin'
-		'frequency period';
+		'config-name config-name config-name'
+		'origin frequency period'
 }
 </style>

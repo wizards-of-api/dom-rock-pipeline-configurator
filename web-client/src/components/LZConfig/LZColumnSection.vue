@@ -48,6 +48,7 @@ onMounted(() => {
 </script>
 <template>
     <div
+		style="width: 100%"
         class="wrapper container"
     >
         <DRSectionTitle style="grid-area: title" title="Configurar Colunas"></DRSectionTitle>

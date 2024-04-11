@@ -71,7 +71,7 @@ const wrapColumnConfig = () => ({
             @update="emitUpdate"
         ></DRDropDown>
         <DRCheckBox
-            style="grid-area: can-null"
+            style="grid-area: can-null; width: 7rem;"
             title="Pode Nulo?"
 			v-model="canBeNull"
             @update="emitUpdate"
