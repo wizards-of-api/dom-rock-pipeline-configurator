@@ -62,7 +62,7 @@ const saveFile = async () => {
 		<LZMetadataSection @update="onUpdateMetadata"></LZMetadataSection>
 		<LZColumnSection :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></LZColumnSection>
 		<div class="wrapper save">
-			<DRButton button-type="safe" :click-behavior="saveFile">Save</DRButton>
+			<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 		</div>
 	</main>
 </template>
