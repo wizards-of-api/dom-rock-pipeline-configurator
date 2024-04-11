@@ -4,6 +4,8 @@ body {
 	display: flex;
 	place-items: center;
 	align-items: stretch;
+
+	overflow-y: hidden;
 }
 
 strong {
@@ -22,6 +24,17 @@ button {
 
 	&:hover {
 		background-color: var(--color-button-neutral-hover);
+	}
+}
+
+a {
+	color: var(--color-button-neutral);
+	text-decoration: none;
+
+	transition: color 0.5s;
+
+	&:hover {
+		color: var(--color-button-neutral-hover);
 	}
 }
 
@@ -60,6 +73,7 @@ button {
 	display: flex;
 	flex-direction: column;
 
+	
 	// display: grid;
 	// grid-template-columns: 1fr 1fr;
 	// padding: 0 2rem;

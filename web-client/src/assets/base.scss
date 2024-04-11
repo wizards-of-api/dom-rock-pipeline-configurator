@@ -23,7 +23,8 @@
 :root {
 	/* Backgorund */
 	--color-background: var(--dr-c-black);
-	--color-background-soft: var(--dr-c-black-mute);
+	--color-background-soft: var(--dr-c-black-soft);
+	--color-background-mute: var(--dr-c-black-mute);
 
 	/* Buttons */
 	--color-button-neutral: var(--dr-c-blue-light);
@@ -49,6 +50,7 @@
 	--big-gap: 36px;
 
 	--padding-size: 12px;
+	--padding-size-big: 36px;
 
 	--color-separator: var(--dr-c-grey);
 	--color-text: var(--dr-c-text-light);

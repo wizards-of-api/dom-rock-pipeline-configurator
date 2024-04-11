@@ -1,12 +1,19 @@
 <script setup lang="ts">
-import AppHeader from '@/components/AppHeader.vue'
-import DRButton from '@/components/DRButton.vue'
-import LZUploadSection from '@/components/LZConfig/LZUploadSection.vue'
-import LZMetadataSection from '@/components/LZConfig/LZMetadataSection.vue'
-import LZColumnSection from '@/components/LZConfig/LZColumnSection.vue'
-import type { MetadataConfig, ColumnConfig } from '@/components/LZConfig/types'
 import { ref } from 'vue'
 import axios from 'axios'
+
+import type { MetadataConfig, ColumnConfig } from '@/components/lz-config/types'
+
+import AppHeader from '@/components/AppHeader.vue'
+import DRButton from '@/components/DRButton.vue'
+import DRModal from '@/components/DRModal.vue'
+
+import LZUploadSection from '@/components/lz-config/LZUploadSection.vue'
+import LZMetadataSection from '@/components/lz-config/LZMetadataSection.vue'
+import LZColumnSection from '@/components/lz-config/LZColumnSection.vue'
+import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
+import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
+
 
 const columnList = ref<ColumnConfig[]>([])
 const columnUpdateCount = ref(0)
@@ -26,6 +33,9 @@ const metadata: MetadataConfig = {
 	hasHeader: true,
 }
 
+const showLeaveModal = ref(false)
+const showSavedModal = ref(false)
+
 const onUpdateMetadata = (newMetadata: MetadataConfig) => {
 	Object.assign(metadata, newMetadata)
 }
@@ -40,15 +50,8 @@ const saveFile = async () => {
 		metadata,
 		columns: columnList.value,
 	}
-	// const config = {
-	// 	metadata,
-	// 	columns: columnList.value.map((column) => {
-	// 		column.value.status = 1
-	// 		return column.value
-	// 	}),
-	// }
 
-	console.log(config)
+	showSavedModal.value = true
 
 	const response = await axios.post('http://localhost:8080/config/save', config)
 	console.log(response)
@@ -56,27 +59,44 @@ const saveFile = async () => {
 </script>
 
 <template>
-	<AppHeader></AppHeader>
-	<main>
-		<LZUploadSection @update="onUpdateMetadata" @update-columns="updateColumnList"></LZUploadSection>
-		<LZMetadataSection @update="onUpdateMetadata"></LZMetadataSection>
-		<LZColumnSection :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></LZColumnSection>
-		<div class="wrapper save">
-			<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+	<div>
+		<div>
+			<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
+				<LZModalLeave :close-modal="() => showLeaveModal = false"></LZModalLeave>
+			</DRModal>
+			<DRModal :show="showSavedModal">
+				<LZModalSaved></LZModalSaved>
+			</DRModal>
 		</div>
-	</main>
+		<div style="max-height: 100vh; overflow-y: scroll;">
+			<AppHeader>
+			</AppHeader>
+			<nav class="wrapper nav">
+				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
+				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+			</nav>
+			<main>
+				<LZUploadSection @update="onUpdateMetadata" @update-columns="updateColumnList"></LZUploadSection>
+				<LZMetadataSection @update="onUpdateMetadata"></LZMetadataSection>
+				<LZColumnSection :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></LZColumnSection>
+			</main>
+		</div>
+	</div>
 </template>
 
 <style scoped lang="scss">
-.save {
-	padding: var(--big-gap);
-	background-color: var(--color-background);
-	position: relative;
-	right: 0;
-	bottom: 0;
+.nav {
+	padding: var(--gap) var(--big-gap);
+	background: var(--color-background-mute);
+	position:sticky;
+	top: 0;
+	z-index: 10;
+
 	display: flex;
-	justify-content: flex-end;
+	justify-content: space-between;
+	align-items: center;
 	width: 100%;
+	border-bottom: 1px solid var(--color-separator);
 }
 main {
 	margin: 0 auto;
