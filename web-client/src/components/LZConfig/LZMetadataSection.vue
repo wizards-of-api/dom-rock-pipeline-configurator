@@ -40,7 +40,7 @@ const wrapMetadata = () => ({
 		></DRTextInput>
 		<DRTextInput
 			style="grid-area: frequency"
-			title="Frequencia"
+			title="Frequência"
 			size="small"
 			v-model="frequencyNumber"
 			@update="emitUpdate"

@@ -51,21 +51,21 @@ const wrapColumnConfig = () => ({
     >
         <DRTextInput
             style="grid-area: name"
-            title="Nome Coluna"
+            title="Nome da Coluna"
             :default-value="baseColumnConfig.name"
             v-model="name"
 			@update="emitUpdate"
         ></DRTextInput>
         <DRTextInput
             style="grid-area: index"
-            title="Numero da coluna"
+            title="Número da Coluna"
             :default-value="String(baseColumnConfig.index)"
             v-model="columnIndex"
 			@update="emitUpdate"
         ></DRTextInput>
         <DRDropDown
             style="grid-area: type"
-            title="Tipo"
+            title="Tipo de Dado"
 			v-model="type"
             :option-list="VALID_COLUMN_TYPES"
             @update="emitUpdate"
