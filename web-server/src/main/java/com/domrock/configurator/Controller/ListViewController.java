@@ -9,6 +9,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,6 +22,10 @@ public class ListViewController {
 
     @Autowired
     LZMetadataConfigInterface lzRepository;
+
+    //@Autowired
+    //void lzSearchId;
+
     @GetMapping
     public ResponseEntity<Page<LZMetadataConfig>> listDoctor(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzRepository.findAll(paginator);
@@ -32,5 +37,10 @@ public class ListViewController {
     public ResponseEntity details(@PathVariable Integer id){
         LZMetadataConfig config = lzRepository.getReferenceById(id);
         return ResponseEntity.ok(config);
-    }
-}
+    }            
+
+    // @DeleteMapping("/delete/{id}")
+    // public void deleteById (Integer id) {
+    //     LZMetadataConfig delete = lzId.deleteById(id);
+    // }
+}       
