@@ -4,6 +4,8 @@ body {
 	display: flex;
 	place-items: center;
 	align-items: stretch;
+
+	overflow-y: hidden;
 }
 
 strong {
@@ -16,12 +18,23 @@ button {
 	border-radius: var(--border-radius);
 	background-color: var(--color-button-neutral);
 	font-size: 1.2rem;
-	padding: 1rem 3.2rem;
+	padding: 0.6rem 2rem;
 
 	transition: background-color 0.5s;
 
 	&:hover {
 		background-color: var(--color-button-neutral-hover);
+	}
+}
+
+a {
+	color: var(--color-button-neutral);
+	text-decoration: none;
+
+	transition: color 0.5s;
+
+	&:hover {
+		color: var(--color-button-neutral-hover);
 	}
 }
 
@@ -60,6 +73,7 @@ button {
 	display: flex;
 	flex-direction: column;
 
+	
 	// display: grid;
 	// grid-template-columns: 1fr 1fr;
 	// padding: 0 2rem;
