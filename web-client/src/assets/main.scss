@@ -14,16 +14,29 @@ strong {
 
 button {
 	cursor: pointer;
-	border: 0;
+	border: 1px solid var(--color-button-neutral);
 	border-radius: var(--border-radius);
-	background-color: var(--color-button-neutral);
+
 	font-size: 1.2rem;
 	padding: 0.6rem 2rem;
 
-	transition: background-color 0.5s;
+	outline-color: transparent;
+	outline-offset: -3px;
+	
+	transition:
+		border 0.5s,
+		background-color 0.5s,
+		color 0.5s,
+		outline-offset 0.1s ease-in;
+
 
 	&:hover {
-		background-color: var(--color-button-neutral-hover);
+		background-color: transparent;
+	}
+
+	&:focus {
+		outline-offset: 3px;
+		outline-color: color(--color-text);
 	}
 }
 
@@ -31,7 +44,7 @@ a {
 	color: var(--color-button-neutral);
 	text-decoration: none;
 
-	transition: color 0.5s;
+	transition: color 0.25s;
 
 	&:hover {
 		color: var(--color-button-neutral-hover);
@@ -43,21 +56,52 @@ a {
 	border: 1px solid var(--color-text);
 	border-radius: var(--border-radius);
 	padding: var(--padding-size);
+	outline-offset: -6px;
+	transition: 
+		border 0.5s,
+		outline 0.2s ease-out,
+		outline-offset 0.2s ease-out;
+	&:focus {
+		outline-offset: -1px;
+		outline: 3px solid var(--color-focus);
+	}
+	&:disabled {
+		border-color: rgba(255, 255, 255, 0.5);
+		color: rgba(255, 255, 255, 0.7);
+		background: rgba(255, 255, 255, 0.1);
+	}
+}
+
+.neutral {
+	color: var(--color-text-dark);
+	background-color: var(--color-button-neutral);
+	
+	border-color: var(--color-button-neutral);
+	&:hover {
+		color: var(--color-button-neutral);
+		background-color: transparent;
+	}
 }
 
 .careful {
+	color: var(--color-text-dark);
 	background-color: var(--color-button-careful);
-
+	
+	border-color: var(--color-button-careful);
 	&:hover {
-		background-color: var(--color-button-careful-hover);
+		color: var(--color-button-careful);
+		background-color: transparent;
 	}
 }
 
 .safe {
+	color: var(--color-text-dark);
 	background-color: var(--color-button-safe);
-
+	
+	border-color: var(--color-button-safe);
 	&:hover {
-		background-color: var(--color-button-safe-hover);
+		color: var(--color-button-safe);
+		background-color: transparent;
 	}
 }
 

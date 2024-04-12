@@ -8,9 +8,10 @@ const { buttonType, clickBehavior } = defineProps<Props>()
 </script>
 
 <template>
-	<button :class="buttonType" v-on:click="clickBehavior">
+	<button :class="buttonType ?? 'neutral'" v-on:click="clickBehavior">
 		<slot></slot>
 	</button>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>

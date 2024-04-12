@@ -18,9 +18,10 @@ onMounted(() => {
 </script>
 <template>
 	<div class="wrapper" :class="size">
-		<span>{{ title }}</span>
+		<span class="title">{{ title }}</span>
 		<input
 			class="input"
+			:class="disabled ? 'disabled' : ''"
 			type="text"
 			:disabled="disabled"
 			v-model="modelValue"

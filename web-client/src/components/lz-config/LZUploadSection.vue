@@ -58,6 +58,13 @@ const uploadFile = () => {
 		<DRSectionTitle title="Upload"></DRSectionTitle>
 		<div class="grid upload">
 			<DRDropDown
+				style="grid-area: has-header; width: 7rem"
+				title="Terá Header"
+				:option-list="['Sim', 'Não']"
+				v-model="hasHeader"
+				@update="emitUpdate"
+			></DRDropDown>
+			<DRDropDown
 				style="grid-area: type"
 				title="Tipo"
 				:option-list="FILE_EXTENSION_TYPES"
@@ -71,13 +78,6 @@ const uploadFile = () => {
 				size="small"
 				@update="emitUpdate"
 			></DRTextInput>
-			<DRDropDown
-				style="grid-area: has-header; width: 7rem"
-				title="Terá Header"
-				:option-list="['Sim', 'Não']"
-				v-model="hasHeader"
-				@update="emitUpdate"
-			></DRDropDown>
 			<DRButton style="grid-area: upload" :click-behavior="uploadFile">Upload</DRButton>
 			<DRTextInput
 				style="grid-area: file-name"
