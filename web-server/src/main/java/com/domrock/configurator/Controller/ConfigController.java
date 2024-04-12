@@ -23,6 +23,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/lz-config")
+@CrossOrigin(origins = "http://localhost:5173")
 public class ConfigController {
     @Autowired
     LZMetadataConfigServices lzMetadataServices;
@@ -46,7 +47,7 @@ public class ConfigController {
         return arrayListToJson.oldExcelToJson(filePath);
     }
 
-    @GetMapping("/upload-csv")
+    @PostMapping("/upload-csv")
     public ResponseEntity<ListColumnResponseDTO> csvToJson(
             @RequestParam("file") MultipartFile file,
             @RequestParam("hasHeader") boolean hasHeader,
@@ -59,20 +60,17 @@ public class ConfigController {
         return ResponseEntity.ok(responseJson);
     }
 
-    @CrossOrigin(origins = "http://localhost:5173")
     @PostMapping("/save")
     public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
-        try {
-            LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
-            LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
-            for (ColumnConfigDTO columnConfigDTO : data.columns()) {
-                ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
-                lzColumnConfigServices.saveConfigModel(columnConfig);
-            }
-            return new ResponseEntity<>(lzMetadataConfig, HttpStatus.OK);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+
+        LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
+        LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
+        for (ColumnConfigDTO columnConfigDTO : data.columns()) {
+            ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
+            lzColumnConfigServices.saveConfigModel(columnConfig);
         }
+        return new ResponseEntity<>(lzMetadataConfig, HttpStatus.OK);
+        
     }
 }
