@@ -10,7 +10,7 @@ services:
       MYSQL_USER: userdomrockbd
       MYSQL_PASSWORD: userdomrockbd
     ports:
-      - 3305:3305
+      - 3306:3306
     volumes:
       - domrockbd03:/var/lib/mysql
       - ./database/:/docker-entrypoint-initdb.d/
