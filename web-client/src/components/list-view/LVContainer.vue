@@ -25,7 +25,7 @@ const { configList, onBannerClick } = defineProps<Props>()
             <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
         </div>
         <div class="grid-wrap" v-if="configList">
-            <button class="banner" v-for="config in configList" :key="config.index" @click="onBannerClick(config.index)">
+            <button class="banner input" v-for="config in configList" :key="config.index" @click="onBannerClick(config.index)">
                 {{ config.name }}
             </button>
         </div>
@@ -40,8 +40,9 @@ const { configList, onBannerClick } = defineProps<Props>()
 	grid-template-rows: 1fr 1fr 1fr;
 	gap: var(--gap) var(--gap);
 	justify-content: space-between;
+	align-items: center;
 	flex-wrap: wrap;
-	justify-content: center;
+	justify-items: center;
 	overflow-y: scroll;
 }
 .top-bar {
@@ -50,7 +51,10 @@ const { configList, onBannerClick } = defineProps<Props>()
 }
 .banner {
 	background: var(--color-banner);
+	border-color: var(--color-banner);
 	color: var(--color-banner-text);
+  	outline-color: var(--color-banner-text);
+	
 	font-size: 1.4rem;
 	height: 100px;
 	width: 200px;

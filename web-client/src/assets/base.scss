@@ -7,11 +7,10 @@
 	--dr-c-black-soft: #222222;
 	--dr-c-black-mute: #282828;
 
-	--dr-c-blue-light: #00bfff;
-	--dr-c-blue: #1e90ff;
+	--dr-c-blue: #00B1ED;	
 
-	--dr-c-tomato-light: #ff6347;
-	--dr-c-green-light: #00ff7f;
+	--dr-c-tomato-light: #f2656a;
+	--dr-c-green-light: #64C073;
 
 	--dr-c-grey: #5c6064;
 
@@ -27,8 +26,8 @@
 	--color-background-mute: var(--dr-c-black-mute);
 
 	/* Buttons */
-	--color-button-neutral: var(--dr-c-blue-light);
-	--color-button-neutral-hover: var(--dr-c-blue);
+	--color-button-neutral: var(--dr-c-blue);
+	--color-button-neutral-hover: var(--dr-c-blue-light);
 
 	--color-button-careful: var(--dr-c-tomato-light);
 	--color-button-careful-hover: var(--dr-c-tomato-light);
@@ -54,6 +53,8 @@
 
 	--color-separator: var(--dr-c-grey);
 	--color-text: var(--dr-c-text-light);
+	--color-text-dark: var(--dr-c-text-dark);
+	--color-focus: var(--dr-c-blue);
 }
 
 /* Reset */

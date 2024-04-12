@@ -49,18 +49,18 @@ const wrapColumnConfig = () => ({
 		:key="status"
         v-if="Number(status) === 1"
     >
+    <DRTextInput
+        style="grid-area: index"
+        title="Número da Coluna"
+        :default-value="String(baseColumnConfig.index)"
+        v-model="columnIndex"
+        @update="emitUpdate"
+    ></DRTextInput>
         <DRTextInput
             style="grid-area: name"
             title="Nome da Coluna"
             :default-value="baseColumnConfig.name"
             v-model="name"
-			@update="emitUpdate"
-        ></DRTextInput>
-        <DRTextInput
-            style="grid-area: index"
-            title="Número da Coluna"
-            :default-value="String(baseColumnConfig.index)"
-            v-model="columnIndex"
 			@update="emitUpdate"
         ></DRTextInput>
         <DRDropDown

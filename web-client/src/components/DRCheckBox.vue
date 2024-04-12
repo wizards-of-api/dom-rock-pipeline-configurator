@@ -11,7 +11,7 @@ const emit = defineEmits(['update'])
 	<div class="wrapper">
 		<span>{{ title }}</span>
 		<label>
-			<input class="input" type="checkbox"  v-model="modelValue" @input="emit('update', ($event.target as HTMLInputElement).checked)"/>
+			<input type="checkbox" v-model="modelValue" @input="emit('update', ($event.target as HTMLInputElement).checked)"/>
 			<span class="checkmark"> </span>
 		</label>
 	</div>
@@ -37,22 +37,50 @@ label {
 .checkmark {
 	position: absolute;
 	border: 1px solid;
+	padding: 2px;
+
 	width: 100%;
 	height: 100%;
 	border-color: var(--color-text);
-	transition: border-color 0.2s;
+	transition:
+		border-color 0.2s,
+		outline-offset 0.2s ease-out;
+
+	outline-offset: -4px;
+
 	&::after {
 		content: '';
 		display: block;
 		position: relative;
-		top: 2px;
-		left: 2px;
 
 		width: calc(1rem - 6px);
 		height: calc(1rem - 6px);
 		background: transparent;
-		transition: background 0.2s;
+		transition: 
+			background 0.5s;
 	}
+
+	input:focus ~ & {
+		padding: 0;
+		border-width: 2px;
+
+		outline-offset: 2px;
+
+		outline: 2px solid var(--color-button-neutral);
+	}
+
+	input:focus:checked ~ & {
+		padding: 0;
+		border-width: 2px;
+		
+		outline: 2px solid  var(--color-text);
+	}
+	input:focus:checked ~ &::after {
+		width: calc(1rem - 8px);
+		height: calc(1rem - 8px);
+		margin: 2px;
+	}
+
 	input:checked ~ & {
 		border-color: var(--color-button-neutral);
 	}
