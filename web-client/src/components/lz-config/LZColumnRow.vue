@@ -55,6 +55,7 @@ const wrapColumnConfig = () => ({
         :default-value="String(baseColumnConfig.index)"
         v-model="columnIndex"
         @update="emitUpdate"
+        disabled
     ></DRTextInput>
         <DRTextInput
             style="grid-area: name"

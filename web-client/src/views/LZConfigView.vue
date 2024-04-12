@@ -51,10 +51,9 @@ const saveFile = async () => {
 		columns: columnList.value,
 	}
 
+	
+	await axios.post('http://localhost:8080/lz-config/save', config)
 	showSavedModal.value = true
-
-	const response = await axios.post('http://localhost:8080/config/save', config)
-	console.log(response)
 }
 </script>
 

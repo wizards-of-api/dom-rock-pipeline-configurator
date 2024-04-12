@@ -26,3 +26,21 @@ export type ColumnConfig = {
 	description: string
 	status: number
 }
+
+export type LZConfig = {
+	fileId: number
+	fileName: string
+	fileOrigin: string
+	filePeriod: string
+	fileType: string
+	frequency: number
+	name: string
+	columns: Array<{
+		columnId: Number
+		columnName: string
+		description: string
+		empty: number
+		status: number
+		type: string
+	}>
+}

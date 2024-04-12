@@ -1,22 +1,18 @@
 <script setup lang="ts">
 import DRButton from '../DRButton.vue'
 import router from '@/router'
+import type { LZConfig } from '../lz-config/types'
 
-type ConfigResume = {
-	index: number
-	name: string
-}
 type Props = {
-    configList: ConfigResume[]
-    onBannerClick: (index: number) => void
+    configList: LZConfig[]
+    onBannerClick: (index: LZConfig) => void
 }
+
+const { configList, onBannerClick } = defineProps<Props>()
 
 const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
-
-
-const { configList, onBannerClick } = defineProps<Props>()
 </script>
 <template>
     <div class="container">
@@ -25,7 +21,7 @@ const { configList, onBannerClick } = defineProps<Props>()
             <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
         </div>
         <div class="grid-wrap" v-if="configList">
-            <button class="banner input" v-for="config in configList" :key="config.index" @click="onBannerClick(config.index)">
+            <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
                 {{ config.name }}
             </button>
         </div>
@@ -43,7 +39,7 @@ const { configList, onBannerClick } = defineProps<Props>()
 	align-items: center;
 	flex-wrap: wrap;
 	justify-items: center;
-	overflow-y: scroll;
+	overflow-y: hidden;
 }
 .top-bar {
   display: flex;

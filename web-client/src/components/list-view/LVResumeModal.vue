@@ -2,6 +2,22 @@
 import DRButton from '../DRButton.vue'
 import DRTextInput from '../DRTextInput.vue'
 import router from '@/router'
+import type { LZConfig } from '../lz-config/types'
+
+type Props = {
+    lzConfig: LZConfig
+}
+
+const { lzConfig } = defineProps<Props>()
+
+const columnsResume = lzConfig.columns.reduce((string, column) => {
+	if (!column.status) return string
+	
+	string += `${column.columnName}: ${column.type}\n`
+	return string
+}, '')
+
+console.log(columnsResume)
 
 const gotoLZConfig = () => {
 	router.replace('/lz-config')
@@ -10,14 +26,14 @@ const gotoLZConfig = () => {
 
 <template>
         <div class="modal">
-            <span style="grid-area: config-name;">Americanas Produto</span>
-            <span style="grid-area: file-name;">Arquivo: americanas.csv</span>
-            <span style="grid-area: file-type; text-align: right;">Tipo: CSV</span>
-            <span style="grid-area: file-origin;">Origem: FTP</span>
-            <span style="grid-area: file-frequency;">Frequencia: 3 meses</span>
+            <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
+            <span style="grid-area: file-name;">Arquivo:  {{ lzConfig.fileName }} </span>
+            <span style="grid-area: file-type; text-align: right;">Tipo:  {{ lzConfig.fileType }} </span>
+            <span style="grid-area: file-origin;">Origem:  {{ lzConfig.fileOrigin }} </span>
+            <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
             <div style="grid-area: columns;">
                 <h2>Colunas</h2>
-                <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true"></DRTextInput>
+                <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true" :default-value="columnsResume"></DRTextInput>
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>

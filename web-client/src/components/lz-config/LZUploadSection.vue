@@ -1,12 +1,18 @@
 <script setup lang="ts">
+import { ref } from 'vue'
 import DRSectionTitle from '../DRSectionTitle.vue'
 import DRDropDown from '../DRDropDown.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import type { ColumnConfig } from './types'
 import { VALID_COLUMN_TYPES } from './types'
+import axios from 'axios'
 
 const FILE_EXTENSION_TYPES = ['csv']
+type ResponseColumn = {
+	column: string,
+	index: number,
+}
 
 const emit = defineEmits(['update', 'updateColumns'])
 
@@ -18,6 +24,7 @@ const fileExtension = defineModel<string>('fileExtension')
 const hasHeader = defineModel<string>('hasHeader')
 const fileName = defineModel<string>('fileName')
 const separator = defineModel<string>('separator')
+const inputFile = ref<HTMLInputElement>()
 
 const wrapUpdateMetadata = () => ({
 	fileExtension: fileExtension.value,
@@ -26,28 +33,59 @@ const wrapUpdateMetadata = () => ({
 	separador: separator.value,
 })
 
-const uploadFile = () => {
-	const response = [
-		{
-			index: 0,
-			name: 'NOME',
-		},
-		{
-			index: 1,
-			name: 'VALOR',
-		},
-	]
-	fileName.value = 'americanas.csv'
+const uploadFile = async ($event: Event) => {
+	// const response = [
+	// 	{
+	// 		index: 0,
+	// 		name: 'NOME',
+	// 	},
+	// 	{
+	// 		index: 1,
+	// 		name: 'VALOR',
+	// 	},
+	// ]
+	// fileName.value = 'americanas.csv'
 
-	const columnList: ColumnConfig[] = response.map((data) => Object.assign(
-		{
-			type: VALID_COLUMN_TYPES[0],
-			canBeNull: false,
-			description: '',
-			status: 1,
-		},
-		data,
-	))
+	console.log(separator.value, fileExtension.value, hasHeader.value)
+	
+	const inputTarget = $event.target as HTMLInputElement
+	const file = (inputTarget.files as FileList)[0]
+	inputTarget.value = ''
+	
+	if(!file) return
+	if(!separator.value) return
+	if(!fileExtension.value) return
+	if(!hasHeader.value) return
+
+	fileName.value = file.name
+	const formData = new FormData()
+	formData.append('file', file)
+	formData.append('fileName', fileName.value)
+	formData.append('separator', separator.value)
+	formData.append('fileExtension', fileExtension.value)
+	formData.append('hasHeader', String(hasHeader.value === 'Sim'))
+
+	console.log('send')
+	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
+
+	const responseColumns = response.data.columns
+
+	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
+		
+		return Object.assign(
+			{
+				type: VALID_COLUMN_TYPES[0],
+				canBeNull: false,
+				description: '',
+				status: 1,
+			},
+			{
+				name: data.column,
+				index: data.index,
+			},
+			
+		)
+	})
 
 	emitUpdate()
 	emit('updateColumns', columnList)
@@ -78,7 +116,9 @@ const uploadFile = () => {
 				size="small"
 				@update="emitUpdate"
 			></DRTextInput>
-			<DRButton style="grid-area: upload" :click-behavior="uploadFile">Upload</DRButton>
+
+			<input ref="inputFile" style="display: none;" type="file" @change="uploadFile($event)" accept=".csv"/>
+			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()">Upload</DRButton>
 			<DRTextInput
 				style="grid-area: file-name"
 				title="Nome do Arquivo"
