@@ -1,4 +1,8 @@
 {
-  "editor.formatOnSave": true,
-  "editor.defaultFormatter": "esbenp.prettier-vscode"
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": "./web-client/.prettierrc.json",
+  "eslint.workingDirectories": [
+    "./web-client/.eslintrc.cjs"
+  ],
+  "java.compile.nullAnalysis.mode": "disabled"
 }
