@@ -15,11 +15,11 @@ const gotoListView = () => {
 <template>
     <div class="wrapper-model">
         <div class="container-header">
-            <h2>Deseja Sair sem Salvar?</h2>
+            <h2>Deseja sair sem salvar?</h2>
         </div>
         <div class="container-buttons">
-            <DRButton :click-behavior="closeModal">Continuar Editando</DRButton>
-            <DRButton button-type="careful" :click-behavior="gotoListView">Sair sem Salvar</DRButton>
+            <DRButton :click-behavior="closeModal">Continuar editando</DRButton>
+            <DRButton button-type="careful" :click-behavior="gotoListView">Sair sem salvar</DRButton>
         </div>
     </div>
 </template>

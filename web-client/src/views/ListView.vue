@@ -16,6 +16,7 @@ const selectedConfig = ref<LZConfig>()
 
 const getConfig = async () => {
 	const response = await axios.get('http://localhost:8080/list-view')
+	console.log(response)
 	return response.data.content
 }
 

@@ -38,6 +38,9 @@ public class ColumnConfig {
     @Column(name = "column_name")
     private String columnName;
 
+    @Column(name = "column_number")
+    private Integer columnNumber;
+
     @Column(name = "column_type")
     private String type;
 
@@ -52,7 +55,7 @@ public class ColumnConfig {
 
     public ColumnConfig (LZMetadataConfig lzMetadataConfig, ColumnConfigDTO data){   
         this.fileId = lzMetadataConfig;    
-        this.columnId = data.index();
+        this.columnNumber = data.index();
         this.columnName = data.name();
         this.type = data.type();
         this.empty = data.CanBeNull() == true? 1: 0;
