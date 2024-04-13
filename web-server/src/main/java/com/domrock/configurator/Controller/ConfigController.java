@@ -1,4 +1,4 @@
-package com.domrock.configurator.Controller;
+package com.domrock.configurator.controller;
 
 import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import org.springframework.beans.factory.annotation.Autowired;
