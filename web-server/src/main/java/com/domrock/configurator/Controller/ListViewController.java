@@ -54,5 +54,6 @@ public class ListViewController {
         }
         lzRepository.delete(delete.get());
         return ResponseEntity.noContent().build();
+        
     }
 }       
