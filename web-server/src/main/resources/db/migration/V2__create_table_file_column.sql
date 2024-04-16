@@ -1,6 +1,7 @@
 CREATE TABLE file_column(
 column_id integer auto_increment primary key,
 file_id integer NOT NULL,
+column_number int not null,
 column_name varchar(50) not null,
 column_type varchar(50) not null,
 column_empty int not null,
