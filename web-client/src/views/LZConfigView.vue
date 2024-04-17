@@ -15,10 +15,10 @@ import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 
 
-const columnList = ref<ColumnConfig[]>([])
+let columnList: ColumnConfig[] = []
 const columnUpdateCount = ref(0)
 const updateColumnList = (newList: ColumnConfig[]) => {
-	columnList.value = [...newList]
+	onUpdateColumn(newList)
 	columnUpdateCount.value += 1
 }
 
@@ -41,17 +41,16 @@ const onUpdateMetadata = (newMetadata: MetadataConfig) => {
 }
 
 const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
-	for(let i = 0; i <= columnList.value.length; i++) columnList.value.pop()
-	columnList.value.push(...newColumnList)
+	columnList = newColumnList
+	console.log(columnList)
 }
 
 const saveFile = async () => {
 	const config = {
 		metadata,
-		columns: columnList.value,
+		columns: columnList,
 	}
 
-	
 	await axios.post('http://localhost:8080/lz-config/save', config)
 	showSavedModal.value = true
 }
