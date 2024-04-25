@@ -37,10 +37,10 @@ const gotoLZConfig = () => {
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoLZConfig">Visualizar / Editar</DRButton>
+                    <DRButton :click-behavior="gotoLZConfig" disabled>Visualizar / Editar</DRButton>
                 </div>
                 <div>
-                    <DRButton button-type="careful" :click-behavior="() => {}">Remover</DRButton>
+                    <DRButton button-type="careful" :click-behavior="() => {}" disabled>Remover</DRButton>
                 </div>
             </div>
         </div>
