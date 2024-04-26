@@ -2,7 +2,7 @@ package com.domrock.configurator.Controller;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.*;
 import com.domrock.configurator.Services.ArrayListToJson;
-import com.domrock.configurator.Services.CsvConverter;
+import com.domrock.configurator.Services.FileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,17 +35,17 @@ public class ConfigController {
     private ArrayListToJson arrayListToJson;
 
     @Autowired
-    private CsvConverter csvConverter;
+    private FileConverter fileConverter;
 
-    @GetMapping("/new-excel-to-json")
-    public String newExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.newExcelToJson(filePath);
-    }
+    // @GetMapping("/new-excel-to-json")
+    // public String newExcelToJson(@RequestParam String filePath) {
+    //     return arrayListToJson.newExcelToJson(filePath);
+    // }
 
-    @GetMapping("/old-excel-to-json")
-    public String oldExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.oldExcelToJson(filePath);
-    }
+    // @GetMapping("/old-excel-to-json")
+    // public String oldExcelToJson(@RequestParam String filePath) {
+    //     return arrayListToJson.oldExcelToJson(filePath);
+    // }
 
     @PostMapping("/upload-csv")
     public ResponseEntity<ListColumnResponseDTO> csvToJson(
@@ -54,8 +54,8 @@ public class ConfigController {
             @RequestParam("fileExtension") String fileExtension,
             @RequestParam("separator") String separator,
             @RequestParam("separator") String fileName
-            ) {
-        List<ColumnResponseDTO> columns = csvConverter.createFileCsv(file, fileName, fileName);
+            ) throws Exception {
+        List<ColumnResponseDTO> columns = fileConverter.typeSpreadsheet(fileExtension, fileName, fileName);
         ListColumnResponseDTO responseJson = new ListColumnResponseDTO(columns);
         return ResponseEntity.ok(responseJson);
     }
