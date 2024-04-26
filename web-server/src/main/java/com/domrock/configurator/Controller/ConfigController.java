@@ -4,8 +4,10 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.*;
 import com.domrock.configurator.Services.ArrayListToJson;
 import com.domrock.configurator.Services.CsvConverter;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.data.jpa.JpaRepositoriesAutoConfiguration;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
 import com.domrock.configurator.Services.ColumnConfigServices;
@@ -20,11 +23,15 @@ import com.domrock.configurator.Services.LZMetadataConfigServices;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/lz-config")
 @CrossOrigin(origins = "http://localhost:5173")
 public class ConfigController {
+    @Autowired
+    LZMetadataConfigInterface lzMetadataConfigInterface;
+
     @Autowired
     LZMetadataConfigServices lzMetadataServices;
 
@@ -36,6 +43,7 @@ public class ConfigController {
 
     @Autowired
     private CsvConverter csvConverter;
+
 
     @GetMapping("/new-excel-to-json")
     public String newExcelToJson(@RequestParam String filePath) {
@@ -58,6 +66,19 @@ public class ConfigController {
         List<ColumnResponseDTO> columns = csvConverter.createFileCsv(file, fileName, fileName);
         ListColumnResponseDTO responseJson = new ListColumnResponseDTO(columns);
         return ResponseEntity.ok(responseJson);
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<MetadataConfigDTO> updateConfig(@RequestBody MetadataConfigDTO data) {
+        Optional<LZMetadataConfig> lzMetadataConfigOptional = lzMetadataConfigInterface.findById(data.fileId());
+        if (lzMetadataConfigOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        LZMetadataConfig lzMetadataConfig = lzMetadataConfigOptional.get();
+        lzMetadataConfig.updateFields(data);
+        lzMetadataConfigInterface.save(lzMetadataConfig);
+        return ResponseEntity.ok(new MetadataConfigDTO(lzMetadataConfig));
     }
 
     @PostMapping("/save")

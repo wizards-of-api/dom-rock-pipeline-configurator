@@ -20,11 +20,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-
 @Entity
 @Table(name = "lz_config")
 public class LZMetadataConfig {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
