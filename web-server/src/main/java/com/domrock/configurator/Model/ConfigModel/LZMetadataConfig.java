@@ -61,7 +61,15 @@ public class LZMetadataConfig {
         this.fileOrigin = file.fileOrigin();
         this.frequency = file.frequencyNumber();
         this.filePeriod = file.frequencyType();
-        this.hasHeader = file.hasHeader() == true? 1: 0;
+        this.hasHeader = file.hasHeader() ? 1: 0;
     }
     public LZMetadataConfig(){}
+
+    public void updateFields(MetadataConfigDTO data){
+        if (data.name() != null) name = data.name();
+        if (data.fileName() != null) fileName = data.fileName();
+        if (data.frequencyNumber() != null) frequency = data.frequencyNumber();
+        if (data.frequencyType() != null) frequency = Integer.valueOf(data.frequencyType());
+        hasHeader = data.hasHeader() ? 1: 0;
+    }
 }
