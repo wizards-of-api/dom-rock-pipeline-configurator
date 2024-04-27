@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import DRButton from '../DRButton.vue'
-import DRTextInput from '../DRTextInput.vue'
+import DRButton from '../../DRButton.vue'
+import DRTextInput from '../../DRTextInput.vue'
 import router from '@/router'
 import type { LZConfig } from '../lz-config/types'
 
@@ -19,8 +19,8 @@ const columnsResume = lzConfig.columns.reduce((string, column) => {
 
 console.log(columnsResume)
 
-const gotoLZConfig = () => {
-	router.replace('/lz-config')
+const gotoBronzeConfig = () => {
+	router.replace('/bronze-config')
 }
 </script>
 
@@ -30,17 +30,19 @@ const gotoLZConfig = () => {
             <span style="grid-area: file-name;">Arquivo:  {{ lzConfig.fileName }} </span>
             <span style="grid-area: file-type; text-align: right;">Tipo:  {{ lzConfig.fileType }} </span>
             <span style="grid-area: file-origin;">Origem:  {{ lzConfig.fileOrigin }} </span>
+            <span style="grid-area: hash;">hash:  ok/nok (Acertar com time) </span>
+            <span style="grid-area: validate;">Validação: ok/nok (Acertar com time) </span>
             <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
             <div style="grid-area: columns;">
+                <!-- <h5>
+                    <div>Hash:</div>
+                </h5> -->
                 <h2>Colunas</h2>
                 <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true" :default-value="columnsResume"></DRTextInput>
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoLZConfig">Visualizar / Editar</DRButton>
-                </div>
-                <div>
-                    <DRButton button-type="careful" :click-behavior="() => {}">Remover</DRButton>
+                    <DRButton :click-behavior="gotoBronzeConfig">Configurar</DRButton>
                 </div>
             </div>
         </div>
@@ -58,6 +60,7 @@ const gotoLZConfig = () => {
     grid-template-areas: 
         "config-name . file-name file-name file-type"
         "file-origin . . . file-frequency"
+        "hash . . . validate"
         "columns columns columns columns columns"
         ". . . button button";
 

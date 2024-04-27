@@ -5,8 +5,8 @@ import axios from 'axios'
 import AppHeader from '@/components/AppHeader.vue'
 import DRModal from '@/components/DRModal.vue'
 
-import LVContainer from '@/components/list-view/LV-lz/LVContainer.vue'
-import LVResumeModal from '@/components/list-view/LV-lz/LVResumeModal.vue'
+import LVBronzeContainer from '@/components/list-view/LV-bronze/LVBronzeContainer.vue'
+import LVBronzeResumeModal from '@/components/list-view/LV-bronze/LVBronzeResumeModal.vue'
 
 import type { LZConfig } from '@/components/lz-config/types'
 
@@ -34,12 +34,12 @@ const onBannerClick = (config: LZConfig) => {
 <template>
 	<div>
 		<DRModal :show="showModal" @click-out="showModal = false">
-			<LVResumeModal v-if="selectedConfig" :key="selectedConfig?.fileId" :lz-config="selectedConfig"></LVResumeModal>
+			<LVBronzeResumeModal v-if="selectedConfig" :key="selectedConfig?.fileId" :lz-config="selectedConfig"></LVBronzeResumeModal>
 		</DRModal>
 		<div>
 			<AppHeader>
 			</AppHeader>
-			<LVContainer v-if="configList" :config-list="configList" :key="configList.length" :on-banner-click="onBannerClick"></LVContainer>
+			<LVBronzeContainer v-if="configList" :config-list="configList" :key="configList.length" :on-banner-click="onBannerClick"></LVBronzeContainer>
 		</div>
 	</div>
   <main>

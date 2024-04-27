@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import DRButton from '../DRButton.vue'
+import DRButton from '../../DRButton.vue'
 import router from '@/router'
 import type { LZConfig } from '../lz-config/types'
 
@@ -10,16 +10,13 @@ type Props = {
 
 const { configList, onBannerClick } = defineProps<Props>()
 
-const goToLZConfig = () => {
-	router.replace('/lz-config')
+const goToBronzeConfig = () => {
+	router.replace('/bronze-config')
 }
 </script>
 <template>
     <div class="container">
-        <h2>Landing Zone</h2>
-        <div class="top-bar">
-            <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
-        </div>
+        <h2>Bronze</h2>
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
                 {{ config.name }}

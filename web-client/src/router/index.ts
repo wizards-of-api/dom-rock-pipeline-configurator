@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import ListView from '../views/ListView.vue'
 import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
+import BronzeListView from '@/views/BronzeListView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -24,6 +25,11 @@ const router = createRouter({
 			// which is lazy-loaded when the route is visited.
 			// component: () => import('../views/LZConfigView.vue'),
 			component: LZConfigView,
+		},
+		{
+			path: '/list-view-bronze',
+			name: 'list-view-bronze',
+			component: BronzeListView,
 		},
 		{
 			path: '/sandbox',
