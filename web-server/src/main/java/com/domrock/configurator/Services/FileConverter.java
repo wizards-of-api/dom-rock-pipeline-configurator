@@ -4,8 +4,6 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnResponseDTO;
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
-import org.apache.poi.hssf.usermodel.HSSFSheet;
-import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
@@ -15,7 +13,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 @Service
@@ -65,19 +62,21 @@ public class FileConverter {
             return convertColumnToJson(headers);
         }
         
-    public List<ColumnResponseDTO> typeSpreadsheet(String fileExtension, String filePath, String separator) throws Exception {
+    public List<ColumnResponseDTO> typeSpreadsheet(MultipartFile file, String fileExtension, String filePath, String separator) throws Exception {
         if (fileExtension == "csv") {
             csvConverter(filePath, separator);
+            createFile(file, fileExtension, filePath, separator);
         } else if (fileExtension == "Excel") {
             excelConverter(filePath, separator);
+            createFile(file, fileExtension, filePath, separator);
         } else {
             throw new Exception("Arquivo inválido!");
         } 
         return convertColumnToJson(headers);
     }
 
-    public List<ColumnResponseDTO> createFileCsv(MultipartFile file, String fileName, String separator){
-        List<ColumnResponseDTO>  columns = new ArrayList<>();
+    public List<ColumnResponseDTO> createFile(MultipartFile file, String fileExtension, String fileName, String separator){
+        List<ColumnResponseDTO> columns = new ArrayList<>();
         if (!file.isEmpty()) {
             try {
                 byte[] bytes = file.getBytes();
@@ -93,7 +92,15 @@ public class FileConverter {
                 stream.write(bytes);
                 stream.close();
 
-                columns  = csvConverter(serverFile.getAbsolutePath(), separator);
+                if (fileExtension == "csv") {
+                    columns = csvConverter(serverFile.getAbsolutePath(), separator);
+                } else if (fileExtension == "Excel") {
+                    columns = excelConverter(serverFile.getAbsolutePath(), separator);
+                } else {
+                    throw new Exception("Não foi possivel criar o arquivo!");
+                }
+
+
             } catch (Exception e) {
                  e.printStackTrace();
             }
@@ -101,10 +108,10 @@ public class FileConverter {
         return columns;
     }
 
-    public List<ColumnResponseDTO> convertColumnToJson(List<String> fileCsv){
+    public List<ColumnResponseDTO> convertColumnToJson(List<String> file){
         List<ColumnResponseDTO> columns = new ArrayList<>();
-        for (int i = 0; i<fileCsv.size(); i++){
-             columns.add(new ColumnResponseDTO(fileCsv.get(i),i));
+        for (int i = 0; i<file.size(); i++){
+             columns.add(new ColumnResponseDTO(file.get(i),i));
         }
         return columns;
     }
