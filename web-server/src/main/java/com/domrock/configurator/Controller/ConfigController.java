@@ -6,11 +6,6 @@ import com.domrock.configurator.Services.FileConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
 import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
@@ -47,7 +42,7 @@ public class ConfigController {
     //     return arrayListToJson.oldExcelToJson(filePath);
     // }
 
-    @PostMapping("/upload-csv")
+    @PostMapping("/upload")
     public ResponseEntity<ListColumnResponseDTO> csvToJson(
             @RequestParam("file") MultipartFile file,
             @RequestParam("hasHeader") boolean hasHeader,
@@ -55,7 +50,7 @@ public class ConfigController {
             @RequestParam("separator") String separator,
             @RequestParam("separator") String fileName
             ) throws Exception {
-        List<ColumnResponseDTO> columns = fileConverter.typeSpreadsheet(fileExtension, fileName, fileName);
+        List<ColumnResponseDTO> columns = fileConverter.typeSpreadsheet(file, fileExtension, fileName, separator);
         ListColumnResponseDTO responseJson = new ListColumnResponseDTO(columns);
         return ResponseEntity.ok(responseJson);
     }
