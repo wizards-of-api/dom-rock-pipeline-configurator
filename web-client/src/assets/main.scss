@@ -105,6 +105,18 @@ a {
 	}
 }
 
+.home {
+	width: 200px;
+	color: var(--color-button-home-hover);
+	background-color: var(--color-button-home);
+	
+	border-color: var(--color-button-home-hover);
+	&:hover {
+		color: var(--color-button-home-hover);
+		background-color: transparent;
+	}
+}
+
 .section-title {
 	font-size: 1.4rem;
 }

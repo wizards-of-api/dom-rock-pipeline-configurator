@@ -13,6 +13,7 @@
 	--dr-c-green-light: #64C073;
 
 	--dr-c-grey: #5c6064;
+	--dr-c-grey-dark: #666565;
 
 	--dr-c-text-light: var(--dr-c-white);
 	--dr-c-text-dark: var(--dr-c-black);
@@ -31,6 +32,10 @@
 
 	--color-button-careful: var(--dr-c-tomato-light);
 	--color-button-careful-hover: var(--dr-c-tomato-light);
+
+	--color-button-home: var(--dr-c-grey-dark);
+	--color-button-home-hover: var(--dr-c-white-soft);
+
 
 	--color-button-safe: var(--dr-c-green-light);
 	--color-button-safe-hover: var(--dr-c-green-light);
