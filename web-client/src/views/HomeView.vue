@@ -18,12 +18,12 @@ function routeScrenn(nomeRouter:String):void {
 	<AppHeader>
 	</AppHeader>
   <main>
-		<h1>Selecione a etapa:</h1>
-		<nav class="wrapper nav">
-			<DRButton button-type="home" :click-behavior="() => routeScrenn('LZ')">Landing Zone</DRButton>
-			<DRButton button-type="home" :click-behavior="() => routeScrenn('BRONZE')">Bronze</DRButton>
-			<DRButton button-type="home" :click-behavior="() => routeScrenn('SILVER')">Silver</DRButton>
-		</nav>
+	<h1>Selecione a etapa:</h1>
+	<nav class="wrapper nav">
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('LZ')">Landing Zone</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('BRONZE')">Bronze</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('SILVER')">Silver</DRButton>
+	</nav>
   </main>
 </template>
 <style scoped lang="scss">

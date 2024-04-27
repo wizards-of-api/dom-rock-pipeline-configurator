@@ -4,8 +4,6 @@ import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
 import HomeView from '@/views/HomeView.vue'
 
-
-
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -38,7 +36,6 @@ const router = createRouter({
 			name: 'sandbox',
 			component: SandboxView,
 		},
-		
 		
 	],
 })
