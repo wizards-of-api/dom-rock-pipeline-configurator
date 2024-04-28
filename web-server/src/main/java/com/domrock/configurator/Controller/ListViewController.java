@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/list-view")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -30,7 +32,7 @@ public class ListViewController {
     @GetMapping("/{id}")
     @Transactional
     public ResponseEntity details(@PathVariable Integer id){
-        LZMetadataConfig config = lzRepository.getReferenceById(id);
+        Optional<LZMetadataConfig> config = lzRepository.findById(id);
         return ResponseEntity.ok(config);
     }
 }

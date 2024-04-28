@@ -65,7 +65,8 @@ public class ColumnConfig {
         lzMetadataConfig.getColumns().add(this);
     }
 
-    public ColumnConfig() {
+    public ColumnConfig() {}
 
-    }
+
+
 }

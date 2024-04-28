@@ -69,16 +69,15 @@ public class ConfigController {
     }
 
     @PutMapping
-    @Transactional
-    public ResponseEntity<MetadataConfigDTO> updateConfig(@RequestBody MetadataConfigDTO data) {
-        Optional<LZMetadataConfig> lzMetadataConfigOptional = lzMetadataConfigInterface.findById(data.fileId());
-        if (lzMetadataConfigOptional.isEmpty()) {
+    public ResponseEntity<LZMetadataConfig> updateConfig(@RequestBody MetadataConfigDTO metadataConfigDTO) {
+        LZMetadataConfig lzMetadataConfig = lzMetadataConfigInterface.findById(metadataConfigDTO.fileId()).orElse(null);
+        if (lzMetadataConfig!= null) {
+            lzMetadataConfig.updateFields(metadataConfigDTO);
+            lzMetadataConfigInterface.save(lzMetadataConfig);
+            return ResponseEntity.ok(lzMetadataConfig);
+        } else {
             return ResponseEntity.notFound().build();
         }
-        LZMetadataConfig lzMetadataConfig = lzMetadataConfigOptional.get();
-        lzMetadataConfig.updateFields(data);
-        lzMetadataConfigInterface.save(lzMetadataConfig);
-        return ResponseEntity.ok(new MetadataConfigDTO(lzMetadataConfig));
     }
 
     @PostMapping("/save")
