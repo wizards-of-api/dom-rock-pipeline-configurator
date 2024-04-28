@@ -3,6 +3,7 @@
 <template>
   <header>
     <img src="../assets/dom-rock-logo.png" />
+    <h1>{{ $route.name }}</h1>
     <img src="../assets/user-icon.png" height="60px"/>
   </header>
 </template>
