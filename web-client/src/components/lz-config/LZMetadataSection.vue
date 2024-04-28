@@ -18,7 +18,7 @@ const wrapMetadata = () => ({
 	name: name.value,
 	fileOrigin: fileOrigin.value,
 	frequencyNumber: Number(frequencyNumber.value),
-	frequencyType: frequencyType.value === 'Dia' ? 'dia' : frequencyType.value === 'Mês' ? 'mes' : 'ano',
+	frequencyType: frequencyType.value === 'Dias' ? 'dias' : frequencyType.value === 'Meses' ? 'meses' : frequencyType.value === 'Semanas' ? 'semanas' : 'anos',
 })
 
 </script>
@@ -48,7 +48,7 @@ const wrapMetadata = () => ({
 		<DRDropDown
 			style="grid-area: period"
 			title="Período"
-			:option-list="['Dia', 'Mês', 'Ano', 'Semana']"
+			:option-list="['Dias', 'Meses', 'Anos', 'Semanas']"
 			v-model="frequencyType"
 			@update="emitUpdate"
 		></DRDropDown>

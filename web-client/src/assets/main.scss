@@ -38,6 +38,14 @@ button {
 		outline-offset: 3px;
 		outline-color: color(--color-text);
 	}
+	&:disabled,
+	&:disabled:focus,
+	&:disabled:hover {
+		cursor: default;
+		background-color: transparent;
+		border-color: grey;
+		color: grey;
+	}
 }
 
 a {
