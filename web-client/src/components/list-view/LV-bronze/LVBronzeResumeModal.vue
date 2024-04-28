@@ -34,15 +34,15 @@ const gotoBronzeConfig = () => {
             <span style="grid-area: validate;">Validação: ok/nok (Acertar com time) </span>
             <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
             <div style="grid-area: columns;">
-                <!-- <h5>
-                    <div>Hash:</div>
-                </h5> -->
                 <h2>Colunas</h2>
                 <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true" :default-value="columnsResume"></DRTextInput>
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
                     <DRButton :click-behavior="gotoBronzeConfig">Configurar</DRButton>
+                </div>
+                <div>
+                    <DRButton button-type="careful" :click-behavior="() => {}">Remover</DRButton>
                 </div>
             </div>
         </div>
