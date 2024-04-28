@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/list-view")
 @CrossOrigin(origins = "http://localhost:5173")
@@ -36,7 +38,7 @@ public class ListViewController {
     @GetMapping("/{id}")
     @Transactional
     public ResponseEntity details(@PathVariable Integer id){
-        LZMetadataConfig config = lzRepository.getReferenceById(id);
+        Optional<LZMetadataConfig> config = lzRepository.findById(id);
         return ResponseEntity.ok(config);
     }            
 

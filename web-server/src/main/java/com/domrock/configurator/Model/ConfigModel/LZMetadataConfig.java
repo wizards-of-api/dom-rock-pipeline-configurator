@@ -7,7 +7,11 @@ import org.hibernate.annotations.SQLDelete;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
 
+
+import com.fasterxml.jackson.annotation.JsonPropertyOrder;
+
 import jakarta.persistence.CascadeType;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,20 +27,23 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-
 @Entity
 @Table(name = "lz_config")
 public class LZMetadataConfig {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
     private Integer fileId;
 
+
+     @Column(name = "file_config_name")
+
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
 
     @Column(name = "file_config_name")
+
     private String name;
 
     @Column(name = "file_type")
@@ -57,6 +64,9 @@ public class LZMetadataConfig {
     @Column(name = "file_name")
     private String fileName;
 
+    @OneToMany(mappedBy = "fileId")
+    private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
+
     public LZMetadataConfig(MetadataConfigDTO file){
         this.fileName = file.fileName();
         this.name = file.name();
@@ -64,7 +74,20 @@ public class LZMetadataConfig {
         this.fileOrigin = file.fileOrigin();
         this.frequency = file.frequencyNumber();
         this.filePeriod = file.frequencyType();
-        this.hasHeader = file.hasHeader() == true? 1: 0;
+        this.hasHeader = file.hasHeader() ? 1: 0;
     }
     public LZMetadataConfig(){}
+
+    public void updateFields(MetadataConfigDTO data){
+        if (data.name()!= null) name = data.name();
+        if (data.fileName()!= null) fileName = data.fileName();
+        if (data.frequencyNumber()!= null) frequency = data.frequencyNumber();
+        if (data.frequencyType()!= null) frequency = Integer.valueOf(data.frequencyType());
+
+        hasHeader = data.hasHeader()? 1: 0;
+        if (data.columns()!= null) {
+            columns.clear();
+            columns = data.columns();
+        }
+    }
 }
