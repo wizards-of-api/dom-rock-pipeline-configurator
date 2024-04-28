@@ -18,7 +18,7 @@ const goToBronzeConfig = () => {
     <div class="container">
         <h2>Bronze</h2>
 		<div class="top-bar">
-            <DRButton :click-behavior="goToLZConfig">Configurar</DRButton>
+            <DRButton :click-behavior="goToBronzeConfig">Configurar</DRButton>
         </div>
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
