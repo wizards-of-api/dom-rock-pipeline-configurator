@@ -36,14 +36,7 @@ public class LZMetadataConfig {
     @Column(name = "file_id")
     private Integer fileId;
 
-
-     @Column(name = "file_config_name")
-
-    @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
-
     @Column(name = "file_config_name")
-
     private String name;
 
     @Column(name = "file_type")
@@ -64,7 +57,7 @@ public class LZMetadataConfig {
     @Column(name = "file_name")
     private String fileName;
 
-    @OneToMany(mappedBy = "fileId")
+    @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
 
     public LZMetadataConfig(MetadataConfigDTO file){
