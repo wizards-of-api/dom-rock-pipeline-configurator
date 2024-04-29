@@ -18,7 +18,7 @@ function routeScrenn(nomeRouter:String):void {
 	<AppHeader>
 	</AppHeader>
   <main>
-	<h1>Selecione a etapa:</h1>
+	<h2>Selecione a etapa:</h2>
 	<nav class="wrapper nav">
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('LZ')">Landing Zone</DRButton>
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('BRONZE')">Bronze</DRButton>
