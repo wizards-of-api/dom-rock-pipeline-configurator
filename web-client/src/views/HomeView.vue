@@ -3,7 +3,7 @@ import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import router from '../router'
 
-function routeScrenn(nomeRouter:String):void {
+const routeScrenn = (nomeRouter:String) => {
 	if(nomeRouter === "LZ"){
 		router.push('list-view')
 	}
