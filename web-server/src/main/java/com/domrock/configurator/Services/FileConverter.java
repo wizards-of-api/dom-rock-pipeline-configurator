@@ -37,41 +37,40 @@ public class FileConverter {
         }
         return convertColumnToJson(headers);
     }
-
     public List<ColumnResponseDTO> excelConverter(String filePath, String separator) {
-            try {
-                FileInputStream file = new FileInputStream(filePath);
-                XSSFWorkbook wkbk = new XSSFWorkbook(file);
-                XSSFSheet sheet = wkbk.getSheetAt(0);
-                Row row = sheet.getRow(0);
-                String[] headersToVector = new String[row.getLastCellNum()];
+        try {
+            FileInputStream file = new FileInputStream(filePath);
+            XSSFWorkbook wkbk = new XSSFWorkbook(file);
+            XSSFSheet sheet = wkbk.getSheetAt(0);
+            Row row = sheet.getRow(0);
+            String[] headersToVector = new String[row.getLastCellNum()];
     
-                for (int i = 0; i < (row.getLastCellNum()); i++) {
-                    Cell cell = row.getCell(i);
-                    headersToVector[i] = cell.toString();
-                }
-                for (String header : headersToVector) {
-                    header.split(separator, 0);
-                    headers.add(header);
-                }
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
+            for (int i = 0; i < (row.getLastCellNum()); i++) {
+                Cell cell = row.getCell(i);
+                headersToVector[i] = cell.toString();
             }
-            return convertColumnToJson(headers);
+            for (String header : headersToVector) {
+                header.split(separator, 0);
+                headers.add(header);
+            }
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+             e.printStackTrace();
         }
+        return convertColumnToJson(headers);
+    }
         
-    public List<ColumnResponseDTO> typeSpreadsheet(MultipartFile file, String fileExtension, String filePath, String separator) throws Exception {
-        if (fileExtension == "csv") {
+    public  List<ColumnResponseDTO> typeSpreadsheet(MultipartFile file, String fileExtension, String filePath, String separator) throws Exception {
+        if ("csv".equals(fileExtension)) {
             csvConverter(filePath, separator);
             createFile(file, fileExtension, filePath, separator);
-        } else if (fileExtension == "Excel") {
+        } else if ("Excel".equals(fileExtension)) {
             excelConverter(filePath, separator);
             createFile(file, fileExtension, filePath, separator);
         } else {
             throw new Exception("Arquivo inválido!");
-        } 
+        }
         return convertColumnToJson(headers);
     }
 
@@ -92,15 +91,13 @@ public class FileConverter {
                 stream.write(bytes);
                 stream.close();
 
-                if (fileExtension == "csv") {
+                if ("csv".equals(fileExtension)) {
                     columns = csvConverter(serverFile.getAbsolutePath(), separator);
-                } else if (fileExtension == "Excel") {
+                } else if ("Excel".equals(fileExtension)) {
                     columns = excelConverter(serverFile.getAbsolutePath(), separator);
                 } else {
-                    throw new Exception("Não foi possivel criar o arquivo!");
-                }
-
-
+                    throw new Exception("Arquivo inválido!");
+                }  
             } catch (Exception e) {
                  e.printStackTrace();
             }
