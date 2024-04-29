@@ -3,8 +3,10 @@
 <template>
   <header>
     <img src="../assets/dom-rock-logo.png" />
-    <h1>{{ $route.name }}</h1>
-    <img src="../assets/user-icon.png" height="60px"/>
+    <div class="user">
+      <h3>{{ $route.name }}</h3>
+      <img src="../assets/user-icon.png" height="60px"/>
+    </div>
   </header>
 </template>
 
@@ -20,5 +22,11 @@ header {
   background: var(--color-background-soft);
   border-bottom: solid 1px var(--color-separator);
   min-width: 100%;
+}
+.user{
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 20px;
 }
 </style>
