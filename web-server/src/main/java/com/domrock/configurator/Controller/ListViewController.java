@@ -1,8 +1,12 @@
 package com.domrock.configurator.Controller;
 
+import com.domrock.configurator.Views;
 import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
+import com.fasterxml.jackson.annotation.JsonView;
+
 import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -32,7 +36,7 @@ public class ListViewController {
     @GetMapping
     public ResponseEntity<Page<LZMetadataConfig>> listDoctor(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzRepository.findAll(paginator);
-        return ResponseEntity.ok(page);
+        return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -52,4 +56,31 @@ public class ListViewController {
         lzRepository.delete(delete.get());
         return ResponseEntity.noContent().build();
     }
-}       
+
+    @GetMapping("/lz/{id}")
+    @Transactional
+    @JsonView(Views.LZ.class)
+    public ResponseEntity<LZMetadataConfig> getLZConfig(@PathVariable Integer id){
+        Optional<LZMetadataConfig> lzConfig = lzRepository.findById(id);
+        if (lzConfig.isPresent()) {
+            LZMetadataConfig config = lzConfig.get();
+            return new ResponseEntity<>(config, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+    @GetMapping("/bronze/{id}")
+    @Transactional
+    @JsonView(Views.Bronze.class)
+    public ResponseEntity<LZMetadataConfig> getBronzeConfig(@PathVariable Integer id){
+        Optional<LZMetadataConfig> bronzeConfig = lzRepository.findById(id);
+        if (bronzeConfig.isPresent()) {
+            LZMetadataConfig config = bronzeConfig.get();
+            return new ResponseEntity<>(config, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
+}
