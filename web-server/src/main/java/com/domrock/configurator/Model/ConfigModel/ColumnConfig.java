@@ -29,47 +29,47 @@ public class ColumnConfig {
 
     @JsonIgnore
     @ManyToOne
-    //@JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @JoinColumn(name = "file_id")
     private LZMetadataConfig fileId;
     
     @Id
-   // @JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer columnId;
 
-   // @JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_name")
     private String columnName;
 
-   // @JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_number")
     private Integer columnNumber;
 
-    //@JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_type")
     private String type;
 
-    //@JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_empty")
     private Integer empty;
 
-    //@JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_description")
     private String description;
 
-    //@JsonView(Views.LZ.class)
+    @JsonView(Views.LZ.class)
     @Column(name = "column_active")
     private Integer status;
 
     // Configurações Bronze
 
-    //@JsonView(Views.Bronze.class)
+    @JsonView(Views.Bronze.class)
     @Column(name = "column_is_hash")
     private Integer hash;
 
-    //@JsonView(Views.Bronze.class)
+    @JsonView(Views.Bronze.class)
     @Column(name = "column_valid")
     private Integer valid;
 
@@ -89,7 +89,5 @@ public class ColumnConfig {
     }
 
     public ColumnConfig() {}
-
-
 
 }
