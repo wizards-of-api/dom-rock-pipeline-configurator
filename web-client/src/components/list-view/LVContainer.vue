@@ -2,30 +2,42 @@
 import DRButton from '../DRButton.vue'
 import router from '@/router'
 import type { LZConfig } from '../lz-config/types'
-
+import SearchLabel from '../SearchLabel.vue'
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
 }
-
+const search= defineModel<string>('searched')
 const { configList, onBannerClick } = defineProps<Props>()
 
 const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
+const searchLz = () => {
+	console.log(search.value)
+}
+
 </script>
 <template>
     <div class="container">
         <h2>Landing Zone</h2>
-        <div class="top-bar">
-            <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
-        </div>
+		<div class = top-bar><DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
+		</div>
+		<div class="otavio-wrap">
+			<SearchLabel
+				v-model= "search"
+				size="big"
+			></SearchLabel><DRButton :click-behavior="searchLz">Pesquisa</DRButton> <div class="top-bar">
+		</div>
+		</div> 
+	
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
                 {{ config.name }}
             </button>
         </div>
     </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -41,6 +53,17 @@ const goToLZConfig = () => {
 	justify-items: center;
 	overflow-y: hidden;
 }
+.otavio-wrap {
+	padding: var(--gap) 0;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-rows: 50%;
+	gap: 0;
+	justify-content: space-between;
+	align-items: center;
+	flex-wrap: wrap;
+	overflow-y: hidden;
+}
 .top-bar {
   display: flex;
   justify-content: flex-end;
@@ -50,7 +73,6 @@ const goToLZConfig = () => {
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
   	outline-color: var(--color-banner-text);
-	
 	font-size: 1.4rem;
 	height: 100px;
 	width: 200px;
