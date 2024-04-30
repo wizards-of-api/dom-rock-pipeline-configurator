@@ -22,7 +22,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-
 @Entity
 @Table(name = "file_column")
 public class ColumnConfig {
@@ -79,11 +78,11 @@ public class ColumnConfig {
         this.columnNumber = data.index();
         this.columnName = data.name();
         this.type = data.type();
-        this.empty = data.CanBeNull() == true? 1 : 0;
+        this.empty = data.CanBeNull() ? 1 : 0;
         this.description = data.description();
         this.status = data.status();
-        this.hash = data.hash() == true? 1 : 0;
-        this.valid = data.valid() == true? 1 : 0;
+        this.hash = data.hash() ? 1 : 0;
+        this.valid = data.valid() ? 1 : 0;
         
         lzMetadataConfig.getColumns().add(this);
     }

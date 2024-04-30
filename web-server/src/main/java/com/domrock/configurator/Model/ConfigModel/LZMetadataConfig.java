@@ -68,5 +68,4 @@ public class LZMetadataConfig {
         this.hasHeader = file.hasHeader() ? 1: 0;
     }
     public LZMetadataConfig(){}
-
 }

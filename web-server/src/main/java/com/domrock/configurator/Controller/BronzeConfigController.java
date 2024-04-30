@@ -45,7 +45,7 @@ public class BronzeConfigController {
         return arrayListToJson.oldExcelToJson(filePath);
     }
 
-    @GetMapping
+    @GetMapping("/list-view")
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
@@ -81,5 +81,4 @@ public class BronzeConfigController {
             return new ResponseEntity<>( HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-
 }

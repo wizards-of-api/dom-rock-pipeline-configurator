@@ -61,13 +61,13 @@ public class LZConfigController {
         return arrayListToJson.oldExcelToJson(filePath);
     }
 
-    @GetMapping
+    @GetMapping("/list-view")
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }  
 
-@GetMapping("/{id}")
+    @GetMapping("/{id}")
     @Transactional
     @JsonView(Views.LZ.class)
     public ResponseEntity<LZMetadataConfig> getLZConfig(@PathVariable Integer id) {
