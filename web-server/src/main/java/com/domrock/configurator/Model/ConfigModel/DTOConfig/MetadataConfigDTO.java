@@ -4,7 +4,6 @@ import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public record MetadataConfigDTO(
         Integer fileId,
