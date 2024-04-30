@@ -1,4 +1,4 @@
-export const PERIOD_TYPES = ['Dia', 'Mês', 'Ano'] as const
+export const PERIOD_TYPES = ['Dias', 'Meses', 'Anos'] as const
 type PeriodType = (typeof PERIOD_TYPES)[number]
 
 export type MetadataUploadConfig = {

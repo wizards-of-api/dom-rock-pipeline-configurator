@@ -38,6 +38,14 @@ button {
 		outline-offset: 3px;
 		outline-color: color(--color-text);
 	}
+	&:disabled,
+	&:disabled:focus,
+	&:disabled:hover {
+		cursor: default;
+		background-color: transparent;
+		border-color: grey;
+		color: grey;
+	}
 }
 
 a {
@@ -101,6 +109,19 @@ a {
 	border-color: var(--color-button-safe);
 	&:hover {
 		color: var(--color-button-safe);
+		background-color: transparent;
+	}
+}
+
+.home {
+	width: 190px;
+	height: 50px;
+	color: var(--color-button-home-hover);
+	background-color: var(--color-button-home);
+	
+	border-color:#C1BCCC;
+	&:hover {
+		color: var(--color-button-home-hover);
 		background-color: transparent;
 	}
 }

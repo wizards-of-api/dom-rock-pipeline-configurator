@@ -67,7 +67,6 @@ const uploadFile = async ($event: Event) => {
 
 	console.log('send')
 	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
-
 	const responseColumns = response.data.columns
 
 	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {

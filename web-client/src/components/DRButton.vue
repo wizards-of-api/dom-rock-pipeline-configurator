@@ -1,6 +1,6 @@
 <script setup lang="ts">
 type Props = {
-	buttonType?: 'careful' | 'safe'
+	buttonType?: 'careful' | 'safe' | 'home'
 	clickBehavior: (event: Event) => void
 }
 
