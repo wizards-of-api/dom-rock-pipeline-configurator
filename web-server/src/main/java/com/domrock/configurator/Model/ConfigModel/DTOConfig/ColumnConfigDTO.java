@@ -6,5 +6,7 @@ public record ColumnConfigDTO(
     String type,
     boolean CanBeNull,
     String description,
-    Integer status
+    Integer status,
+    boolean hash,
+    boolean valid
 ) {}
