@@ -2,7 +2,7 @@
 import DRButton from '../../DRButton.vue'
 import DRTextInput from '../../DRTextInput.vue'
 import router from '@/router'
-import type { LZConfig } from '../lz-config/types'
+import type { LZConfig } from '../../lz-config/types'
 
 type Props = {
     lzConfig: LZConfig
@@ -39,10 +39,7 @@ const gotoBronzeConfig = () => {
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoBronzeConfig">Configurar</DRButton>
-                </div>
-                <div>
-                    <DRButton button-type="careful" :click-behavior="() => {}">Remover</DRButton>
+                    <DRButton :click-behavior="gotoBronzeConfig">Visualizar/Editar</DRButton>
                 </div>
             </div>
         </div>
