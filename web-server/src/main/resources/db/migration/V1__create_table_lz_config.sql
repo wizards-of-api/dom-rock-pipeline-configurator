@@ -1,9 +1,10 @@
-create table lz_config(
-id_file integer auto_increment primary key,
-file_config_name varchar(50) not null,
-file_type varchar(50) not null,
-file_origin varchar(50) not null,
-file_period varchar(50) not null,
-file_frequency int not null,
-file_has_header int not null
+CREATE TABLE lz_config(
+file_id INT auto_increment PRIMARY KEY,
+file_config_name VARCHAR(50) UNIQUE NOT NULL,
+file_name VARCHAR(50) NOT NULL,
+file_type VARCHAR(50) NOT NULL,
+file_origin VARCHAR(50) NOT NULL,
+file_period VARCHAR(50) NOT NULL,
+file_frequency INT NOT NULL,
+file_has_header INT NOT NULL
 );
