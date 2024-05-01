@@ -10,25 +10,19 @@ const frequencyType = defineModel<string>('frequencyType')
 
 </script>
 <template>
-	<DRSectionTitle title="Validação e Hash"></DRSectionTitle>
-	<div class="grid metadata">
-	</div>
+	<div class="container">
+		<DRSectionTitle title="Validação e Hash"></DRSectionTitle>
+		<main>
+			<div class="grid metadata">
+			</div>
+		</main>
+	</div>	
 </template>
 
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	column-gap: var(--big-gap);
-	row-gap: var(--gap);
-	align-items: last baseline;
-	justify-content: flex-start;
-	padding: var(--big-gap) 0;
-}
-.metadata {
-	grid-template-columns: min-content min-content min-content;
-	grid-template-rows: min-content min-content;
-	grid-template-areas:
-		'config-name config-name config-name'
-		'origin frequency period'
+
+main{
+	width:100vh;
+	margin-top:100%;
 }
 </style>

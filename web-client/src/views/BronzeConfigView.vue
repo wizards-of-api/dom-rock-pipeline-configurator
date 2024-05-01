@@ -1,18 +1,12 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
-
-import type { MetadataConfig, ColumnConfig } from '@/components/lz-config/types'
-
+import type {  ColumnConfig, BronzeConfig } from '@/components/bronze/types'
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import DRModal from '@/components/DRModal.vue'
-
-
-import HeaderBronzeSelectFile from '@/components/bronze/HeaderBronzeSelectFile.vue'
 import MetadataBronze from '@/components/bronze/MetadataBronze.vue'
 import ValidatorHashFile from '@/components/bronze/ValidatorHashFile.vue'
-import LZColumnSection from '@/components/lz-config/LZColumnSection.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 
@@ -23,37 +17,37 @@ const updateColumnList = (newList: ColumnConfig[]) => {
 	onUpdateColumn(newList)
 	columnUpdateCount.value += 1
 }
-
-const metadata: MetadataConfig = {
-	name: '',
-	fileOrigin: '',
-	fileName: '',
-	fileExtension: 'csv',
-	frequencyNumber: 3,
-	frequencyType: 'Dias',
-	separator: ',',
-	hasHeader: true,
-}
+const config = ref<BronzeConfig>()
+const idConfig = ref<number>()
 
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 
-const onUpdateMetadata = (newMetadata: MetadataConfig) => {
-	Object.assign(metadata, newMetadata)
-}
 
 const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 	columnList = newColumnList
 	console.log(columnList)
 }
 
+const getConfig = async () => {
+	const response = await axios.get('http://localhost:8080/bronze-config/1')
+	console.log("valor ->",response)
+	return response.data
+}
+
+onMounted(async () => {
+	
+	config.value = await getConfig()
+	console.log(config.value)
+})
+
+
 const saveFile = async () => {
 	const config = {
-		metadata,
 		columns: columnList,
 	}
 
-	await axios.post('http://localhost:8080/lz-config/save', config)
+	await axios.put(`http://localhost:8080/lz-config/update/${idConfig}`, config)
 	showSavedModal.value = true
 }
 </script>
@@ -76,8 +70,7 @@ const saveFile = async () => {
 				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 			</nav>
 			<main>
-				<HeaderBronzeSelectFile @update="onUpdateMetadata" @update-columns="updateColumnList"></HeaderBronzeSelectFile>
-				<MetadataBronze @update="onUpdateMetadata"></MetadataBronze>
+				<MetadataBronze :config="config"></MetadataBronze>
 				<ValidatorHashFile :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></ValidatorHashFile>
 			</main>
 		</div>

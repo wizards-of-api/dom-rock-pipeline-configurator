@@ -1,34 +1,59 @@
 <script setup lang="ts">
 import DRSectionTitle from '../DRSectionTitle.vue'
-
-const emit = defineEmits(['update'])
-
-const name = defineModel<string>('name')
-const fileOrigin = defineModel<string>('fileOrigin')
-const frequencyNumber = defineModel<string>('frequencyNumber')
-const frequencyType = defineModel<string>('frequencyType')
-
+import type { BronzeConfig } from './types';
+type Props = {
+    config: BronzeConfig
+}
+const {config} = defineProps<Props>()
 </script>
 <template>
 	<DRSectionTitle title="Metadata"></DRSectionTitle>
-	<div class="grid metadata">
-	</div>
+	<main  v-if="config">
+		<div class="containerMetadata">
+			<div class="titleInfo">
+				<div class="textInfo">
+					<p class="sizeWord">Nome da configuração:</p>
+					<p class="sizeWord">{{config.name}}</p>
+				</div>
+				<div class="textInfo">
+					<p class="sizeWord">Arquivo:</p>
+					<p class="sizeWord">{{config.fileName}}</p>
+				</div>	
+			</div>
+			<div class="titleInfo">
+				<div class="textInfo">
+					<p class="sizeWord">Origem:</p>
+					<p class="sizeWord">{{config.fileOrigin}}</p>
+				</div>
+				<div class="textInfo">	
+					<p class="sizeWord">Frequencia:</p>
+					<p class="sizeWord">{{config.frequency}}</p>
+				</div>
+			</div>
+	    </div>
+	</main>
 </template>
-
 <style scoped lang="scss">
-.grid {
-	display: grid;
-	column-gap: var(--big-gap);
-	row-gap: var(--gap);
-	align-items: last baseline;
-	justify-content: flex-start;
-	padding: var(--big-gap) 0;
+main{
+	width:100vh;
+	margin-top:10px;
 }
-.metadata {
-	grid-template-columns: min-content min-content min-content;
-	grid-template-rows: min-content min-content;
-	grid-template-areas:
-		'config-name config-name config-name'
-		'origin frequency period'
+.containerMetadata{
+	display:flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+.titleInfo{
+	display:flex;
+	flex-direction: column;
+	gap:10px;
+}
+.sizeWord{
+	font-size:20px;
+}
+.textInfo{
+	display:flex;
+	flex-direction: row;
+	gap:10px;
 }
 </style>
