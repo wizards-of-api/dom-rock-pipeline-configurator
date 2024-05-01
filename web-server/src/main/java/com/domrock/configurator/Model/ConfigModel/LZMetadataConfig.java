@@ -42,7 +42,6 @@ public class LZMetadataConfig {
     @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
     private Integer frequency;
-    @NotNull
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
@@ -54,7 +53,6 @@ public class LZMetadataConfig {
     @JsonView(Views.LZ.class)
     @Column(name = "file_name")
     private String fileName;
-    @NotEmpty
     @JsonView(Views.LZ.class)
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
