@@ -6,54 +6,40 @@ import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import DRModal from '@/components/DRModal.vue'
 import MetadataBronze from '@/components/bronze/MetadataBronze.vue'
-import ValidatorHashFile from '@/components/bronze/ValidatorHashFile.vue'
+import ValidHashFile from '@/components/bronze/ValidHashFile.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
+import Load from '@/components/Load.vue'
 
 
 let columnList: ColumnConfig[] = []
-const columnUpdateCount = ref(0)
-const updateColumnList = (newList: ColumnConfig[]) => {
-	onUpdateColumn(newList)
-	columnUpdateCount.value += 1
-}
 const config = ref<BronzeConfig>()
-const idConfig = ref<number>()
+const idConfig = ref<number>(2) 
 
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 
 
-const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
-	columnList = newColumnList
-	console.log(columnList)
-}
-
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/bronze-config/1')
-	console.log("valor ->",response)
+	const response = await axios.get('http://localhost:8080/bronze-config/2')
 	return response.data
 }
 
 onMounted(async () => {
-	
 	config.value = await getConfig()
-	console.log(config.value)
 })
 
 
 const saveFile = async () => {
-	const config = {
-		columns: columnList,
-	}
 
-	await axios.put(`http://localhost:8080/lz-config/update/${idConfig}`, config)
-	showSavedModal.value = true
+	await axios.put(`http://localhost:8080/bronze-config/update/2`, config.value)
+	// showSavedModal.value = true
+	console.log(config.value)
 }
 </script>
 
 <template>
-	<div>
+	<div v-if="config">
 		<div>
 			<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
 				<LZModalLeave :close-modal="() => showLeaveModal = false"></LZModalLeave>
@@ -71,9 +57,12 @@ const saveFile = async () => {
 			</nav>
 			<main>
 				<MetadataBronze :config="config"></MetadataBronze>
-				<ValidatorHashFile :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></ValidatorHashFile>
+				<ValidHashFile :base-column-list="config?.columns" :key="config.columns.length" ></ValidHashFile>
 			</main>
 		</div>
+	</div>
+	<div v-if="!config">
+		<Load></Load>
 	</div>
 </template>
 
@@ -98,11 +87,10 @@ main {
 	border-bottom: 0;
 	width: 100%;
 	max-width: 1280px;
-	position: relative;
 	padding: var(--big-gap);
-	flex-grow: 1;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+	gap:30px;
 }
 </style>

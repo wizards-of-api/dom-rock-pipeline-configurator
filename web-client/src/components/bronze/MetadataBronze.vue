@@ -2,7 +2,7 @@
 import DRSectionTitle from '../DRSectionTitle.vue'
 import type { BronzeConfig } from './types';
 type Props = {
-    config: BronzeConfig
+    config?: BronzeConfig
 }
 const {config} = defineProps<Props>()
 </script>
