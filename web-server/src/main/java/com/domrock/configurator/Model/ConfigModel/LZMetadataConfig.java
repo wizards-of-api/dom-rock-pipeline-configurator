@@ -42,6 +42,7 @@ public class LZMetadataConfig {
     @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
     private Integer frequency;
+    @NotNull
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
