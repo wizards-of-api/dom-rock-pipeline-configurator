@@ -3,22 +3,11 @@ package com.domrock.configurator.Model.ConfigModel;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.annotations.SQLDelete;
+import jakarta.persistence.*;
 
+import com.domrock.configurator.Views;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
-
-
-import com.fasterxml.jackson.annotation.JsonPropertyOrder;
-
-import jakarta.persistence.CascadeType;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
-import jakarta.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -32,32 +21,41 @@ import lombok.Setter;
 public class LZMetadataConfig {
 
     @Id
+    @JsonView(Views.LZ.class)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
     private Integer fileId;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_config_name")
     private String name;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_type")
     private String fileType;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_origin")
     private String fileOrigin;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
     private Integer frequency;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_period")
     private String filePeriod;
 
+    @JsonView(Views.LZ.class)
     @Column(name = "file_name")
     private String fileName;
 
-    @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonView(Views.LZ.class)
+    @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
 
     public LZMetadataConfig(MetadataConfigDTO file){
@@ -70,17 +68,4 @@ public class LZMetadataConfig {
         this.hasHeader = file.hasHeader() ? 1: 0;
     }
     public LZMetadataConfig(){}
-
-    public void updateFields(MetadataConfigDTO data){
-        if (data.name()!= null) name = data.name();
-        if (data.fileName()!= null) fileName = data.fileName();
-        if (data.frequencyNumber()!= null) frequency = data.frequencyNumber();
-        if (data.frequencyType()!= null) frequency = Integer.valueOf(data.frequencyType());
-
-        hasHeader = data.hasHeader()? 1: 0;
-        if (data.columns()!= null) {
-            columns.clear();
-            columns = data.columns();
-        }
-    }
 }

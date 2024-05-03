@@ -2,7 +2,14 @@
 import DRButton from '../DRButton.vue'
 import DRTextInput from '../DRTextInput.vue'
 import router from '@/router'
+import axios from 'axios'
 import type { LZConfig } from '../lz-config/types'
+
+const deleteFile = async (fileId: Number) => {
+	console.log(fileId)
+	await axios.delete(`http://localhost:8080/list-view/delete/${fileId}`)
+	router.replace('/list-view')
+}
 
 type Props = {
     lzConfig: LZConfig
@@ -40,7 +47,7 @@ const gotoLZConfig = () => {
                     <DRButton :click-behavior="gotoLZConfig" disabled>Visualizar / Editar</DRButton>
                 </div>
                 <div>
-                    <DRButton button-type="careful" :click-behavior="() => {}" disabled>Remover</DRButton>
+                    <DRButton button-type="careful" :click-behavior="() => deleteFile(lzConfig.fileId)">Remover</DRButton>
                 </div>
             </div>
         </div>
