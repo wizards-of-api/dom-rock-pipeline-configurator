@@ -4,7 +4,11 @@ import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
 import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
+<<<<<<< HEAD
 import BronzeListView from '@/views/BronzeListView.vue'
+=======
+import BronzeConfigView from '@/views/BronzeConfigView.vue'
+>>>>>>> fa2b1094922c3b7b12c9671d3a79d002c2b375c4
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -23,6 +27,11 @@ const router = createRouter({
 			path: '/list-view',
 			name: 'list-view',
 			component: ListView,
+		},
+		{
+			path: '/bronze-config',
+			name: 'Etapa Bronze',
+			component: BronzeConfigView,
 		},
 		{
 			path: '/lz-config',
