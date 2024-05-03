@@ -39,9 +39,7 @@ const wrapColumnConfig = () => ({
 	canBeNull: canBeNull.value,
 	description: description.value,
 	status: Number(status.value),
-
 })
-
 </script>
 <template>
     <div
