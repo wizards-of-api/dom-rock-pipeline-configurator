@@ -7,18 +7,15 @@ import { onMounted } from 'vue'
 type Props = {
 	baseColumnConfig: ColumnConfig
 }
-
 const { baseColumnConfig } = defineProps<Props>()
-
 const columnIndex = defineModel<string>('index')
 const name = defineModel<string>('name')
 const type = defineModel<string>('type')
-const canBeNull = defineModel<Number>('canBeNull')
-const validColumn = defineModel<Number>('validColumn')
-const hash = defineModel<Number>('hash')
-
+const canBeNull = defineModel<boolean>('canBeNull')
+const validColumn = defineModel<boolean>('validColumn')
+const hash = defineModel<boolean>('hash')
 const emit = defineEmits(['update'])
-const emitUpdate = (valor) => {
+const emitUpdate = (valor:any) => {
     setTimeout(() => {
     emit('update', wrapColumnConfig())
     }, 1000)
@@ -31,13 +28,11 @@ onMounted(() => {
 	validColumn.value = !!baseColumnConfig.valid
 	hash.value = !!baseColumnConfig.hash
 })
-
 const wrapColumnConfig = () => ({
 	empty: canBeNull.value ? 1: 0,
 	valid: validColumn.value? 1: 0,
 	hash: hash.value ?1: 0,
 })
-
 </script>
 <template>
     <div
@@ -106,7 +101,6 @@ const wrapColumnConfig = () => ({
 		'description description description description description';
 	border-top: 1px solid var(--color-separator);
 }
-
 .checkBox{
     display: flex;
     flex-direction: row;

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
-import type {  ColumnConfig, BronzeConfig } from '@/components/bronze/types'
+import {  type BronzeConfig } from '@/components/bronze/types'
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import DRModal from '@/components/DRModal.vue'
@@ -11,32 +11,21 @@ import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 import Load from '@/components/Load.vue'
 
-
-let columnList: ColumnConfig[] = []
 const config = ref<BronzeConfig>()
-const idConfig = ref<number>(2) 
-
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
-
-
 const getConfig = async () => {
 	const response = await axios.get('http://localhost:8080/bronze-config/2')
 	return response.data
 }
-
 onMounted(async () => {
 	config.value = await getConfig()
 })
-
-
 const saveFile = async () => {
-
 	await axios.put(`http://localhost:8080/bronze-config/update/2`, config.value)
 	console.log(config.value)
 }
 </script>
-
 <template>
 	<div v-if="config">
 		<div>
@@ -56,7 +45,7 @@ const saveFile = async () => {
 			</nav>
 			<main>
 				<MetadataBronze :config="config"></MetadataBronze>
-				<ValidHashFile :base-column-list="config?.columns" :key="config.columns.length" ></ValidHashFile>
+				<ValidHashFile :base-column-list="config.columns"></ValidHashFile>
 			</main>
 		</div>
 	</div>
