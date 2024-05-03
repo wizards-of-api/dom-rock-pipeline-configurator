@@ -10,29 +10,50 @@ type Props = {
 
 const { lzConfig } = defineProps<Props>()
 
+
+
 const columnsResume = lzConfig.columns.reduce((string, column) => {
-	if (!column.status) return string
+    if (!column.status || column.status !== 1) return string
 	
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
 
-console.log(columnsResume)
-
 const gotoBronzeConfig = () => {
 	router.replace('/bronze-config')
 }
+
+const hashVerify = lzConfig.columns.reduce((string, column) => {
+    if (!column.hash) return string
+	
+	string += `${column.columnName}, `
+	return string
+}, '')
+
+
+const validation = lzConfig.columns.filter((column) => column.valid === 1)
+const statuscolumn = lzConfig.columns.filter((column)=> column.status === 1)
+
+const validoOUinvalido = () =>{
+    if (validation.length === statuscolumn.length && hashVerify !== "") {
+        return "VALIDADO"
+    }
+    else{
+        return "INVALIDADO"
+    }
+}
+
 </script>
 
 <template>
-        <div class="modal">
-            <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
+    <div class="modal">
+        <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
             <span style="grid-area: file-name;">Arquivo:  {{ lzConfig.fileName }} </span>
             <span style="grid-area: file-type; text-align: right;">Tipo:  {{ lzConfig.fileType }} </span>
             <span style="grid-area: file-origin;">Origem:  {{ lzConfig.fileOrigin }} </span>
-            <span style="grid-area: hash;">hash:  ok/nok (Acertar com time) </span>
-            <span style="grid-area: validate;">Validação: ok/nok (Acertar com time) </span>
+            <span style="grid-area: hash;">Hash: {{ hashVerify }} </span>
             <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
+            <span style="grid-area: valid;">Status: {{ validoOUinvalido() }}</span>
             <div style="grid-area: columns;">
                 <h2>Colunas</h2>
                 <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true" :default-value="columnsResume"></DRTextInput>
@@ -43,7 +64,7 @@ const gotoBronzeConfig = () => {
                 </div>
             </div>
         </div>
-</template>
+    </template>
 <style scoped lang="scss">
 
 .modal {
@@ -57,7 +78,7 @@ const gotoBronzeConfig = () => {
     grid-template-areas: 
         "config-name . file-name file-name file-type"
         "file-origin . . . file-frequency"
-        "hash . . . validate"
+        "hash . . . valid"
         "columns columns columns columns columns"
         ". . . button button";
 

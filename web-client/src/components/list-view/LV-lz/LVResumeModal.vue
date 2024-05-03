@@ -3,10 +3,9 @@ import DRButton from '../../DRButton.vue'
 import DRTextInput from '../../DRTextInput.vue'
 import router from '@/router'
 import axios from 'axios'
-import type { LZConfig } from '../lz-config/types'
+import type { LZConfig } from '../../lz-config/types'
 
 const deleteFile = async (fileId: Number) => {
-	console.log(fileId)
 	await axios.delete(`http://localhost:8080/list-view/delete/${fileId}`)
 	router.replace('/list-view')
 }
@@ -23,8 +22,6 @@ const columnsResume = lzConfig.columns.reduce((string, column) => {
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
-
-console.log(columnsResume)
 
 const gotoLZConfig = () => {
 	router.replace('/lz-config')

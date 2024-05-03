@@ -35,7 +35,7 @@ const router = createRouter({
 		},
 		{
 			path: '/list-view-bronze',
-			name: 'list-view-bronze',
+			name: 'Configurações Bronze',
 			component: BronzeListView,
 		},
 		{

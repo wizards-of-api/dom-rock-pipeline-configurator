@@ -13,19 +13,21 @@ import type { LZConfig } from '@/components/lz-config/types'
 const configList = ref<LZConfig[]>()
 const showModal = ref(false)
 const selectedConfig = ref<LZConfig>()
+const lzConfig = ref<LZConfig>()
 
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/list-view')
+	const response = await axios.get('http://localhost:8080/bronze-config/list-view')
 	console.log(response)
 	return response.data.content
 }
 
 onMounted(async () => {
-	
+
 	configList.value = await getConfig()
 })
 
 const onBannerClick = (config: LZConfig) => {
+	console.log(config)
 	selectedConfig.value = config
 	showModal.value = true
 }
@@ -39,7 +41,7 @@ const onBannerClick = (config: LZConfig) => {
 		<div>
 			<AppHeader>
 			</AppHeader>
-			<LVBronzeContainer v-if="configList" :config-list="configList" :key="configList.length" :on-banner-click="onBannerClick"></LVBronzeContainer>
+			<LVBronzeContainer v-if= "configList" :config-list="configList" :key="configList.length" :on-banner-click="onBannerClick"></LVBronzeContainer>
 		</div>
 	</div>
   <main>
