@@ -33,7 +33,6 @@ onMounted(async () => {
 const saveFile = async () => {
 
 	await axios.put(`http://localhost:8080/bronze-config/update/2`, config.value)
-	// showSavedModal.value = true
 	console.log(config.value)
 }
 </script>

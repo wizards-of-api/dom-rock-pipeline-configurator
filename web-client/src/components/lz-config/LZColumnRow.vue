@@ -14,7 +14,6 @@ const { baseColumnConfig } = defineProps<Props>()
 const emit = defineEmits(['update'])
 const emitUpdate = () => {
 	emit('update', wrapColumnConfig())
-    console.log(baseColumnConfig)
 }
 
 const columnIndex = defineModel<string>('index')
@@ -40,9 +39,7 @@ const wrapColumnConfig = () => ({
 	canBeNull: canBeNull.value,
 	description: description.value,
 	status: Number(status.value),
-
 })
-
 </script>
 <template>
     <div

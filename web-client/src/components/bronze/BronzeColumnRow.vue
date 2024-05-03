@@ -7,36 +7,35 @@ import { onMounted } from 'vue'
 type Props = {
 	baseColumnConfig: ColumnConfig
 }
+
 const { baseColumnConfig } = defineProps<Props>()
-const emit = defineEmits(['update'])
-const emitUpdate = () => {
-	emit('update', wrapColumnConfig())
-	console.log(baseColumnConfig)
-}
 
 const columnIndex = defineModel<string>('index')
 const name = defineModel<string>('name')
 const type = defineModel<string>('type')
-const canBeNull = defineModel<boolean>('canBeNull')
-const valid = defineModel<boolean>('valid')
-const hash = defineModel<boolean>('hash')
+const canBeNull = defineModel<Number>('canBeNull')
+const validColumn = defineModel<Number>('validColumn')
+const hash = defineModel<Number>('hash')
 
+const emit = defineEmits(['update'])
+const emitUpdate = (valor) => {
+    setTimeout(() => {
+    emit('update', wrapColumnConfig())
+    }, 1000)
+}
 onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.columnNumber)
 	name.value = baseColumnConfig.columnName
 	type.value = baseColumnConfig.type
 	canBeNull.value = !!baseColumnConfig.empty
-	valid.value = !!baseColumnConfig.valid
+	validColumn.value = !!baseColumnConfig.valid
 	hash.value = !!baseColumnConfig.hash
 })
 
 const wrapColumnConfig = () => ({
-	columnNumber: Number(columnIndex.value),
-	columnName: name.value,
-	type: type.value,
-	empty: canBeNull.value,
-	valid: valid.value,
-	hash: hash.value,
+	empty: canBeNull.value ? 1: 0,
+	valid: validColumn.value? 1: 0,
+	hash: hash.value ?1: 0,
 })
 
 </script>
@@ -69,21 +68,19 @@ const wrapColumnConfig = () => ({
         <div class="checkBox">
             <DRCheckBox
                 style="grid-area: can-null; width: 7rem;"
-                :default-value="String(baseColumnConfig.empty)"
                 title="Pode Nulo?"
                 v-model="canBeNull"
+                value= "canBenull"
                 @update="emitUpdate"
             ></DRCheckBox>
             <DRCheckBox
-                style="grid-area: can-null; width: 7rem;"
-                :default-value="String(baseColumnConfig.valid)"
+                style="grid-area: valid; width: 7rem;"
                 title="Validada?"
-                v-model="valid"
+                v-model="validColumn"
                 @update="emitUpdate"
             ></DRCheckBox>
             <DRCheckBox
                 style="grid-area: can-null; width: 12rem;"
-                :default-value="String(baseColumnConfig.hash)"
                 title="Usar como hash?"
                 v-model="hash"
                 @update="emitUpdate"
@@ -105,7 +102,7 @@ const wrapColumnConfig = () => ({
 	grid-template-columns: min-content min-content min-content min-content min-content;
 	grid-template-rows: min-content 2fr;
 	grid-template-areas:
-		'index name type can-null  valid'
+		'index name type can-null  valid '
 		'description description description description description';
 	border-top: 1px solid var(--color-separator);
 }
