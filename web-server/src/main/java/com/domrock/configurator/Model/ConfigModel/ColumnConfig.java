@@ -14,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -60,6 +61,7 @@ public class ColumnConfig {
     private Integer empty;
 
     @JsonView(Views.LZ.class)
+    @Max(value = 255)
     @Column(name = "column_description")
     private String description;
 
