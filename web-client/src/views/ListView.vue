@@ -15,7 +15,7 @@ const showModal = ref(false)
 const selectedConfig = ref<LZConfig>()
 
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/list-view')
+	const response = await axios.get('http://localhost:8080/lz-config/list-view')
 	console.log(response)
 	return response.data.content
 }

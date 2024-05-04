@@ -2,39 +2,60 @@
 import DRButton from '../DRButton.vue'
 import router from '@/router'
 import type { LZConfig } from '../lz-config/types'
-import SearchLabel from '../SearchLabel.vue'
+import DRSearch from '../DRSearch.vue'
+import axios from 'axios'
+
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
 }
-const search= defineModel<string>('searched')
-const { configList, onBannerClick } = defineProps<Props>()
+let { configList, onBannerClick} = defineProps<Props>()
 
 const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
-const searchLz = () => {
-	console.log(search.value)
-}
 
+const handleSearch = async ( updateSearchTerm: string) => {
+	let concat = ('http://localhost:8080/lz-config/list-view/')
+	concat = concat + updateSearchTerm
+	const response = await axios.get(concat)
+	console.log(concat)
+	
+	let auxConfigList = configList
+	const originalConfigList = configList
+	if(updateSearchTerm==""){
+		configList = originalConfigList
+		console.log(configList)
+		return response.data.content}
+	else{
+		for ( const config of configList){
+			if(!(config.name.includes(updateSearchTerm))){
+				auxConfigList.splice(config.fileId,1)
+			}
+		}
+		configList = auxConfigList 
+		console.log(configList)
+		return response.data.content
+	}
+}
 </script>
 <template>
     <div class="container">
         <h2>Landing Zone</h2>
-		<div class = top-bar><DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
+		<div class = -bar>
+			<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
+			<DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
+
 		</div>
-		<div class="otavio-wrap">
-			<SearchLabel
-				v-model= "search"
-				size="big"
-			></SearchLabel><DRButton :click-behavior="searchLz">Pesquisa</DRButton> <div class="top-bar">
+		<div class= -bar>
+			
+
+
 		</div>
-		</div> 
-	
-        <div class="grid-wrap" v-if="configList">
-            <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
-                {{ config.name }}
-            </button>
+			<div class="grid-wrap" v-if="configList">
+				<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
+					{{ config.name }}
+				</button>
         </div>
     </div>
 
@@ -53,30 +74,28 @@ const searchLz = () => {
 	justify-items: center;
 	overflow-y: hidden;
 }
-.otavio-wrap {
-	padding: var(--gap) 0;
-	display: grid;
-	grid-template-columns: 1fr auto;
-	grid-template-rows: 50%;
-	gap: 0;
-	justify-content: space-between;
-	align-items: center;
-	flex-wrap: wrap;
-	overflow-y: hidden;
-}
 .top-bar {
   display: flex;
   justify-content: flex-end;
+  
 }
+
+.-bar {
+	display: flex;
+  	justify-content:space-between;
+}
+
 .banner {
 	background: var(--color-banner);
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
   	outline-color: var(--color-banner-text);
 	font-size: 1.4rem;
-	height: 100px;
+	height: 92px ;
 	width: 200px;
+	overflow: hidden;
 }
+
 .container {
 	width: 960px;
 	height: 540px;
