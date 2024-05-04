@@ -7,28 +7,21 @@ type Props = {
 	tagInfo?: 'invalid-tag' | 'valid-tag'
 	bronzeConfig?: BConfig
 }
-
-const { configList, bronzeConfig, onBannerClick } = defineProps<Props>()
-const hashVerify = bronzeConfig?.columns.reduce((string, column) => {
-	if (!column.hash) return string
-
-	string += `${column.columnName}, `
-	return string
-}, '')
+const { configList, onBannerClick } = defineProps<Props>()
 
 
-const validation = bronzeConfig?.columns.filter((column) => column.valid === 1)
-const statuscolumn = bronzeConfig?.columns.filter((column)=> column.status === 1)
-
-const validoOUinvalido = () =>{
-    if (validation?.length === statuscolumn?.length && hashVerify === "") {
-        return true
-    }
-    else{
-        return false
-    }
+const validOrInvalid = (column:BConfig ) =>{
+	const validation = column?.columns.filter((column) => column.valid === 1)
+	const statuscolumn = column?.columns.filter((column)=> column.status === 1)
+	const hashVerify = column?.columns.reduce((string, column) => {
+		if (!column.hash) return string
+		string += `${column.columnName}, `
+		return string
+	}, '')
+	
+	const valid = (validation.length === statuscolumn.length && hashVerify !== "") ? true : false
+	return valid
 }
-
 </script>
 <template>
     <div class="container">
@@ -36,7 +29,7 @@ const validoOUinvalido = () =>{
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
 				<div class = "banner-wrap">
-					<div :class = "!!validoOUinvalido() ? 'invalid-tag' : 'valid-tag' " ></div>
+					<div :class=" validOrInvalid(config) ? 'valid-tag' : 'invalid-tag'"></div>
 					<div>{{ config.name }}</div> 
 				</div>
             </button>

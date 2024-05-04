@@ -52,6 +52,7 @@ const wrapColumnConfig = () => ({
             :default-value="baseColumnConfig.columnName"
             v-model="name"
 			@update="emitUpdate"
+            disabled
         ></DRTextInput>
         <DRTextInput
             style="grid-area: type"

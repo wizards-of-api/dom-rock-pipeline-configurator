@@ -6,7 +6,6 @@ import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
-import BronzeConfigView from '@/views/BronzeConfigView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -52,7 +51,7 @@ const router = createRouter({
 		},
 		{
 			path: '/:pathMatch(.*)*',
-			name: 'sandbox',
+			name: 'NotFound',
 			component: NotFound,
 		},
 	],

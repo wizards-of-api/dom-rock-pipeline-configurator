@@ -10,7 +10,7 @@ type Props = {
 
 const { lzConfig } = defineProps<Props>()
 const columnsResume = lzConfig.columns.reduce((string, column) => {
-    if (!column.status || column.status !== 1) return string
+	if (!column.status || column.status !== 1) return string
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
@@ -20,8 +20,7 @@ const gotoBronzeConfig = () => {
 }
 
 const hashVerify = lzConfig.columns.reduce((string, column) => {
-    if (!column.hash) return string
-	
+	if (!column.hash) return string
 	string += `${column.columnName}, `
 	return string
 }, '')
@@ -30,17 +29,11 @@ const hashVerify = lzConfig.columns.reduce((string, column) => {
 const validation = lzConfig.columns.filter((column) => column.valid === 1)
 const statuscolumn = lzConfig.columns.filter((column)=> column.status === 1)
 
-const validoOUinvalido = () =>{
-    if (validation.length === statuscolumn.length && hashVerify !== "") {
-        return "VALIDADO"
-    }
-    else{
-        return "INVALIDADO"
-    }
+const validOrInvalid = () =>{
+	const valid = validation.length === statuscolumn.length && hashVerify !== "" ? "VALIDADO" : "INVALIDADO"
+	return valid
 }
-
 </script>
-
 <template>
     <div class="modal">
         <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
@@ -49,7 +42,7 @@ const validoOUinvalido = () =>{
             <span style="grid-area: file-origin;">Origem:  {{ lzConfig.fileOrigin }} </span>
             <span style="grid-area: hash;">Hash: {{ hashVerify }} </span>
             <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
-            <span style="grid-area: valid;">Status: {{ validoOUinvalido() }}</span>
+            <span style="grid-area: valid;">Status: {{ validOrInvalid() }}</span>
             <div style="grid-area: columns;">
                 <h2>Colunas</h2>
                 <DRTextInput title="" :is-text-area="true" :custom-height="15" :disabled="true" :default-value="columnsResume"></DRTextInput>
@@ -62,7 +55,6 @@ const validoOUinvalido = () =>{
         </div>
     </template>
 <style scoped lang="scss">
-
 .modal {
     width: 1080px;
     background: var(--color-background);
