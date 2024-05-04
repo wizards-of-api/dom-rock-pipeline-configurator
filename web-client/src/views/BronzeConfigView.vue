@@ -14,6 +14,8 @@ import Load from '@/components/Load.vue'
 const config = ref<BronzeConfig>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
+const hasHash = ref(false) // Novo estado para controlar se pelo menos um hash está selecionado
+
 const getConfig = async () => {
 	const response = await axios.get('http://localhost:8080/bronze-config/1')
 	return response.data
@@ -21,10 +23,23 @@ const getConfig = async () => {
 onMounted(async () => {
 	config.value = await getConfig()
 })
+
 const saveFile = async () => {
-	await axios.put(`http://localhost:8080/bronze-config/update/1`, config.value)
-	console.log(config.value)
-	showSavedModal.value = true
+	if (!validoOUinvalido() || !hasHash.value) { // Atualização aqui: verifique se pelo menos um hash está selecionado
+		showSavedModal.value = true
+		await axios.put(`http://localhost:8080/bronze-config/update/1`, config.value)
+		console.log(config.value)
+		showSavedModal.value = true
+		return
+	}
+
+
+}
+
+const validoOUinvalido = () => {
+	const isValidada = config.value.columns.some(column => column.isValidada)
+	const isHash = config.value.columns.some(column => column.isHash)
+	return isValidada && isHash
 }
 
 const onCloseSavedModal = () => {
@@ -32,35 +47,35 @@ const onCloseSavedModal = () => {
 }
 
 const goToBronzeListView = () => {
-	
+	// Implemente a navegação para a lista de bronze aqui
 }
-
 </script>
 
 <template>
 	<div v-if="config">
-		<div>
-			<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
-				<LZModalLeave :close-modal="() => (showLeaveModal = false)"></LZModalLeave>
-			</DRModal>
-			<DRModal :show="showSavedModal" @close="showSavedModal = false">
-				<ConfigurationInvalidated @close="onCloseSavedModal" @click-out="goToBronzeListView"></ConfigurationInvalidated>
-			</DRModal>
-		</div>
-		<div style="max-height: 100vh; overflow-y: scroll">
-			<AppHeader> </AppHeader>
-			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => (showLeaveModal = true)">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
-			</nav>
-			<main>
-				<MetadataBronze :config="config"></MetadataBronze>
-				<ValidHashFile :base-column-list="config.columns"></ValidHashFile>
-			</main>
-		</div>
+			<div>
+					<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
+							<LZModalLeave :close-modal="() => (showLeaveModal = false)"></LZModalLeave>
+					</DRModal>
+					<DRModal :show="showSavedModal" @close="showSavedModal = false">
+							<ConfigurationInvalidated @close="onCloseSavedModal" @click-out="goToBronzeListView" :hasHash="hasHash">
+							</ConfigurationInvalidated>
+					</DRModal>
+			</div>
+			<div style="max-height: 100vh; overflow-y: scroll">
+					<AppHeader> </AppHeader>
+					<nav class="wrapper nav">
+							<DRButton :click-behavior="() => (showLeaveModal = true)">Voltar</DRButton>
+							<DRButton button-type="safe" :click-behavior="saveFile" :disabled="!hasHash">Salvar</DRButton>
+					</nav>
+					<main>
+							<MetadataBronze :config="config"></MetadataBronze>
+							<ValidHashFile :base-column-list="config.columns" @has-hash-updated="hasHash = $event"></ValidHashFile>
+					</main>
+			</div>
 	</div>
 	<div v-if="!config">
-		<Load></Load>
+			<Load></Load>
 	</div>
 </template>
 

@@ -11,7 +11,7 @@
 				<button class="button-style right-button" @click="cancel">
 					Continuar editando
 				</button>
-				<button class="button-style left-button" @click="save">Salvar</button>
+				<button class="button-style left-button" @click="save" :disabled="!hasHash">Salvar</button>
 			</div>
 		</div>
 	</div>
@@ -19,17 +19,29 @@
 
 <script>
 export default {
+	props: {
+		hasHash: {
+			type: Boolean,
+			required: true,
+		},
+	},
 	methods: {
 		cancel() {
 			this.$emit('close')
 		},
 		save() {
-			this.$emit('saved')
-			window.location.href = '/list-view-bronze'
+			if (this.hasHash) {
+				this.$emit('saved')
+				window.location.href = '/list-view-bronze'
+			} else {
+				alert("Selecione pelo menos um hash antes de salvar.")
+			}
 		},
 	},
 }
 </script>
+
+
 
 <style scoped>
 @font-face {
