@@ -4,6 +4,7 @@ import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
 import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
+import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
 
 const router = createRouter({
@@ -25,7 +26,7 @@ const router = createRouter({
 			component: ListView,
 		},
 		{
-			path: '/bronze-config',
+			path: '/bronze-config/:id',
 			name: 'Etapa Bronze',
 			component: BronzeConfigView,
 		},
@@ -39,13 +40,18 @@ const router = createRouter({
 			component: LZConfigView,
 		},
 		{
+			path: '/list-view-bronze',
+			name: 'Configurações Bronze',
+			component: BronzeListView,
+		},
+		{
 			path: '/sandbox',
 			name: 'sandbox',
 			component: SandboxView,
 		},
 		{
 			path: '/:pathMatch(.*)*',
-			name: 'sandbox',
+			name: 'NotFound',
 			component: NotFound,
 		},
 	],

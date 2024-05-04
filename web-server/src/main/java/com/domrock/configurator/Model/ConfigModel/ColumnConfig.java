@@ -1,5 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
 
+import org.hibernate.annotations.Check;
+
 import com.domrock.configurator.Views;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -69,6 +71,7 @@ public class ColumnConfig {
     private Integer hash;
 
     @JsonView(Views.Bronze.class)
+    @Check(constraints = "column_valid = 1")
     @Column(name = "column_valid")
     private Integer valid;
 
