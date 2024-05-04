@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount} from 'vue';
+import { onBeforeMount} from 'vue'
 import DRSectionTitle from '../DRSectionTitle.vue'
 import BronzeColumnRow from './BronzeColumnRow.vue'
 import type { ColumnConfig } from './types'

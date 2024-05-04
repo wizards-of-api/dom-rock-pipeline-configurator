@@ -5,7 +5,7 @@ import type { LZConfig, BConfig } from '../../lz-config/types'
 
 type Props = {
 	configList?: LZConfig[]
-    onBannerClick: (index: LZConfig) => void
+	onBannerClick: (index: LZConfig) => void
 	tagInfo?: 'invalid-tag' | 'valid-tag'
 	bronzeConfig?: BConfig
 }
@@ -20,30 +20,30 @@ const hashVerify = bronzeConfig?.columns.reduce((string, column) => {
 
 
 const validation = bronzeConfig?.columns.filter((column) => column.valid === 1)
-const statuscolumn = bronzeConfig?.columns.filter((column)=> column.status === 1)
+const statuscolumn = bronzeConfig?.columns.filter((column) => column.status === 1)
 
-const validoOUinvalido = () =>{
-    if (validation?.length === statuscolumn?.length && hashVerify === "") {
-        return true
-    }
-    else{
-        return false
-    }
+const validoOUinvalido = () => {
+	if (validation?.length === statuscolumn?.length && hashVerify === "") {
+		return true
+	}
+	else {
+		return false
+	}
 }
 
 </script>
 <template>
-    <div class="container">
-        <h2>Bronze</h2>
-        <div class="grid-wrap" v-if="configList">
-            <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
-				<div class = "banner-wrap">
-					<div :class = "!!validoOUinvalido() ? 'valid-tag' : 'invalid-tag' " ></div>
-					<div>{{ config.name }}</div> 
+	<div class="container">
+		<h2>Bronze</h2>
+		<div class="grid-wrap" v-if="configList">
+			<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
+				<div class="banner-wrap">
+					<div :class="!!validoOUinvalido() ? 'valid-tag' : 'invalid-tag'"></div>
+					<div>{{ config.name }}</div>
 				</div>
-            </button>
-        </div>
-    </div>
+			</button>
+		</div>
+	</div>
 </template>
 
 <style scoped lang="scss">
@@ -53,12 +53,13 @@ const validoOUinvalido = () =>{
 	grid-template-columns: 1fr;
 	grid-template-rows: 10px, 1fr;
 	gap: var(--gap) var(--gap);
-	justify-content:flex-start;
+	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
 	justify-items: center;
 	overflow-y: hidden;
 }
+
 .grid-wrap {
 	padding: var(--gap) 0;
 	display: grid;
@@ -71,32 +72,37 @@ const validoOUinvalido = () =>{
 	justify-items: center;
 	overflow-y: hidden;
 }
+
 .top-bar {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
+
 .banner {
 	background: var(--color-banner);
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
-  	outline-color: var(--color-banner-text);
+	outline-color: var(--color-banner-text);
 	border-width: 3px;
 	font-size: 1.4rem;
 	height: 100px;
 	width: 200px;
 }
-.invalid-tag{
+
+.invalid-tag {
 	background: #f00;
-	border-radius:50%;
+	border-radius: 50%;
 	width: 10px;
 	height: 10px;
 }
-.valid-tag{
+
+.valid-tag {
 	background: rgb(0, 255, 0);
-	border-radius:50%;
+	border-radius: 50%;
 	width: 10px;
 	height: 10px;
 }
+
 .container {
 	width: 960px;
 	height: 540px;
