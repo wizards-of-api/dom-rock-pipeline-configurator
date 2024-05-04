@@ -26,7 +26,7 @@ const router = createRouter({
 			component: ListView,
 		},
 		{
-			path: '/bronze-config',
+			path: '/bronze-config/:id',
 			name: 'Etapa Bronze',
 			component: BronzeConfigView,
 		},
@@ -51,7 +51,7 @@ const router = createRouter({
 		},
 		{
 			path: '/:pathMatch(.*)*',
-			name: 'sandbox',
+			name: 'NotFound',
 			component: NotFound,
 		},
 	],

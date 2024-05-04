@@ -10,6 +10,7 @@ const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList?.map(baseColumn => baseColumn)
 const emit = defineEmits(['update'])
 const nameHash = defineModel<string>('nameHash')
+const hasHash = defineModel<boolean>('hasHash')
 const listHashValue = (columnList: ColumnConfig[]) => {
 	const ListHash = columnList?.filter(column => column.hash === 1)
 	const valueHash = ListHash?.map(e => e.columnName.replace("", " "))
@@ -19,9 +20,8 @@ const emitUpdate = (index: any, data: any) => {
 	if (columnList) {
 		const column = columnList[index]
 		Object.assign(column, data)
-		emit('update', columnList, listHashValue(columnList))
-		const hasHash = columnList.some(column => column.hash === 1)
-		emit('has-hash-updated', hasHash) // Emitir o evento para atualizar o estado em BronzeConfigView.vue
+		hasHash.value = columnList.some(column => column.hash === 1)
+		emit('update', columnList,  hasHash, listHashValue(columnList))
 	}
 }
 

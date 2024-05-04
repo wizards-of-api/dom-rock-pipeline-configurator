@@ -8,16 +8,17 @@ import DRModal from '@/components/DRModal.vue'
 import MetadataBronze from '@/components/bronze/MetadataBronze.vue'
 import ValidHashFile from '@/components/bronze/ValidHashFile.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
-import ConfigurationInvalidated from '@/views/ConfigurationInvalidated.vue'
+import ConfigurationInvalidated from './ConfigurationInvalidated.vue'
 import Load from '@/components/Load.vue'
+import router from '@/router'
 
 const config = ref<BronzeConfig>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
-const hasHash = ref(false) // Novo estado para controlar se pelo menos um hash está selecionado
+const hasHash = ref(false)
 
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/bronze-config/1')
+	const response = await axios.get(`http://localhost:8080/bronze-config/${router.currentRoute.value.params.id}`)
 	return response.data
 }
 onMounted(async () => {
@@ -25,20 +26,17 @@ onMounted(async () => {
 })
 
 const saveFile = async () => {
-	if (!validoOUinvalido() || !hasHash.value) { // Atualização aqui: verifique se pelo menos um hash está selecionado
+	if (!validOrInvalid() || !hasHash.value) {
 		showSavedModal.value = true
-		await axios.put(`http://localhost:8080/bronze-config/update/1`, config.value)
-		console.log(config.value)
+		await axios.put(`http://localhost:8080/bronze-config/update/${router.currentRoute.value.params.id}`, config.value)
 		showSavedModal.value = true
 		return
 	}
-
-
 }
 
-const validoOUinvalido = () => {
-	const isValidada = config.value.columns.some(column => column.isValidada)
-	const isHash = config.value.columns.some(column => column.isHash)
+const validOrInvalid = () => {
+	const isValidada = config.value?.columns.some(column => column.valid)
+	const isHash = config.value?.columns.some(column => column.hash)
 	return isValidada && isHash
 }
 
@@ -47,20 +45,20 @@ const onCloseSavedModal = () => {
 }
 
 const goToBronzeListView = () => {
-	// Implemente a navegação para a lista de bronze aqui
+	router.replace("/list-view-bronze")
 }
 </script>
 
 <template>
 	<div v-if="config">
 			<div>
-					<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
-							<LZModalLeave :close-modal="() => (showLeaveModal = false)"></LZModalLeave>
-					</DRModal>
-					<DRModal :show="showSavedModal" @close="showSavedModal = false">
-							<ConfigurationInvalidated @close="onCloseSavedModal" @click-out="goToBronzeListView" :hasHash="hasHash">
-							</ConfigurationInvalidated>
-					</DRModal>
+				<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
+						<LZModalLeave :close-modal="() => (showLeaveModal = false)"></LZModalLeave>
+				</DRModal>
+				<DRModal :show="showSavedModal" @close="showSavedModal = false">
+						<ConfigurationInvalidated @close="onCloseSavedModal" @click-out="goToBronzeListView" :hasHash="hasHash">
+						</ConfigurationInvalidated>
+				</DRModal>
 			</div>
 			<div style="max-height: 100vh; overflow-y: scroll">
 					<AppHeader> </AppHeader>
@@ -70,7 +68,7 @@ const goToBronzeListView = () => {
 					</nav>
 					<main>
 							<MetadataBronze :config="config"></MetadataBronze>
-							<ValidHashFile :base-column-list="config.columns" @has-hash-updated="hasHash = $event"></ValidHashFile>
+							<ValidHashFile :base-column-list="config?.columns" @has-hash-updated="hasHash = $event"></ValidHashFile>
 					</main>
 			</div>
 	</div>
