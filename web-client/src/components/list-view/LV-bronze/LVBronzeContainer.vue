@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import DRButton from '../../DRButton.vue'
-import router from '@/router'
 import type { LZConfig, BConfig } from '../../lz-config/types'
 
 type Props = {
@@ -38,7 +36,7 @@ const validoOUinvalido = () =>{
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
 				<div class = "banner-wrap">
-					<div :class = "!!validoOUinvalido() ? 'valid-tag' : 'invalid-tag' " ></div>
+					<div :class = "!!validoOUinvalido() ? 'invalid-tag' : 'valid-tag' " ></div>
 					<div>{{ config.name }}</div> 
 				</div>
             </button>

@@ -10,20 +10,21 @@ import ValidHashFile from '@/components/bronze/ValidHashFile.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 import Load from '@/components/Load.vue'
+import router from '@/router'
 
 const config = ref<BronzeConfig>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/bronze-config/2')
+	const response = await axios.get(`http://localhost:8080/bronze-config/${router.currentRoute.value.params.id}`)
 	return response.data
 }
 onMounted(async () => {
 	config.value = await getConfig()
 })
+
 const saveFile = async () => {
-	await axios.put(`http://localhost:8080/bronze-config/update/2`, config.value)
-	console.log(config.value)
+	await axios.put(`http://localhost:8080/bronze-config/update/${router.currentRoute.value.params.id}`, config.value)
 }
 </script>
 <template>

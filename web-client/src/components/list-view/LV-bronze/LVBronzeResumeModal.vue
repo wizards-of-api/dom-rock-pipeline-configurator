@@ -9,18 +9,14 @@ type Props = {
 }
 
 const { lzConfig } = defineProps<Props>()
-
-
-
 const columnsResume = lzConfig.columns.reduce((string, column) => {
     if (!column.status || column.status !== 1) return string
-	
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
 
 const gotoBronzeConfig = () => {
-	router.replace('/bronze-config')
+	router.replace(`/bronze-config/${lzConfig.fileId}`)
 }
 
 const hashVerify = lzConfig.columns.reduce((string, column) => {
