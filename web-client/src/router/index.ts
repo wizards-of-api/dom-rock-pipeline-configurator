@@ -16,6 +16,11 @@ const router = createRouter({
 			component: HomeView,
 		},
 		{
+			path: '/home',
+			name: 'Home',
+			component: HomeView,
+		},
+		{
 			path: '/list-view',
 			name: 'Configurações Landing Zone',
 			component: ListView,
