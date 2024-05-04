@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import DRButton from '../DRButton.vue'
+import DRButton from '../../DRButton.vue'
 import router from '@/router'
-import type { LZConfig } from '../lz-config/types'
+import type { LZConfig } from '../../lz-config/types'
 
 type Props = {
     configList: LZConfig[]
