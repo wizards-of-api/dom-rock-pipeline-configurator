@@ -11,7 +11,6 @@ type Props = {
 const { lzConfig } = defineProps<Props>()
 const columnsResume = lzConfig.columns.reduce((string, column) => {
     if (!column.status || column.status !== 1) return string
-	
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
