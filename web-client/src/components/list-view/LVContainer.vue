@@ -4,7 +4,6 @@ import router from '@/router'
 import type { LZConfig } from '../lz-config/types'
 import DRSearch from '../DRSearch.vue'
 import axios from 'axios'
-
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
@@ -15,29 +14,24 @@ const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
 
-const handleSearch = async ( updateSearchTerm: string) => {
-	let concat = ('http://localhost:8080/lz-config/list-view/')
-	concat = concat + updateSearchTerm
-	const response = await axios.get(concat)
-	console.log(concat)
-	
-	let auxConfigList = configList
-	const originalConfigList = configList
-	if(updateSearchTerm==""){
-		configList = originalConfigList
-		console.log(configList)
-		return response.data.content}
-	else{
-		for ( const config of configList){
-			if(!(config.name.includes(updateSearchTerm))){
-				auxConfigList.splice(config.fileId,1)
-			}
-		}
-		configList = auxConfigList 
-		console.log(configList)
-		return response.data.content
+const handleSearch = async (updateSearchTerm: string) => {
+	configList = [...originalConfigList]
+	if (!updateSearchTerm || updateSearchTerm ==" ") {
+		console.log("saiu no if: ", configList)
+		return configList
+	}
+    
+	try {
+		const response = await axios.get(`http://localhost:8080/lz-config/list-view/${updateSearchTerm}`)
+		configList = response.data
+		console.log("saiu no try: ", configList)
+		return configList
+	} catch (error) {
+		console.error('Erro ao buscar dados:', error)
 	}
 }
+
+const originalConfigList = [...configList]
 </script>
 <template>
     <div class="container">
@@ -49,8 +43,6 @@ const handleSearch = async ( updateSearchTerm: string) => {
 		</div>
 		<div class= -bar>
 			
-
-
 		</div>
 			<div class="grid-wrap" v-if="configList">
 				<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
