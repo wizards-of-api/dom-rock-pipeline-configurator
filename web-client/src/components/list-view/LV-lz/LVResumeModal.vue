@@ -6,8 +6,8 @@ import axios from 'axios'
 import type { LZConfig } from '../../lz-config/types'
 
 const deleteFile = async (fileId: Number) => {
-	await axios.delete(`http://localhost:8080/list-view/delete/${fileId}`)
-	router.replace('/list-view')
+	await axios.delete(`http://localhost:8080/lz-config/delete/${fileId}`)
+	location.reload()
 }
 
 type Props = {
@@ -18,7 +18,6 @@ const { lzConfig } = defineProps<Props>()
 
 const columnsResume = lzConfig.columns.reduce((string, column) => {
 	if (!column.status) return string
-	
 	string += `${column.columnName}: ${column.type}\n`
 	return string
 }, '')
@@ -26,8 +25,8 @@ const columnsResume = lzConfig.columns.reduce((string, column) => {
 const gotoLZConfig = () => {
 	router.replace('/lz-config')
 }
-</script>
 
+</script>
 <template>
         <div class="modal">
             <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
