@@ -1,4 +1,4 @@
-export const PERIOD_TYPES = ['Dias', 'Meses', 'Anos'] as const
+export const PERIOD_TYPES = ['Dias', 'Meses', 'Anos', 'Semanas'] as const
 type PeriodType = (typeof PERIOD_TYPES)[number]
 
 export type MetadataUploadConfig = {
@@ -15,7 +15,7 @@ export type MetadataConfig = {
 	frequencyType: PeriodType
 } & MetadataUploadConfig
 
-export const VALID_COLUMN_TYPES = ['TEXTO', 'INTEIRO', 'DECIMAL', 'VERDADEIRO / FALSO'] as const
+export const VALID_COLUMN_TYPES = ['TEXTO', 'INTEIRO', 'DECIMAL', 'VERDADEIRO / FALSO', 'DATA'] as const
 export type ValidColumnType = (typeof VALID_COLUMN_TYPES)[number]
 
 export type ColumnConfig = {
