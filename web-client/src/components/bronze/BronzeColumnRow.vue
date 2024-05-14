@@ -14,11 +14,12 @@ const type = defineModel<string>('type')
 const canBeNull = defineModel<boolean>('canBeNull')
 const validColumn = defineModel<boolean>('validColumn')
 const hash = defineModel<boolean>('hash')
+const status = defineModel<string>('status', {})
 const emit = defineEmits(['update'])
 const emitUpdate = (valor:any) => {
-    setTimeout(() => {
-    emit('update', wrapColumnConfig())
-    }, 1000)
+	setTimeout(() => {
+		emit('update', wrapColumnConfig())
+	}, 1000)
 }
 onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.columnNumber)
@@ -27,6 +28,7 @@ onMounted(() => {
 	canBeNull.value = !!baseColumnConfig.empty
 	validColumn.value = !!baseColumnConfig.valid
 	hash.value = !!baseColumnConfig.hash
+	status.value = String(baseColumnConfig.status)
 })
 const wrapColumnConfig = () => ({
 	empty: canBeNull.value ? 1: 0,
@@ -37,6 +39,8 @@ const wrapColumnConfig = () => ({
 <template>
     <div
         class="grid column-config"
+        :key="status"
+        v-if="Number(status) === 1"
     >
         <DRTextInput
             style="grid-area: index"

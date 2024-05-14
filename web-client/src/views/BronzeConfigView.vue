@@ -45,7 +45,8 @@ const onCloseSavedModal = () => {
 }
 
 const goToBronzeListView = () => {
-	router.replace("/list-view-bronze")
+	await axios.put(`http://localhost:8080/bronze-config/update/${router.currentRoute.value.params.id}`, config.value)
+	router.replace(`/list-view-bronze`)
 }
 </script>
 
