@@ -8,7 +8,7 @@ const routeScrenn = (nomeRouter:String) => {
 		router.push('list-view')
 	}
 	else if(nomeRouter === "BRONZE"){
-		console.log("BRONZE")
+		router.push('list-view-bronze')
 	}else{
 		console.log("Silver")
 	}

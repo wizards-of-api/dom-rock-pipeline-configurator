@@ -2,7 +2,7 @@
   <div class="wrap">
     <div class="search">
       <input v-model="handleSearch" @input="updateSearchTerm" type="text" class="searchTerm" placeholder="Pesquisar...">
-      <button type="button" class="searchButton" >
+      <button type="button" class="searchButton">
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="white" class="bi bi-search" viewBox="0 0 16 16" style="vertical-align: 27; margin-left: -10">
           <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.397l3.85 3.85a1 1 0 1 0 1.415-1.414l-3.85-3.85z"/>
           <path fill-rule="evenodd" d="M7 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm1-5a1 1 0 0 1-2 0 1 1 0 0 1 2 0z"/>
@@ -19,9 +19,10 @@ const emit = defineEmits(['updateSearchTerm'])
 
 const handleSearch = ref('')
 
-
 const updateSearchTerm = () => {emit('updateSearchTerm', handleSearch.value)
 }
+
+
 
 </script>
 

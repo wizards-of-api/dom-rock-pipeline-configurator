@@ -8,7 +8,12 @@ type Props = {
 const { closeModal } = defineProps<Props>()
 
 const gotoListView = () => {
-	router.replace('/list-view')
+	if(router.currentRoute.value.name === "Etapa Bronze"){
+		router.replace('/list-view-bronze')
+
+	}else{
+		router.replace('/list-view')
+	}
 }
 </script>
 

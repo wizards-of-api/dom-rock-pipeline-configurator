@@ -1,12 +1,13 @@
 <script setup lang="ts">
-import DRButton from '../DRButton.vue'
+import DRButton from '@/components/DRButton.vue'
 import router from '@/router'
-import type { LZConfig } from '../lz-config/types'
-import DRSearch from '../DRSearch.vue'
+import type { LZConfig } from '@/components/lz-config/types'
+import DRSearch from '@/components/DRSearch.vue'
 import axios from 'axios'
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
+
 }
 let { configList, onBannerClick} = defineProps<Props>()
 
@@ -31,6 +32,7 @@ const handleSearch = async (updateSearchTerm: string) => {
 	}
 }
 
+
 const originalConfigList = [...configList]
 </script>
 <template>
@@ -39,12 +41,8 @@ const originalConfigList = [...configList]
 		<div class = -bar>
 			<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
 			<DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
-
 		</div>
-		<div class= -bar>
-			
-		</div>
-			<div class="grid-wrap" v-if="configList">
+			<div class="grid-wrap" v-if=configList>
 				<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
 					{{ config.name }}
 				</button>

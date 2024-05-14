@@ -25,6 +25,8 @@ export type ColumnConfig = {
 	canBeNull: boolean
 	description: string
 	status: number
+	hash: number
+	valid: number
 }
 
 export type LZConfig = {
@@ -42,5 +44,27 @@ export type LZConfig = {
 		empty: number
 		status: number
 		type: string
+		hash: number
+		valid: number
+	}>
+}
+
+export type BConfig = {
+	fileId: number
+	fileName: string
+	fileOrigin: string
+	filePeriod: string
+	fileType: string
+	frequency: number
+	name: string
+	columns: Array<{
+		columnId: Number
+		columnName: string
+		description: string
+		empty: number
+		status: number
+		type: string
+		hash: number
+		valid: number
 	}>
 }
