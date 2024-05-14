@@ -6,7 +6,7 @@ import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
-
+import SilverListView from '@/views/SilverListView.vue'
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
@@ -48,6 +48,11 @@ const router = createRouter({
 			path: '/list-view-bronze',
 			name: 'Configurações Bronze',
 			component: BronzeListView,
+		},
+		{
+			path: '/list-view-silver',
+			name: 'Configurações Silver',
+			component: SilverListView,
 		},
 		{
 			path: '/sandbox',
