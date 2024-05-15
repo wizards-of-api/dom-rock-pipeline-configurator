@@ -4,36 +4,50 @@ import router from '@/router'
 import type { LZConfig } from '@/components/lz-config/types'
 import DRSearch from '@/components/DRSearch.vue'
 import axios from 'axios'
+import { nextTick, onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from 'vue'
+import { getAllJSDocTagsOfKind } from 'typescript'
+
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
-
 }
-let { configList, onBannerClick} = defineProps<Props>()
+
+const configList = ref<LZConfig[]>([]);
+let {onBannerClick} = defineProps<Props>()
 
 const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
 
-const handleSearch = async (updateSearchTerm: string) => {
-	configList = [...originalConfigList]
-	if (!updateSearchTerm || updateSearchTerm ==" ") {
-		console.log("saiu no if: ", configList)
-		return configList
+onMounted(() => {
+	getAllPages()
+})
+
+async function getAllPages() {
+	const response = await axios.get('http://localhost:8080/lz-config/list-view')
+	const todasPaginas = response.data.totalPages
+	const configListCompleted: LZConfig[] = []
+
+	for (let i = 0; i < todasPaginas; i++) {
+		const pageResponse = await axios.get(`http://localhost:8080/lz-config/list-view?page=${i}`)
+		configListCompleted.push(...pageResponse.data.content)
 	}
-    
-	try {
+
+	configList.value = configListCompleted;
+}
+
+const handleSearch = async (updateSearchTerm: string) => {
+	if (!updateSearchTerm || updateSearchTerm == "") {
+		await getAllPages()
+	} else {
 		const response = await axios.get(`http://localhost:8080/lz-config/list-view/${updateSearchTerm}`)
-		configList = response.data
+		configList.value = response.data
+		console.log(configList.value)
 		console.log("saiu no try: ", configList)
-		return configList
-	} catch (error) {
-		console.error('Erro ao buscar dados:', error)
+		return configList.value
 	}
 }
 
-
-const originalConfigList = [...configList]
 </script>
 <template>
     <div class="container">
