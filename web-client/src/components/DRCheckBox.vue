@@ -4,14 +4,18 @@ type Props = {
 }
 const { title } = defineProps<Props>()
 
-const modelValue = defineModel()
+const modelValue = defineModel<boolean>()
 const emit = defineEmits(['update'])
+const handleChange = (event:any) => {
+	modelValue.value = event.target.checked
+	emit('update', modelValue.value)
+}
 </script>
 <template>
 	<div class="wrapper">
 		<span>{{ title }}</span>
 		<label>
-			<input type="checkbox" v-model="modelValue" @input="emit('update', ($event.target as HTMLInputElement).checked)"/>
+			<input type="checkbox" v-model="modelValue" @change="handleChange($event)"/>
 			<span class="checkmark"> </span>
 		</label>
 	</div>

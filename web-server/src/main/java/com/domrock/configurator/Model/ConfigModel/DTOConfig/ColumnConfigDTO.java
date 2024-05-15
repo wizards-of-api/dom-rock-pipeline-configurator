@@ -4,7 +4,7 @@ public record ColumnConfigDTO(
     String name,
     Integer index,
     String type,
-    boolean CanBeNull,
+    boolean canBeNull,
     String description,
     Integer status,
     boolean hash,

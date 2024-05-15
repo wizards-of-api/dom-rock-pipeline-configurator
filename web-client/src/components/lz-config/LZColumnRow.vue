@@ -12,16 +12,15 @@ type Props = {
 }
 const { baseColumnConfig } = defineProps<Props>()
 const emit = defineEmits(['update'])
-const emitUpdate = () => {
-	emit('update', wrapColumnConfig())
-}
-
 const columnIndex = defineModel<string>('index')
 const name = defineModel<string>('name')
 const type = defineModel<string>('type')
 const canBeNull = defineModel<boolean>('canBeNull')
 const description = defineModel<string>('description')
 const status = defineModel<string>('status', {})
+const emitUpdate = () => {
+	emit('update', wrapColumnConfig())
+}
 
 onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.index)
@@ -73,7 +72,7 @@ const wrapColumnConfig = () => ({
             style="grid-area: can-null; width: 7rem;"
             title="Pode Nulo?"
 			v-model="canBeNull"
-            @update="emitUpdate"
+            @change="emitUpdate"
         ></DRCheckBox>
         <DRButton
             style="grid-area: remove"

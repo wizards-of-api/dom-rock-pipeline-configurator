@@ -81,7 +81,7 @@ public class ColumnConfig {
         this.columnNumber = data.index();
         this.columnName = data.name();
         this.type = data.type();
-        this.empty = data.CanBeNull() ? 1 : 0;
+        this.empty = data.canBeNull() ? 1 : 0;
         this.description = data.description();
         this.status = data.status();
         this.hash = data.hash() ? 1 : 0;

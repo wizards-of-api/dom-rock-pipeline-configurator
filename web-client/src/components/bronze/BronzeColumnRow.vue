@@ -16,10 +16,8 @@ const validColumn = defineModel<boolean>('validColumn')
 const hash = defineModel<boolean>('hash')
 const status = defineModel<string>('status', {})
 const emit = defineEmits(['update'])
-const emitUpdate = (valor:any) => {
-	setTimeout(() => {
-		emit('update', wrapColumnConfig())
-	}, 1000)
+const emitUpdate = () => {
+	emit('update', wrapColumnConfig())
 }
 onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.columnNumber)
