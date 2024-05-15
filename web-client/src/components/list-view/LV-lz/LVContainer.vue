@@ -4,8 +4,7 @@ import router from '@/router'
 import type { LZConfig } from '@/components/lz-config/types'
 import DRSearch from '@/components/DRSearch.vue'
 import axios from 'axios'
-import { nextTick, onBeforeMount, onBeforeUpdate, onMounted, onUnmounted, onUpdated, ref } from 'vue'
-import { getAllJSDocTagsOfKind } from 'typescript'
+import {onMounted, ref} from 'vue'
 
 type Props = {
     configList: LZConfig[]
