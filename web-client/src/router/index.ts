@@ -4,12 +4,19 @@ import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
 import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
+import BronzeListView from '@/views/BronzeListView.vue'
+import BronzeConfigView from '@/views/BronzeConfigView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
 			path: '',
+			name: 'Home',
+			component: HomeView,
+		},
+		{
+			path: '/home',
 			name: 'Home',
 			component: HomeView,
 		},
@@ -24,6 +31,11 @@ const router = createRouter({
 			component: ListView,
 		},
 		{
+			path: '/bronze-config/:id',
+			name: 'Etapa Bronze',
+			component: BronzeConfigView,
+		},
+		{
 			path: '/lz-config',
 			name: 'Etapa Landing Zone',
 			// route level code-splitting
@@ -33,13 +45,18 @@ const router = createRouter({
 			component: LZConfigView,
 		},
 		{
+			path: '/list-view-bronze',
+			name: 'Configurações Bronze',
+			component: BronzeListView,
+		},
+		{
 			path: '/sandbox',
 			name: 'sandbox',
 			component: SandboxView,
 		},
 		{
 			path: '/:pathMatch(.*)*',
-			name: 'sandbox',
+			name: 'NotFound',
 			component: NotFound,
 		},
 	],
