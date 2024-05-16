@@ -36,25 +36,13 @@ body{
   width: 200px;
   border: 3px solid grey;
   height: 40px;
-  border-radius: 5px 0 0 5px;
+  border-radius: 5px 5px 5px 5px;
   outline: none; 
   color: #FFFFFF;
 }
 
 .searchTerm:focus{
   color: #FFFFFF;
-}
-
-.searchButton {
-  width: 40px;
-  height: 40px;
-  border: 0px solid grey;
-  background: grey;
-  text-align: center;
-  color: #000;
-  border-radius: 0 5px 5px 0;
-  cursor: pointer;
-  font-size: 50px;
 }
 
 .wrap{
