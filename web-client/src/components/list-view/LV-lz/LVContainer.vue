@@ -11,7 +11,8 @@ type Props = {
     onBannerClick: (index: LZConfig) => void
 }
 
-const configList = ref<LZConfig[]>([]);
+// eslint-disable-next-line vue/no-dupe-keys
+const configList = ref<LZConfig[]>([])
 let {onBannerClick} = defineProps<Props>()
 
 const goToLZConfig = () => {
@@ -32,7 +33,7 @@ async function getAllPages() {
 		configListCompleted.push(...pageResponse.data.content)
 	}
 
-	configList.value = configListCompleted;
+	configList.value = configListCompleted
 }
 
 const handleSearch = async (updateSearchTerm: string) => {
@@ -41,8 +42,6 @@ const handleSearch = async (updateSearchTerm: string) => {
 	} else {
 		const response = await axios.get(`http://localhost:8080/lz-config/list-view/${updateSearchTerm}`)
 		configList.value = response.data
-		console.log(configList.value)
-		console.log("saiu no try: ", configList)
 		return configList.value
 	}
 }
