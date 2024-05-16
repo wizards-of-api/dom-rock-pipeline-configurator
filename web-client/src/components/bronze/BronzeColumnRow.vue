@@ -70,18 +70,21 @@ const wrapColumnConfig = () => ({
                 v-model="canBeNull"
                 value= "canBenull"
                 @update="emitUpdate"
+                :disabled="true"
             ></DRCheckBox>
             <DRCheckBox
                 style="grid-area: valid; width: 7rem;"
                 title="Validada?"
                 v-model="validColumn"
                 @update="emitUpdate"
+                :disabled="false"
             ></DRCheckBox>
             <DRCheckBox
                 style="grid-area: can-null; width: 12rem;"
                 title="Usar como hash?"
                 v-model="hash"
                 @update="emitUpdate"
+                :disabled="false"
             ></DRCheckBox>
         </div>
     </div>

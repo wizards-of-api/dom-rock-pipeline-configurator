@@ -73,6 +73,7 @@ const wrapColumnConfig = () => ({
             title="Pode Nulo?"
 			v-model="canBeNull"
             @change="emitUpdate"
+            :disabled="false"
         ></DRCheckBox>
         <DRButton
             style="grid-area: remove"

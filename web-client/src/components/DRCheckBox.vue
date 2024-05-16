@@ -1,6 +1,7 @@
 <script setup lang="ts">
 type Props = {
 	title: String
+	disabled: boolean
 }
 const { title } = defineProps<Props>()
 
@@ -15,7 +16,7 @@ const handleChange = (event:any) => {
 	<div class="wrapper">
 		<span>{{ title }}</span>
 		<label>
-			<input type="checkbox" v-model="modelValue" @change="handleChange($event)"/>
+			<input type="checkbox" v-model="modelValue" @change="handleChange($event)" :disabled="disabled"/>
 			<span class="checkmark"> </span>
 		</label>
 	</div>
