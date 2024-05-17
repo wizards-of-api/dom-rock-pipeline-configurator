@@ -1,6 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
 import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
+import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
 
 import java.util.List;
@@ -14,6 +15,7 @@ public record MetadataConfigDTO(
         String fileOrigin,
         Integer frequencyNumber,
         String frequencyType,
+        Company company,
         List<ColumnConfig> columns
 ) {
     public MetadataConfigDTO(LZMetadataConfig lzMetadataConfig, List<ColumnConfig> columns) {
@@ -26,6 +28,7 @@ public record MetadataConfigDTO(
                 lzMetadataConfig.getFileOrigin(),
                 lzMetadataConfig.getFrequency(),
                 lzMetadataConfig.getFilePeriod(),
+                lzMetadataConfig.getCompany(),
                 columns
         );
     }
