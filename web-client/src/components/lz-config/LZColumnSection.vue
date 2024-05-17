@@ -31,10 +31,12 @@ const toAdd = defineModel('toAdd', {
 	},
 })
 const addColumn = () => {
-	if(!toAdd.value || toAdd.value === '') return
+	console.log("clicou")
+	if (toAdd.value === undefined || toAdd.value === '') return // Verifica se é indefinido ou vazio
 	const columnIndex = toAdd.value as number
 	columnList[columnIndex].status = 1
 	setActiveCount()
+	console.log("cadastrou!!")
 }
 
 const columnUpdate = (index: number, column: ColumnConfig) => {
