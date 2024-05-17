@@ -26,7 +26,7 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "is_super", nullable = false)
+    @Column(name = "is_super", nullable = false, columnDefinition = "TINYINT", length = 1)
     private boolean isSuper;
 
     @ManyToMany(fetch = FetchType.LAZY)
