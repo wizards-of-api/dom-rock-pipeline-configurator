@@ -65,7 +65,19 @@ public class LZConfigController {
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
-    }  
+    }
+    
+    @GetMapping("/list-view/{configName}")
+    public ResponseEntity<List<LZMetadataConfig>> getConfigListByName(@PathVariable String configName){
+        try{
+            List<LZMetadataConfig> listConfig = lzMetadataConfigInterface.findByName(configName);
+        return ResponseEntity.ok(listConfig);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+}
+
 
     @GetMapping("/{id}")
     @Transactional

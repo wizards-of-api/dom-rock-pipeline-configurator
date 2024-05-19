@@ -1,34 +1,55 @@
 <script setup lang="ts">
-import DRButton from '../DRButton.vue'
-import router from '@/router'
-import type { LZConfig } from '../lz-config/types'
+import type { LZConfig, BConfig } from '../../lz-config/types'
 
 type Props = {
-    configList: LZConfig[]
+	configList?: LZConfig[]
     onBannerClick: (index: LZConfig) => void
+	tagInfo?: 'invalid-tag' | 'valid-tag'
+	bronzeConfig?: BConfig
 }
-
 const { configList, onBannerClick } = defineProps<Props>()
 
-const goToLZConfig = () => {
-	router.replace('/lz-config')
+
+const validOrInvalid = (column:BConfig ) =>{
+	const validation = column?.columns.filter((column) => column.valid === 1)
+	const statuscolumn = column?.columns.filter((column)=> column.status === 1)
+	const hashVerify = column?.columns.reduce((string, column) => {
+		if (!column.hash) return string
+		string += `${column.columnName}, `
+		return string
+	}, '')
+	
+	const valid = (validation.length === statuscolumn.length && hashVerify !== "") ? true : false
+	return valid
 }
 </script>
 <template>
     <div class="container">
-        <h2>Landing Zone</h2>
-        <div class="top-bar">
-            <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
-        </div>
+        <h2>Bronze</h2>
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
-                {{ config.name }}
+				<div class = "banner-wrap">
+					<div :class=" validOrInvalid(config) ? 'valid-tag' : 'invalid-tag'"></div>
+					<div>{{ config.name }}</div> 
+				</div>
             </button>
         </div>
     </div>
 </template>
 
 <style scoped lang="scss">
+.banner-wrap {
+	padding: var(--gap) 0;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: 10px, 1fr;
+	gap: var(--gap) var(--gap);
+	justify-content:flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	justify-items: center;
+	overflow-y: hidden;
+}
 .grid-wrap {
 	padding: var(--gap) 0;
 	display: grid;
@@ -50,10 +71,22 @@ const goToLZConfig = () => {
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
   	outline-color: var(--color-banner-text);
-	
+	border-width: 3px;
 	font-size: 1.4rem;
 	height: 100px;
 	width: 200px;
+}
+.invalid-tag{
+	background: #f00;
+	border-radius:50%;
+	width: 10px;
+	height: 10px;
+}
+.valid-tag{
+	background: rgb(0, 255, 0);
+	border-radius:50%;
+	width: 10px;
+	height: 10px;
 }
 .container {
 	width: 960px;

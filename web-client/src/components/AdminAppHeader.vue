@@ -2,7 +2,7 @@
 
 <template>
   <header>
-    <router-link to="/home">
+    <router-link to="/admin-home">
       <img src="../assets/dom-rock-logo.png">
     </router-link>
     <div class="user">
