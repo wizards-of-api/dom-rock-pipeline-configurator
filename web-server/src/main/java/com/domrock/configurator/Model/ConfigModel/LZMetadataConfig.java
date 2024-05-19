@@ -32,7 +32,7 @@ public class LZMetadataConfig {
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_type")
-    private String fileType;
+    private String fileExtension;
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_origin")
@@ -40,7 +40,7 @@ public class LZMetadataConfig {
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
-    private Integer frequency;
+    private Integer frequencyNumber;
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
@@ -48,7 +48,7 @@ public class LZMetadataConfig {
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_period")
-    private String filePeriod;
+    private String frequencyType;
 
     @JsonView(Views.LZ.class)
     @Column(name = "file_name")
@@ -61,10 +61,10 @@ public class LZMetadataConfig {
     public LZMetadataConfig(MetadataConfigDTO file){
         this.fileName = file.fileName();
         this.name = file.name();
-        this.fileType = file.fileExtension();
+        this.fileExtension = file.fileExtension();
         this.fileOrigin = file.fileOrigin();
-        this.frequency = file.frequencyNumber();
-        this.filePeriod = file.frequencyType();
+        this.frequencyNumber = file.frequencyNumber();
+        this.frequencyType = file.frequencyType();
         this.hasHeader = file.hasHeader() ? 1: 0;
     }
     public LZMetadataConfig(){}

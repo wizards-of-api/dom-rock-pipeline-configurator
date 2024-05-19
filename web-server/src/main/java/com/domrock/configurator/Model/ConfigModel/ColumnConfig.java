@@ -54,7 +54,7 @@ public class ColumnConfig {
 
     @JsonView(Views.LZ.class)
     @Column(name = "column_empty")
-    private Integer empty;
+    private Integer canBeNull;
 
     @JsonView(Views.LZ.class)
     @Column(name = "column_description")
@@ -81,7 +81,7 @@ public class ColumnConfig {
         this.columnNumber = data.index();
         this.columnName = data.name();
         this.type = data.type();
-        this.empty = data.canBeNull() ? 1 : 0;
+        this.canBeNull = data.canBeNull() ? 1 : 0;
         this.description = data.description();
         this.status = data.status();
         this.hash = data.hash() ? 1 : 0;

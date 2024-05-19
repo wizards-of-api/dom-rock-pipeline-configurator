@@ -26,10 +26,10 @@ public class LZMetadataConfigServices {
             LZMetadataConfig updatedConfigData = configData.get();
             updatedConfigData.setFileName(newConfigData.getFileName());
             updatedConfigData.setName(newConfigData.getName());
-            updatedConfigData.setFileType(newConfigData.getFileType());
+            updatedConfigData.setFileExtension(newConfigData.getFileExtension());
             updatedConfigData.setFileOrigin(newConfigData.getFileOrigin());
-            updatedConfigData.setFrequency(newConfigData.getFrequency());
-            updatedConfigData.setFilePeriod(newConfigData.getFilePeriod());
+            updatedConfigData.setFrequencyNumber(newConfigData.getFrequencyNumber());
+            updatedConfigData.setFrequencyType(newConfigData.getFrequencyType());
             updatedConfigData.setHasHeader(newConfigData.getHasHeader());
             if (newConfigData.getColumns() != null) {
                 List<ColumnConfig> updatedColumns = new ArrayList<>();
