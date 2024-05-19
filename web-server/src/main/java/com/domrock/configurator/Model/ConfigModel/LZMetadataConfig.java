@@ -58,6 +58,10 @@ public class LZMetadataConfig {
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cnpj")
+    private Company company;
+
     public LZMetadataConfig(MetadataConfigDTO file){
         this.fileName = file.fileName();
         this.name = file.name();
@@ -66,6 +70,7 @@ public class LZMetadataConfig {
         this.frequency = file.frequencyNumber();
         this.filePeriod = file.frequencyType();
         this.hasHeader = file.hasHeader() ? 1: 0;
+        this.company = file.company();
     }
     public LZMetadataConfig(){}
 }
