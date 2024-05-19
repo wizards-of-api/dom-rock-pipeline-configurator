@@ -12,7 +12,7 @@ const emit = defineEmits(['update'])
 const nameHash = defineModel<string>('nameHash')
 const listHashValue =(columnList:ColumnConfig[]) =>{
 	const ListHash = columnList?.filter(column => column.hash === 1)
-	const valueHash = ListHash?.map(e => e.columnName.replace(""," "))
+	const valueHash = ListHash?.map(e => e.columnName?.replace(""," "))
 	nameHash.value = valueHash.toString()
 }
 const emitUpdate = (index:any, data:any) => {

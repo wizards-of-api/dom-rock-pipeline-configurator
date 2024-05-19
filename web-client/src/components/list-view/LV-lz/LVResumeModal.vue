@@ -23,7 +23,7 @@ const columnsResume = lzConfig.columns.reduce((string, column) => {
 }, '')
 
 const gotoLZConfig = () => {
-	router.replace('/lz-config')
+	router.replace(`/lz-config/update/${lzConfig.fileId}`)
 }
 
 </script>
@@ -40,7 +40,7 @@ const gotoLZConfig = () => {
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoLZConfig" disabled>Visualizar / Editar</DRButton>
+                    <DRButton :click-behavior="gotoLZConfig">Visualizar / Editar</DRButton>
                 </div>
                 <div>
                     <DRButton button-type="careful" :click-behavior="() => deleteFile(lzConfig.fileId)">Remover</DRButton>

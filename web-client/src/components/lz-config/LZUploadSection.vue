@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import {  onMounted, ref } from 'vue'
 import DRSectionTitle from '../DRSectionTitle.vue'
 import DRDropDown from '../DRDropDown.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
-import type { ColumnConfig } from './types'
+import type { ColumnConfig, LZConfigView} from './types'
 import { VALID_COLUMN_TYPES } from './types'
 import axios from 'axios'
 
@@ -14,6 +14,10 @@ type ResponseColumn = {
 	index: number,
 }
 
+type Props = {
+    valuesExistingInThisFile?: LZConfigView
+}
+const { valuesExistingInThisFile } = defineProps<Props>()
 const emit = defineEmits(['update', 'updateColumns'])
 
 const emitUpdate = () => {
@@ -24,6 +28,7 @@ const fileExtension = defineModel<string>('fileExtension')
 const hasHeader = defineModel<string>('hasHeader')
 const fileName = defineModel<string>('fileName')
 const separator = defineModel<string>('separator')
+const columnList = defineModel<ColumnConfig[]>('columnList')
 const inputFile = ref<HTMLInputElement>()
 
 const wrapUpdateMetadata = () => ({
@@ -34,19 +39,6 @@ const wrapUpdateMetadata = () => ({
 })
 
 const uploadFile = async ($event: Event) => {
-	// const response = [
-	// 	{
-	// 		index: 0,
-	// 		name: 'NOME',
-	// 	},
-	// 	{
-	// 		index: 1,
-	// 		name: 'VALOR',
-	// 	},
-	// ]
-	// fileName.value = 'americanas.csv'
-
-	console.log(separator.value, fileExtension.value, hasHeader.value)
 	
 	const inputTarget = $event.target as HTMLInputElement
 	const file = (inputTarget.files as FileList)[0]
@@ -64,12 +56,11 @@ const uploadFile = async ($event: Event) => {
 	formData.append('separator', separator.value)
 	formData.append('fileExtension', fileExtension.value)
 	formData.append('hasHeader', String(hasHeader.value === 'Sim'))
-
-	console.log('send')
+	
 	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
 	const responseColumns = response.data.columns
 
-	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
+	 columnList.value = responseColumns.map((data: ResponseColumn) => {
 		
 		return Object.assign(
 			{
@@ -82,13 +73,40 @@ const uploadFile = async ($event: Event) => {
 				name: data.column,
 				index: data.index,
 			},
-			
 		)
 	})
 
 	emitUpdate()
 	emit('updateColumns', columnList)
 }
+
+onMounted(()=>{
+	fileExtension.value = valuesExistingInThisFile?.fileExtension ?? ""
+	hasHeader.value = valuesExistingInThisFile?.hasHeader? "Sim": ""
+	fileName.value = valuesExistingInThisFile?.fileName ?? "",
+	separator.value = valuesExistingInThisFile ?"," : "",
+	columnList.value =  valuesExistingInThisFile?.columns?.map((data: ColumnConfig) => {
+		
+		return Object.assign(
+			{
+				type: VALID_COLUMN_TYPES[0],
+				canBeNull: Boolean(data.canBeNull),
+				description: data.description,
+				status: data.status,
+			},
+			{
+				name: data.columnName,
+				index: data.columnNumber,
+			},
+			
+		)
+	}) ?? []
+	emitUpdate()
+	emit('updateColumns', columnList)
+})
+
+
+
 </script>
 <template>
 	<div style="width: 100%">

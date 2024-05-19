@@ -23,13 +23,13 @@ onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.columnNumber)
 	name.value = baseColumnConfig.columnName
 	type.value = baseColumnConfig.type
-	canBeNull.value = !!baseColumnConfig.empty
-	validColumn.value = !!baseColumnConfig.valid
-	hash.value = !!baseColumnConfig.hash
+	canBeNull.value = Boolean(baseColumnConfig.canBeNull)
+	validColumn.value = Boolean(baseColumnConfig.valid)
+	hash.value = Boolean(baseColumnConfig.hash)
 	status.value = String(baseColumnConfig.status)
 })
 const wrapColumnConfig = () => ({
-	empty: canBeNull.value ? 1: 0,
+	canBeNull: canBeNull.value ? 1: 0,
 	valid: validColumn.value? 1: 0,
 	hash: hash.value ?1: 0,
 })

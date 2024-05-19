@@ -11,7 +11,7 @@ type Props = {
 }
 
 const filterInactive = (column: ColumnConfig) => column.status === 0
-const mapOptions = (column: ColumnConfig) => `${column.index} ${column.name}`
+const mapOptions = (column: ColumnConfig) => `${column.columnNumber} ${column.columnName}`
 
 const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList.map(baseColumn => baseColumn)
