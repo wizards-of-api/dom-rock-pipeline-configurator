@@ -5,10 +5,7 @@ import com.domrock.configurator.Services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -27,6 +24,28 @@ public class UserController {
         try {
             List<UserDTO> userDTOS = userService.getAllUsers();
             return ResponseEntity.ok(userDTOS);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @PostMapping("/{userEmail}/permissions/{permissionType}")
+    public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,
+                                                 @PathVariable("permissionType") String permissionType) {
+        try {
+            UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
+            return ResponseEntity.ok(userDTO);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
+    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
+                                                    @PathVariable("permissionType") String permissionType) {
+        try {
+            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
+            return ResponseEntity.ok(userDTO);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
