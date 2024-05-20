@@ -35,8 +35,8 @@ public class UserController {
         try {
             UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
             return ResponseEntity.ok(userDTO);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 
@@ -46,8 +46,8 @@ public class UserController {
         try {
             UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
             return ResponseEntity.ok(userDTO);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
         }
     }
 }
