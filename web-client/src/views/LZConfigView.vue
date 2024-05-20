@@ -26,7 +26,7 @@ const metadata: MetadataConfig = {
 	name: '',
 	fileOrigin: '',
 	fileName: '',
-	fileExtension: 'csv',
+	fileExtension: ["csv","Excel"],
 	frequencyNumber: 3,
 	frequencyType: 'Dias',
 	separator: ',',

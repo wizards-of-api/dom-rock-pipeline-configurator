@@ -8,7 +8,7 @@ import type { ColumnConfig } from './types'
 import { VALID_COLUMN_TYPES } from './types'
 import axios from 'axios'
 
-const FILE_EXTENSION_TYPES = ['csv']
+const FILE_EXTENSION_TYPES = ['csv', 'Excel']
 type ResponseColumn = {
 	column: string,
 	index: number,
@@ -66,7 +66,7 @@ const uploadFile = async ($event: Event) => {
 	formData.append('hasHeader', String(hasHeader.value === 'Sim'))
 
 	console.log('send')
-	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
+	const response = await axios.post('http://localhost:8080/lz-config/upload', formData)
 	const responseColumns = response.data.columns
 
 	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
@@ -82,7 +82,6 @@ const uploadFile = async ($event: Event) => {
 				name: data.column,
 				index: data.index,
 			},
-			
 		)
 	})
 
@@ -116,7 +115,7 @@ const uploadFile = async ($event: Event) => {
 				@update="emitUpdate"
 			></DRTextInput>
 
-			<input ref="inputFile" style="display: none;" type="file" @change="uploadFile($event)" accept=".csv"/>
+			<input ref="inputFile" style="display: none;" type="file" @change="uploadFile($event)" accept="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, .csv"/>
 			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()">Upload</DRButton>
 			<DRTextInput
 				style="grid-area: file-name"

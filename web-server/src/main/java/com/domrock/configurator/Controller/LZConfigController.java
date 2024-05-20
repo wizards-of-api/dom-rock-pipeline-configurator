@@ -51,16 +51,6 @@ public class LZConfigController {
     @Autowired
     private ArrayListToJson arrayListToJson;
 
-    // @GetMapping("/new-excel-to-json")
-    // public String newExcelToJson(@RequestParam String filePath) {
-    //     return arrayListToJson.newExcelToJson(filePath);
-    // }
-
-    // @GetMapping("/old-excel-to-json")
-    // public String oldExcelToJson(@RequestParam String filePath) {
-    //     return arrayListToJson.oldExcelToJson(filePath);
-    // }
-
     @GetMapping("/list-view")
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
@@ -76,8 +66,7 @@ public class LZConfigController {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
-
+    }   
 
     @GetMapping("/{id}")
     @Transactional
