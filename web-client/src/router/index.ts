@@ -7,6 +7,7 @@ import AdminHomeView from '@/views/AdminHomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
+import CreateUserView from '@/views/CreateUserView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -25,6 +26,11 @@ const router = createRouter({
 			path: '/admin-home',
 			name: 'Administrador',
 			component: AdminHomeView,
+		},
+		{
+			path: '/user-register',
+			name: 'Cadastro de Usuários',
+			component: CreateUserView,
 		},
 		{
 			path: '/list-view',

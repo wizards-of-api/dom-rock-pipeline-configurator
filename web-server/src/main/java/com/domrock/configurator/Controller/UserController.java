@@ -28,6 +28,17 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/create-user/{permissionType}")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO , @PathVariable String permissionType) {
+        try{
+            userService.createUser(userDTO);
+            userService.addUserPermission(userDTO.getEmail(),permissionType);
+            return ResponseEntity.ok(modelMapper.map(userDTO, UserDTO.class));
+        }catch (Exception e){
+            return ResponseEntity.notFound().build();
+        }
+
+    }
 
     @PostMapping("/{userEmail}/permissions/{permissionType}")
     public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,

@@ -88,4 +88,10 @@ public class UserService {
             return modelMapper.map(user, UserDTO.class);
         }
     }
+
+    @Transactional
+    public void createUser(UserDTO userDTO) {
+        User user = modelMapper.map(userDTO, User.class);
+        userRepository.save(user);
+    }
 }

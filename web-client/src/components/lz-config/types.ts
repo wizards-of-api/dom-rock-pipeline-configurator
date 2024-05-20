@@ -68,3 +68,10 @@ export type BConfig = {
 		valid: number
 	}>
 }
+
+export type CadastroConfig= {
+	nome: string
+	email: string
+	senha: string
+	super: boolean
+}
