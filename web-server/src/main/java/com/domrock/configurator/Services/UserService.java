@@ -61,7 +61,7 @@ public class UserService {
         if (user == null) {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
-            Permission permission = permissionRepository.findPermissionByType(permissionType);
+            Permission permission = permissionRepository.findByType(permissionType);
             user.getPermissions().add(permission);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
@@ -82,7 +82,7 @@ public class UserService {
         if (user == null) {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
-            Permission permission = permissionRepository.findPermissionByType(permissionType);
+            Permission permission = permissionRepository.findByType(permissionType);
             user.getPermissions().remove(permission);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
