@@ -11,7 +11,7 @@ export type MetadataUploadConfig = {
 export type MetadataConfig = {
 	name?: string
 	fileOrigin?: string
-	frequencyNumber?: number
+	frequencyNumber?: number | string
 	frequencyType?: PeriodType | string
 } & MetadataUploadConfig
 
@@ -58,17 +58,7 @@ export type LZConfigView = {
     hasHeader?: number,
     frequencyType?: string,
     fileName?: string,
-	columns?: Array<{
-		columnId?: Number
-		columnName?: string
-		columnNumber?:number
-		type?: string
-		canBeNull?: number
-		description?: string
-		status?: number
-		hash?: number
-		valid?: number
-	}>
+	columns?: ColumnConfig[]
 }
 
 export type BConfig = {

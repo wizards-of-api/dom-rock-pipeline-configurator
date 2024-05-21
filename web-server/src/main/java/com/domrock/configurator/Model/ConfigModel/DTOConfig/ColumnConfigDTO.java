@@ -1,8 +1,8 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
 public record ColumnConfigDTO(
-    String name,
-    Integer index,
+    String columnName,
+    Integer columnNumber,
     String type,
     boolean canBeNull,
     String description,

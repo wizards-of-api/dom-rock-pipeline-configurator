@@ -65,7 +65,7 @@ public class LZMetadataConfig {
         this.fileOrigin = file.fileOrigin();
         this.frequencyNumber = file.frequencyNumber();
         this.frequencyType = file.frequencyType();
-        this.hasHeader = file.hasHeader() ? 1: 0;
+        this.hasHeader = Boolean.TRUE.equals(file.hasHeader()) ? 1: 0;
     }
     public LZMetadataConfig(){}
 }

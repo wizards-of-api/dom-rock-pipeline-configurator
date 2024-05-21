@@ -12,8 +12,8 @@ type Props = {
 }
 const { baseColumnConfig } = defineProps<Props>()
 const emit = defineEmits(['update'])
-const columnIndex = defineModel<string>('index')
-const name = defineModel<string>('name')
+const columnNumber = defineModel<string>('columnNumber')
+const columnName = defineModel<string>('columnName')
 const type = defineModel<string>('type')
 const canBeNull = defineModel<boolean>('canBeNull')
 const description = defineModel<string>('description')
@@ -23,17 +23,17 @@ const emitUpdate = () => {
 }
 
 onMounted(() => {
-	columnIndex.value = String(baseColumnConfig.index)
-	name.value = baseColumnConfig.name
+	columnNumber.value = String(baseColumnConfig.columnNumber)
+	columnName.value = baseColumnConfig.columnName
 	type.value = baseColumnConfig.type
-	canBeNull.value = baseColumnConfig.canBeNull
+	canBeNull.value = Boolean(baseColumnConfig.canBeNull)
 	description.value = baseColumnConfig.description
 	status.value = String(baseColumnConfig.status)
 })
 
 const wrapColumnConfig = () => ({
-	index: Number(columnIndex.value),
-	name: name.value,
+	columnNumber: Number(columnNumber.value),
+	columnName: columnName.value,
 	type: type.value,
 	canBeNull: canBeNull.value,
 	description: description.value,
@@ -49,16 +49,16 @@ const wrapColumnConfig = () => ({
     <DRTextInput
         style="grid-area: index"
         title="Número da Coluna"
-        :default-value="String(baseColumnConfig.index)"
-        v-model="columnIndex"
+        :default-value="String(baseColumnConfig.columnNumber)"
+        v-model="columnNumber"
         @update="emitUpdate"
         disabled
     ></DRTextInput>
         <DRTextInput
             style="grid-area: name"
             title="Nome da Coluna"
-            :default-value="baseColumnConfig.name"
-            v-model="name"
+            :default-value="baseColumnConfig.columnName"
+            v-model="columnName"
 			@update="emitUpdate"
         ></DRTextInput>
         <DRDropDown

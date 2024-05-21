@@ -16,7 +16,7 @@ import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 import router from '@/router'
 
 const config = ref<LZConfigView>()
-let columnList: ColumnConfig[] = config.value?.columns ?? []
+let columnList: ColumnConfig[] = []
 const columnUpdateCount = ref(0)
 const updateColumnList = (newList: ColumnConfig[]) => {
 	onUpdateColumn(newList)
@@ -24,15 +24,15 @@ const updateColumnList = (newList: ColumnConfig[]) => {
 }
 
 const metadata: MetadataConfig = {
-	name: config.value?.name,
-	fileOrigin:config.value?.fileOrigin,
-	fileName: config.value?.fileName,	
-	fileExtension: config.value?.fileExtension,
-	frequencyNumber: config.value?.frequencyNumber,
-	frequencyType: config.value?.frequencyType,
-	separator: ',',
-	hasHeader: Boolean(config.value?.hasHeader),
+	name: '',
+	fileOrigin: '',
+	fileName: '',
+	fileExtension: 'csv',
+	frequencyNumber: 3,
+	frequencyType: 'Dias',
+	hasHeader: true,
 }
+
 
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
@@ -51,11 +51,37 @@ const getConfig = async () => {
 }
 onMounted(async () => {
 	config.value = await getConfig()
+	console.log(config.value)
+	const metadataUpdate: MetadataConfig = {
+		name: config.value?.name,
+		fileOrigin:config.value?.fileOrigin,
+		fileName: config.value?.fileName,	
+		fileExtension: config.value?.fileExtension,
+		frequencyNumber: Number(config.value?.frequencyNumber),
+		frequencyType: config.value?.frequencyType,
+		hasHeader: Boolean(config.value?.hasHeader),
+	}
+	onUpdateMetadata(metadataUpdate)
+	setTimeout(()=>{
+		onUpdateColumn(config.value?.columns??[])
+	},500)
 })
 
+
 const saveFile = async () => {
-	await axios.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, config.value)
-	router.replace(`/list-view-bronze`)
+	const configUpdate = {
+		name: metadata.name,
+		fileOrigin: metadata.fileOrigin,
+		fileName: metadata.fileName,
+		fileExtension: metadata.fileExtension,
+		frequencyNumber: metadata.frequencyNumber,
+		frequencyType: metadata.frequencyType,
+		hasHeader: metadata.hasHeader ? 1: 0,
+		columns: columnList,
+	}
+	console.log(configUpdate)
+	await axios.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, configUpdate)
+	router.replace(`/list-view`)
 }
 </script>
 <template>
@@ -73,9 +99,9 @@ const saveFile = async () => {
 			</AppHeader>
 			<nav class="wrapper nav">
 				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton v-if="config" button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 			</nav>
-			<main>
+			<main v-if="metadata">
 				<LZUploadSection v-if="config" @update="onUpdateMetadata" :values-existing-in-this-file="config" @update-columns="updateColumnList"></LZUploadSection>
 				<LZMetadataSection v-if="config" @update="onUpdateMetadata" :values-existing-in-this-file="config"></LZMetadataSection>
 				<LZColumnSection :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></LZColumnSection>

@@ -18,15 +18,14 @@ const columnList = baseColumnList.map(baseColumn => baseColumn)
 const activeColumnCount = ref(0)
 
 const emit = defineEmits(['update'])
-const emitUpdate = (index: any, data:any) => {
-	if(columnList){
-		const column = baseColumnList[index] 
-	    Object.assign(column, data)
-		emit('update', columnList)
-	}
+const emitUpdate = () => {
+	emit('update', columnList)
+	
 }
 
-const setActiveCount = () => activeColumnCount.value = columnList.filter(filterInactive).length
+const setActiveCount = () => {
+	activeColumnCount.value = columnList.filter(filterInactive).length
+}
 
 const toAdd = defineModel('toAdd', {
 	get: (value: any) => {
@@ -74,7 +73,7 @@ onMounted(() => {
 			:base-column-config="columnConfig"
 			@update="(newValue: ColumnConfig) => {
 				columnUpdate(index, newValue)
-				emitUpdate(index, newValue)
+				emitUpdate()
 			}"
 			:key="`${index}${columnConfig.status}`"
 		>

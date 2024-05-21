@@ -59,7 +59,6 @@ const uploadFile = async ($event: Event) => {
 	
 	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
 	const responseColumns = response.data.columns
-
 	 columnList.value = responseColumns.map((data: ResponseColumn) => {
 		
 		return Object.assign(
@@ -70,8 +69,8 @@ const uploadFile = async ($event: Event) => {
 				status: 1,
 			},
 			{
-				name: data.column,
-				index: data.index,
+				columnName: data.column,
+				columnNumber: data.index,
 			},
 		)
 	})
@@ -86,7 +85,6 @@ onMounted(()=>{
 	fileName.value = valuesExistingInThisFile?.fileName ?? "",
 	separator.value = valuesExistingInThisFile ?"," : "",
 	columnList.value =  valuesExistingInThisFile?.columns?.map((data: ColumnConfig) => {
-		
 		return Object.assign(
 			{
 				type: VALID_COLUMN_TYPES[0],
@@ -95,8 +93,8 @@ onMounted(()=>{
 				status: data.status,
 			},
 			{
-				name: data.columnName,
-				index: data.columnNumber,
+				columnName: data.columnName,
+				columnNumber: data.columnNumber,
 			},
 			
 		)
@@ -105,11 +103,9 @@ onMounted(()=>{
 	emit('updateColumns', columnList)
 })
 
-
-
 </script>
 <template>
-	<div style="width: 100%">
+	<div style="width: 100%" v-if="columnList">
 		<DRSectionTitle title="Upload"></DRSectionTitle>
 		<div class="grid upload">
 			<DRDropDown

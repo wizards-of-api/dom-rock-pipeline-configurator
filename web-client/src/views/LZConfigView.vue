@@ -29,7 +29,6 @@ const metadata: MetadataConfig = {
 	fileExtension: 'csv',
 	frequencyNumber: 3,
 	frequencyType: 'Dias',
-	separator: ',',
 	hasHeader: true,
 }
 
