@@ -11,29 +11,32 @@ const config = ref<CadastroConfig>()
 const showModal = ref(false)
 const selectedConfig = ref<CadastroConfig>()
 
+const emit = defineEmits(['update'])
+
+const emitUpdate = () => {
+	emit('update', wrapUpdateMetadata())
+}
+
 
 const nome = defineModel<String>('nome')
 const email = defineModel<String>('email')
-const permissoes = defineModel<String[]>('permissoes')
+const permissoes = defineModel<String>('permissoes')
 const senha = defineModel<String>('senha')
 const isSuper = defineModel<boolean>('isSuper')
 
 
 const saveFile = async () => {
-	await axios.post('http://localhost:8080/user/create-user', {
+	await axios.put('http://localhost:8080/user/create-user/'.concat(wrapUpdateMetadata().permissoes)  , {
 		name:nome.value,
 		email:email.value,
 		password:senha.value,
-		permissoes:{permissionId: permissoes.value},
-		isSuper:true,
-
 	})}
 
 const wrapUpdateMetadata = () => ({
 	nome: nome.value,
 	email: email.value,
 	senha:senha.value,
-	permissoes: permissoes.value,
+	permissoes: permissoes.value === 'LZ' ? '1' : permissoes.value === 'Bronze' ? '2' : permissoes.value === 'Silver' ? '3' : '1',
 	isSuper: isSuper.value,
 })
 
@@ -46,28 +49,33 @@ const wrapUpdateMetadata = () => ({
 			style="grid-area: nome; width: 16rem"
 				title="Nome"
 				v-model="nome"
+				@update="emitUpdate"
 			></DRTextInput>
 			<DRTextInput
 				style="grid-area: senha; width: 16rem"
 				title="Senha"
 				v-model="senha"
+				@update="emitUpdate"
 			></DRTextInput>
 			<DRDropDown
 				style="grid-area: permissoes; width: 16rem"
 				title="Permissões"
-				:option-list="['LZ', 'Bronze', 'Silve']"
+				:option-list="['LZ', 'Bronze', 'Silver']"
 				v-model="permissoes"
+				@update="emitUpdate"
 			></DRDropDown>
 			<DRTextInput
 				style="grid-area: email; width: 16rem"
 				title="Email"
 				v-model="email"
+				@update="emitUpdate"
 			></DRTextInput>
 			<DRDropDown
 			style="grid-area: empresas; width: 16rem"
 			title="Empresa"
 			:option-list="'two'"
 			v-model="permissoes"
+			@update="emitUpdate"
 		></DRDropDown>
 		<DRButton :click-behavior="saveFile">Cadastrar</DRButton>
 		</div>

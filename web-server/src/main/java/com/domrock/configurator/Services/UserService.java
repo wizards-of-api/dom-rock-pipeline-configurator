@@ -2,17 +2,22 @@ package com.domrock.configurator.Services;
 
 import com.domrock.configurator.Interface.PermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.PermissionDto;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Model.ConfigModel.Permission;
+import com.domrock.configurator.Model.ConfigModel.PermissionType;
 import com.domrock.configurator.Model.ConfigModel.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 @Service
 public class UserService {
@@ -38,7 +43,7 @@ public class UserService {
         } else {
             return users.stream()
                     .map((user) -> modelMapper.map(user, UserDTO.class))
-                    .collect(Collectors.toList());
+                    .collect(toList());
         }
     }
 
@@ -51,18 +56,21 @@ public class UserService {
      * Adds a permission to the user with the given email.
      *
      * @param email           the email of the user to whom the permission should be added.
-     * @param permissionType  the type of permission to be added.
+     * @param permissionCreated  the type of permission to be added.
      * @return                {@link UserDTO} representing the user entity after adding the permission.
      * @throws NoSuchElementException if no user is found with the email.
      */
     @Transactional
-    public UserDTO addUserPermission(String email, String permissionType) {
+    public UserDTO addUserPermission(String email, int permissionCreated) {
         User user = userRepository.findById(email).orElse(null);
         if (user == null) {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
-            Permission permission = permissionRepository.findPermissionByType(permissionType);
-            user.getPermissions().add(permission);
+            String permissionString = PermissionType.values()[permissionCreated].name();
+            Permission adfhqifda = permissionRepository.findPermissionByType(permissionString);
+            PermissionDto permission = modelMapper.map(permissionRepository.findPermissionByType(permissionString), PermissionDto.class);
+            Permission permissionToAdd = modelMapper.map(permission, Permission.class);
+            user.getPermissions().add(permissionToAdd);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
