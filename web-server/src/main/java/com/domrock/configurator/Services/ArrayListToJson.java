@@ -12,16 +12,4 @@ public class ArrayListToJson {
         Gson gson = new Gson();
         return gson.toJson(arrayList);
     }
-
-    public String newExcelToJson(String filePath) {
-        CsvConverter csvConverter = new CsvConverter();
-        List<String> headers = csvConverter.newExcelConverter(filePath);
-        return toJson(headers);
-    }
-
-    public String oldExcelToJson(String filePath) {
-        CsvConverter csvConverter = new CsvConverter();
-        List<String> headers = csvConverter.oldExcelConverter(filePath);
-        return toJson(headers);
-    }
 }

@@ -27,7 +27,7 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.ListColumnResponseDT
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
 import com.domrock.configurator.Services.ArrayListToJson;
 import com.domrock.configurator.Services.ColumnConfigServices;
-import com.domrock.configurator.Services.CsvConverter;
+import com.domrock.configurator.Services.FileConverter;
 import com.domrock.configurator.Services.LZMetadataConfigServices;
 
 import com.fasterxml.jackson.annotation.JsonView;
@@ -46,20 +46,10 @@ public class LZConfigController {
     ColumnConfigServices lzColumnConfigServices;
 
     @Autowired
-    private CsvConverter csvConverter;
+    private FileConverter fileConverter;
 
     @Autowired
     private ArrayListToJson arrayListToJson;
-
-    @GetMapping("/new-excel-to-json")
-    public String newExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.newExcelToJson(filePath);
-    }
-
-    @GetMapping("/old-excel-to-json")
-    public String oldExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.oldExcelToJson(filePath);
-    }
 
     @GetMapping("/list-view")
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
@@ -76,8 +66,7 @@ public class LZConfigController {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
-
+    }   
 
     @GetMapping("/{id}")
     @Transactional
@@ -95,15 +84,15 @@ public class LZConfigController {
         }
     }
 
-    @PostMapping("/upload-csv")
+    @PostMapping("/upload")
     public ResponseEntity<ListColumnResponseDTO> csvToJson(
-        @RequestParam("file") MultipartFile file,
-        @RequestParam("hasHeader") boolean hasHeader,
-        @RequestParam("fileExtension") String fileExtension,
-        @RequestParam("separator") String separator,
-        @RequestParam("separator") String fileName
-    ) {
-        List<ColumnResponseDTO> columns = csvConverter.createFileCsv(file, fileName, fileName);
+            @RequestParam("file") MultipartFile file,
+            @RequestParam("hasHeader") boolean hasHeader,
+            @RequestParam("fileExtension") String fileExtension,
+            @RequestParam("separator") String separator,
+            @RequestParam("separator") String fileName
+            ) throws Exception {
+        List<ColumnResponseDTO> columns = fileConverter.typeSpreadsheet(file, fileExtension, fileName, separator);
         ListColumnResponseDTO responseJson = new ListColumnResponseDTO(columns);
         return ResponseEntity.ok(responseJson);
     }

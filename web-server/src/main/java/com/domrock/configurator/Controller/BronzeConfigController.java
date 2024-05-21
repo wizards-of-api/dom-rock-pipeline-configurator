@@ -2,7 +2,6 @@ package com.domrock.configurator.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
@@ -35,16 +34,6 @@ public class BronzeConfigController {
 
     @Autowired
     private ArrayListToJson arrayListToJson;
-
-    @GetMapping("/new-excel-to-json")
-    public String newExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.newExcelToJson(filePath);
-    }
-
-    @GetMapping("/old-excel-to-json")
-    public String oldExcelToJson(@RequestParam String filePath) {
-        return arrayListToJson.oldExcelToJson(filePath);
-    }
 
     @GetMapping("/list-view")
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
