@@ -9,6 +9,7 @@ import { VALID_COLUMN_TYPES } from './types'
 import axios from 'axios'
 
 const FILE_EXTENSION_TYPES = ['csv', 'Excel']
+
 type ResponseColumn = {
 	column: string,
 	index: number,

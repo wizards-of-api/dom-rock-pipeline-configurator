@@ -1,8 +1,11 @@
 export const PERIOD_TYPES = ['Dias', 'Meses', 'Anos', 'Semanas'] as const
 type PeriodType = (typeof PERIOD_TYPES)[number]
 
+export const FILE_EXTENSIONS = ['csv', 'Excel'] as const
+export type FileExtension = (typeof FILE_EXTENSIONS)[number]
+
 export type MetadataUploadConfig = {
-	fileExtension: ['csv', 'Excel']
+	fileExtension: FileExtension
 	hasHeader: boolean
 	fileName: string
 	separator: string

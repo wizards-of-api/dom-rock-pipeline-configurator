@@ -17,8 +17,8 @@ import java.util.List;
 
 @Service
 public class FileConverter {
-    List<String> headers = new ArrayList<>();
     public List<ColumnResponseDTO> csvConverter(String filePath, String separator) {
+        List<String> headers = new ArrayList<>();
         try {
             FileReader reader = new FileReader(filePath);
             CSVParser csvParser = new CSVParser(reader, CSVFormat.DEFAULT);
@@ -38,6 +38,7 @@ public class FileConverter {
         return convertColumnToJson(headers);
     }
     public List<ColumnResponseDTO> excelConverter(String filePath, String separator) {
+        List<String> headers = new ArrayList<>();
         try {
             FileInputStream file = new FileInputStream(filePath);
             XSSFWorkbook wkbk = new XSSFWorkbook(file);
@@ -61,17 +62,19 @@ public class FileConverter {
         return convertColumnToJson(headers);
     }
         
-    public  List<ColumnResponseDTO> typeSpreadsheet(MultipartFile file, String fileExtension, String filePath, String separator) throws Exception {
+    public List<ColumnResponseDTO> typeSpreadsheet(MultipartFile file, String fileExtension, String filePath, String separator) throws Exception {
+        List<ColumnResponseDTO> headers = new ArrayList<>();
+        headers.clear();
         if ("csv".equals(fileExtension)) {
+            headers = createFile(file, fileExtension, filePath, separator);
             csvConverter(filePath, separator);
-            createFile(file, fileExtension, filePath, separator);
         } else if ("Excel".equals(fileExtension)) {
+            headers = createFile(file, fileExtension, filePath, separator);
             excelConverter(filePath, separator);
-            createFile(file, fileExtension, filePath, separator);
         } else {
             throw new Exception("Arquivo inválido!");
         }
-        return convertColumnToJson(headers);
+        return headers;
     }
 
     public List<ColumnResponseDTO> createFile(MultipartFile file, String fileExtension, String fileName, String separator){
