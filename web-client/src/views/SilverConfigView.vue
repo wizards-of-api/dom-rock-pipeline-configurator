@@ -15,7 +15,6 @@ import Load from '@/components/Load.vue'
 import router from '@/router'
 
 const config = ref<SilverConfig>()
-const silverdata = ref<silverFromTo>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 const getConfig = async () => {
@@ -57,7 +56,6 @@ const saveFile = async () => {
 			<main>
 				<MetadataSilver></MetadataSilver>
 				<FromTo></FromTo>
-				<SilverColumnRow :base-from-to="silverdata"></SilverColumnRow>
 			</main>
 		</div>
 	</div>

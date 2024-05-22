@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { onBeforeMount} from 'vue';
+import { onBeforeMount, ref} from 'vue';
 import DRSectionTitle from '../DRSectionTitle.vue'
 import SilverColumnRow from './SilverColumnRow.vue'
 import type { silverFromTo } from './types'
 type Props = {
     baseColumnList?: silverFromTo[] | []
 }
+const silverdata = ref<silverFromTo>()
 const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList?.map(baseColumn => baseColumn)
 const emit = defineEmits(['update'])
@@ -23,7 +24,8 @@ onBeforeMount(()=> {
 
 </script>
 <template>
-	<DRSectionTitle title="De/Para"></DRSectionTitle>		
+	<DRSectionTitle title="De/Para"></DRSectionTitle>	
+	<SilverColumnRow :base-from-to="silverdata"></SilverColumnRow>	
 			<SilverColumnRow 
 				v-for="(columnConfig, index) in columnList"
 					:base-column-config="columnConfig"

@@ -28,6 +28,7 @@ onMounted(() => {
 
 const clickTest = () => {
     console.log(columnIndex.value, fromC.value, toC.value)
+    console.log("Remover")
 }
 
 </script>

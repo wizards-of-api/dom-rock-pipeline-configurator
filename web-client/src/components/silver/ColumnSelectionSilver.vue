@@ -27,7 +27,8 @@ type Props = {
 const {config , silverData} = defineProps<Props>()
 
 const clickTest = ()=>{
-	return (console.log('teste'))
+	(console.log('Adicionar'))
+	console.log()
 }
 // const columnList = config? config.map(baseColumn => baseColumn):[];
 // const filterInactive = (column: SilverConfig) => column.fileId === 0
@@ -53,7 +54,9 @@ const clickTest = ()=>{
             			@update="emitUpdate">
 					</DRDropDown>
 					<div class="buttonAlign">
-						<DRButton :click-behavior="clickTest">Adcionar</DRButton>
+						<DRButton 
+						:click-behavior="clickTest">Adcionar
+						</DRButton>
 						</div>
 					<div class ="rowMetadata">
 						<div class="textInfo">
