@@ -6,7 +6,6 @@ import type { silverFromTo } from './types'
 type Props = {
     baseColumnList?: silverFromTo[] | []
 }
-const silverdata = ref<silverFromTo>()
 const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList?.map(baseColumn => baseColumn)
 const emit = defineEmits(['update'])
@@ -25,7 +24,7 @@ onBeforeMount(()=> {
 </script>
 <template>
 	<DRSectionTitle title="De/Para"></DRSectionTitle>	
-	<SilverColumnRow :base-from-to="silverdata"></SilverColumnRow>	
+	<SilverColumnRow :base-from-to="columnList"></SilverColumnRow>	
 			<SilverColumnRow 
 				v-for="(columnConfig, index) in columnList"
 					:base-column-config="columnConfig"

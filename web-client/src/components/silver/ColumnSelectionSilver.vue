@@ -24,22 +24,12 @@ type Props = {
     config?: SilverConfig[]
 	silverData?: silverFromTo
 }
-const {config , silverData} = defineProps<Props>()
 
 const clickTest = ()=>{
 	(console.log('Adicionar'))
 	console.log()
 }
-// const columnList = config? config.map(baseColumn => baseColumn):[];
-// const filterInactive = (column: SilverConfig) => column.fileId === 0
-// const activeColumnCount = ref(0)
-// const setActiveCount = () => activeColumnCount.value = columnList.filter(filterInactive).length
-// const addColumn = () => {
-// 	if(!toAdd.value || toAdd.value === '') return
-// 	const columnIndex = toAdd.value as number
-// 	columnList[columnIndex].fileId = 1
-// 	setActiveCount()
-// }
+
 
 </script>
 <template>
