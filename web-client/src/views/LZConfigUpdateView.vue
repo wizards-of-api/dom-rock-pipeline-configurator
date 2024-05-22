@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import axios from 'axios'
 
-import type { MetadataConfig, ColumnConfig } from '@/components/lz-config/types'
+import type { MetadataConfig, ColumnConfig, LZConfigView} from '@/components/lz-config/types'
 
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
@@ -13,8 +13,9 @@ import LZMetadataSection from '@/components/lz-config/LZMetadataSection.vue'
 import LZColumnSection from '@/components/lz-config/LZColumnSection.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
+import router from '@/router'
 
-
+const config = ref<LZConfigView>()
 let columnList: ColumnConfig[] = []
 const columnUpdateCount = ref(0)
 const updateColumnList = (newList: ColumnConfig[]) => {
@@ -32,6 +33,7 @@ const metadata: MetadataConfig = {
 	hasHeader: true,
 }
 
+
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 
@@ -43,17 +45,43 @@ const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 	columnList = newColumnList
 }
 
+const getConfig = async () => {
+	const response = await axios.get(`http://localhost:8080/lz-config/${router.currentRoute.value.params.id}`)
+	return response.data
+}
+onMounted(async () => {
+	config.value = await getConfig()
+	const metadataUpdate: MetadataConfig = {
+		name: config.value?.name,
+		fileOrigin:config.value?.fileOrigin,
+		fileName: config.value?.fileName,	
+		fileExtension: config.value?.fileExtension,
+		frequencyNumber: Number(config.value?.frequencyNumber),
+		frequencyType: config.value?.frequencyType,
+		hasHeader: Boolean(config.value?.hasHeader),
+	}
+	onUpdateMetadata(metadataUpdate)
+	setTimeout(()=>{
+		onUpdateColumn(config.value?.columns??[])
+	}, 500)
+})
+
+
 const saveFile = async () => {
-	const config = {
-		metadata,
+	const configUpdate = {
+		name: metadata.name,
+		fileOrigin: metadata.fileOrigin,
+		fileName: metadata.fileName,
+		fileExtension: metadata.fileExtension,
+		frequencyNumber: metadata.frequencyNumber,
+		frequencyType: metadata.frequencyType,
+		hasHeader: metadata.hasHeader ? 1: 0,
 		columns: columnList,
 	}
-
-	await axios.post('http://localhost:8080/lz-config/save', config)
-	showSavedModal.value = true
+	await axios.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, configUpdate)
+	router.replace(`/list-view`)
 }
 </script>
-
 <template>
 	<div>
 		<div>
@@ -69,11 +97,11 @@ const saveFile = async () => {
 			</AppHeader>
 			<nav class="wrapper nav">
 				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton v-if="config" button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 			</nav>
-			<main>
-				<LZUploadSection @update="onUpdateMetadata" @update-columns="updateColumnList"></LZUploadSection>
-				<LZMetadataSection @update="onUpdateMetadata"></LZMetadataSection>
+			<main v-if="metadata">
+				<LZUploadSection v-if="config" @update="onUpdateMetadata" :values-existing-in-this-file="config" @update-columns="updateColumnList"></LZUploadSection>
+				<LZMetadataSection v-if="config" @update="onUpdateMetadata" :values-existing-in-this-file="config"></LZMetadataSection>
 				<LZColumnSection :base-column-list="columnList" @update="onUpdateColumn" :key="columnUpdateCount"></LZColumnSection>
 			</main>
 		</div>

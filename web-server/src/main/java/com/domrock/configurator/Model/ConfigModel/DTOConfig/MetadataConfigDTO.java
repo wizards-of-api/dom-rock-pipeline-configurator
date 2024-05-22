@@ -24,10 +24,10 @@ public record MetadataConfigDTO(
                 lzMetadataConfig.getName(),
                 lzMetadataConfig.getHasHeader() == 1,
                 lzMetadataConfig.getFileName(),
-                lzMetadataConfig.getFileType(),
+                lzMetadataConfig.getFileExtension(),
                 lzMetadataConfig.getFileOrigin(),
-                lzMetadataConfig.getFrequency(),
-                lzMetadataConfig.getFilePeriod(),
+                lzMetadataConfig.getFrequencyNumber(),
+                lzMetadataConfig.getFrequencyType(),
                 lzMetadataConfig.getCompany(),
                 columns
         );

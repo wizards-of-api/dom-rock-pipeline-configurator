@@ -7,18 +7,14 @@ import AdminHomeView from '@/views/AdminHomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
+import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: '',
-			name: 'Home',
-			component: HomeView,
-		},
-		{
 			path: '/home',
-			name: 'Home',
+			name: 'HomeView',
 			component: HomeView,
 		},
 		{
@@ -28,31 +24,27 @@ const router = createRouter({
 		},
 		{
 			path: '/list-view',
-			name: 'Configurações Landing Zone',
-			component: ListView,
-		},
-		{
-			path: '/list-view',
-			name: 'list-view',
+			name: 'ListView',
 			component: ListView,
 		},
 		{
 			path: '/bronze-config/:id',
-			name: 'Etapa Bronze',
+			name: 'BronzeConfigView',
 			component: BronzeConfigView,
 		},
 		{
 			path: '/lz-config',
-			name: 'Etapa Landing Zone',
-			// route level code-splitting
-			// this generates a separate chunk (About.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			// component: () => import('../views/LZConfigView.vue'),
+			name: 'LZConfigView',
 			component: LZConfigView,
 		},
 		{
+			path: '/lz-config/update/:id',
+			name: 'LZConfigUpdateView',
+			component: LZConfigUpdateView,
+		},
+		{
 			path: '/list-view-bronze',
-			name: 'Configurações Bronze',
+			name: 'BronzeListView',
 			component: BronzeListView,
 		},
 		{
