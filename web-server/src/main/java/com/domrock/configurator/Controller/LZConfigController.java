@@ -76,7 +76,7 @@ public class LZConfigController {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
+    }
 
 
     @GetMapping("/{id}")
