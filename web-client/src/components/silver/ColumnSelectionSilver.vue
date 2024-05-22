@@ -27,7 +27,7 @@ type Props = {
 
 const clickTest = ()=>{
 	(console.log('Adicionar'))
-	console.log()
+
 }
 
 
@@ -41,8 +41,7 @@ const clickTest = ()=>{
             			title="Coluna"
 						v-model="toAdd"
             			:option-list="[Teste, 'Código', 'Marca', 'Aparelho', 'Etc...']"
-            			@update="emitUpdate">
-					</DRDropDown>
+						></DRDropDown>
 					<div class="buttonAlign">
 						<DRButton 
 						:click-behavior="clickTest">Adcionar
@@ -54,14 +53,14 @@ const clickTest = ()=>{
 						style="grid-area: index"
             			title="De"
             			v-model="Teste"
-            			@update="emitUpdate"></DRTextInput>
+            			></DRTextInput>
 						</div>
 						<div class="textInfo">
 						<DRTextInput
 						style="grid-area: index"
             			title="Para"
             			v-model="Teste"
-            			@update="emitUpdate"></DRTextInput>
+            			></DRTextInput>
 						</div>
 					</div>
 					
