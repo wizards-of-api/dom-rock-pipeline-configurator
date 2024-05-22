@@ -2,11 +2,14 @@
 import type { silverFromTo } from './types'
 import DRTextInput from '../DRTextInput.vue'
 import { onMounted } from 'vue'
+import DRButton from '../DRButton.vue';
 
-type Props = {
-	baseFromTo: silverFromTo
+
+const baseFromTo: silverFromTo = {
+    id_silver: 1,
+    from_c: 'de',
+    to_c: 'para'
 }
-const { baseFromTo } = defineProps<Props>()
 const columnIndex = defineModel<string>('index')
 const fromC = defineModel<string>('fromC')
 const toC = defineModel<string>('toC')
@@ -22,6 +25,10 @@ onMounted(() => {
 	fromC.value = baseFromTo.from_c
 	toC.value = baseFromTo.to_c
 })
+
+const clickTest = () => {
+    console.log(columnIndex.value, fromC.value, toC.value)
+}
 
 </script>
 <template>
@@ -52,6 +59,7 @@ onMounted(() => {
             @update="emitUpdate"
             disabled
         ></DRTextInput>
+            <DRButton button-type="careful" :click-behavior="clickTest">Remover</DRButton>
         </div>
 </template>
 <style scoped lang="scss">
@@ -64,12 +72,11 @@ onMounted(() => {
 	padding: var(--big-gap) 0;
 }
 .column-config {
-    width: 1200px;
-	grid-template-columns: min-content min-content min-content;
+    width: 90%;
+    grid-template-columns: 20% 30% 30% 20%;
 	grid-template-rows: min-content 2fr;
 	grid-template-areas:
-		'index from to'
-		'description description description';
-	border-top: 1px solid var(--color-separator);
+		'index from to delete'
+		'description description description description';
 }
 </style>

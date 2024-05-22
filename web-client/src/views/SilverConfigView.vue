@@ -31,10 +31,10 @@ const saveFile = async () => {
 	router.replace(`/list-view-silver`)
 }
 	
-	onMounted(async () => {
-    config.value = await getConfig()
-    silverdata.value = config.value
-})
+// 	onMounted(async () => {
+//     config.value = await getConfig()
+//     silverdata.value = config.value
+// })
 
 </script>
 <template>
