@@ -3,7 +3,7 @@ type PeriodType = (typeof PERIOD_TYPES)[number]
 
 export type MetadataUploadConfig = {
 	fileExtension?: 'csv' | string
-	hasHeader?: boolean
+	hasHeader?: boolean | number
 	fileName?: string
 	separator?: string
 }
@@ -34,9 +34,9 @@ export type LZConfig = {
 	fileId: number
 	fileName: string
 	fileOrigin: string
-	filePeriod: string
-	fileType: string
-	frequency: number
+	frequencyType: string
+	fileExtension: string
+	frequencyNumber: number
 	name: string
 	columns: Array<{
 		columnId: Number

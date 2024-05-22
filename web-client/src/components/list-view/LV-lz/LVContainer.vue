@@ -1,31 +1,66 @@
 <script setup lang="ts">
-import DRButton from '../../DRButton.vue'
+import DRButton from '@/components/DRButton.vue'
 import router from '@/router'
-import type { LZConfig } from '../../lz-config/types'
+import type { LZConfig } from '@/components/lz-config/types'
+import DRSearch from '@/components/DRSearch.vue'
+import axios from 'axios'
+import {onMounted, ref} from 'vue'
 
 type Props = {
     configList: LZConfig[]
     onBannerClick: (index: LZConfig) => void
 }
 
-const { configList, onBannerClick } = defineProps<Props>()
+// eslint-disable-next-line vue/no-dupe-keys
+const configList = ref<LZConfig[]>([])
+let {onBannerClick} = defineProps<Props>()
 
 const goToLZConfig = () => {
 	router.replace('/lz-config')
 }
+
+onMounted(() => {
+	getAllPages()
+})
+
+async function getAllPages() {
+	const response = await axios.get('http://localhost:8080/lz-config/list-view')
+	const todasPaginas = response.data.totalPages
+	const configListCompleted: LZConfig[] = []
+
+	for (let i = 0; i < todasPaginas; i++) {
+		const pageResponse = await axios.get(`http://localhost:8080/lz-config/list-view?page=${i}`)
+		configListCompleted.push(...pageResponse.data.content)
+	}
+
+	configList.value = configListCompleted
+}
+
+const handleSearch = async (updateSearchTerm: string) => {
+	if (!updateSearchTerm || updateSearchTerm == "") {
+		await getAllPages()
+	} else {
+		const response = await axios.get(`http://localhost:8080/lz-config/list-view/${updateSearchTerm}`)
+		configList.value = response.data
+		return configList.value
+	}
+}
+
 </script>
 <template>
     <div class="container">
         <h2>Landing Zone</h2>
-        <div class="top-bar">
-            <DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
-        </div>
-        <div class="grid-wrap" v-if="configList">
-            <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
-                {{ config.name }}
-            </button>
+		<div class = -bar>
+			<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
+			<DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
+		</div>
+			<div class="grid-wrap" v-if=configList>
+				<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
+					{{ config.name }}
+				</button>
         </div>
     </div>
+
 </template>
 
 <style scoped lang="scss">
@@ -44,17 +79,25 @@ const goToLZConfig = () => {
 .top-bar {
   display: flex;
   justify-content: flex-end;
+  
 }
+
+.-bar {
+	display: flex;
+  	justify-content:space-between;
+}
+
 .banner {
 	background: var(--color-banner);
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
   	outline-color: var(--color-banner-text);
-	
 	font-size: 1.4rem;
-	height: 100px;
+	height: 92px ;
 	width: 200px;
+	overflow: hidden;
 }
+
 .container {
 	width: 960px;
 	height: 540px;

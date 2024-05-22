@@ -12,6 +12,7 @@ type Props = {
 }
 const { baseColumnConfig } = defineProps<Props>()
 const emit = defineEmits(['update'])
+const columnId = defineModel<Number>('columnId')
 const columnNumber = defineModel<string>('columnNumber')
 const columnName = defineModel<string>('columnName')
 const type = defineModel<string>('type')
@@ -23,6 +24,7 @@ const emitUpdate = () => {
 }
 
 onMounted(() => {
+	columnId.value = baseColumnConfig.columnId
 	columnNumber.value = String(baseColumnConfig.columnNumber)
 	columnName.value = baseColumnConfig.columnName
 	type.value = baseColumnConfig.type
@@ -32,10 +34,11 @@ onMounted(() => {
 })
 
 const wrapColumnConfig = () => ({
+	columnId: Number(columnId.value),
 	columnNumber: Number(columnNumber.value),
 	columnName: columnName.value,
 	type: type.value,
-	canBeNull: canBeNull.value,
+	canBeNull: canBeNull.value ? 1: 0,
 	description: description.value,
 	status: Number(status.value),
 })

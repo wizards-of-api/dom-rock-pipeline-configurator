@@ -64,7 +64,7 @@ const uploadFile = async ($event: Event) => {
 		return Object.assign(
 			{
 				type: VALID_COLUMN_TYPES[0],
-				canBeNull: false,
+				canBeNull: 0,
 				description: '',
 				status: 1,
 			},
@@ -86,9 +86,9 @@ onMounted(()=>{
 	separator.value = valuesExistingInThisFile ?"," : "",
 	columnList.value =  valuesExistingInThisFile?.columns?.map((data: ColumnConfig) => {
 		return Object.assign(
-			{
-				type: VALID_COLUMN_TYPES[0],
-				canBeNull: Boolean(data.canBeNull),
+			{	columnId: data.columnId,
+				type: data.type,
+				canBeNull: data.canBeNull ? 1: 0,
 				description: data.description,
 				status: data.status,
 			},

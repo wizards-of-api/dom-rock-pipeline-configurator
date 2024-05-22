@@ -51,7 +51,6 @@ const getConfig = async () => {
 }
 onMounted(async () => {
 	config.value = await getConfig()
-	console.log(config.value)
 	const metadataUpdate: MetadataConfig = {
 		name: config.value?.name,
 		fileOrigin:config.value?.fileOrigin,
@@ -64,7 +63,7 @@ onMounted(async () => {
 	onUpdateMetadata(metadataUpdate)
 	setTimeout(()=>{
 		onUpdateColumn(config.value?.columns??[])
-	},500)
+	}, 500)
 })
 
 
@@ -79,7 +78,6 @@ const saveFile = async () => {
 		hasHeader: metadata.hasHeader ? 1: 0,
 		columns: columnList,
 	}
-	console.log(configUpdate)
 	await axios.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, configUpdate)
 	router.replace(`/list-view`)
 }

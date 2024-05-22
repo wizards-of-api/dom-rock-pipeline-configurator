@@ -1,7 +1,9 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 
@@ -56,7 +58,11 @@ public class LZMetadataConfig {
 
     @JsonView(Views.LZ.class)
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
-    private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
+    private List<ColumnConfig> columns = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "cnpj")
+    private Company company;
 
     public LZMetadataConfig(MetadataConfigDTO file){
         this.fileName = file.fileName();
@@ -66,6 +72,8 @@ public class LZMetadataConfig {
         this.frequencyNumber = file.frequencyNumber();
         this.frequencyType = file.frequencyType();
         this.hasHeader = Boolean.TRUE.equals(file.hasHeader()) ? 1: 0;
+        this.company = file.company();
     }
     public LZMetadataConfig(){}
+
 }
