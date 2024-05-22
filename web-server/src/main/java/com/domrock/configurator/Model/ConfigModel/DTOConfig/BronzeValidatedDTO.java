@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class BronzeValidatedDTO {
-    private int file_id;
-    private String file_config_name;
+    private int fileId;
+    private String fileName;
 }
