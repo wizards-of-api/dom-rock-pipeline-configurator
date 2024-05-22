@@ -1,5 +1,9 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
+import com.domrock.configurator.Model.ConfigModel.SilverConfig;
+
+import java.util.List;
+
 public record ColumnConfigDTO(
     String name,
     Integer index,
@@ -8,5 +12,6 @@ public record ColumnConfigDTO(
     String description,
     Integer status,
     boolean hash,
-    boolean valid
+    boolean valid,
+    List<SilverConfig> columnsFromTo
 ) {}

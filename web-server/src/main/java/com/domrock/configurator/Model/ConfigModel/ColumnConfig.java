@@ -1,5 +1,8 @@
 package com.domrock.configurator.Model.ConfigModel;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.hibernate.annotations.Check;
 
 import com.domrock.configurator.Views;
@@ -7,14 +10,16 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -75,6 +80,9 @@ public class ColumnConfig {
     @Column(name = "column_valid")
     private Integer valid;
 
+    @JsonView(Views.Bronze.class)
+    @OneToMany(mappedBy = "columnId", cascade = CascadeType.ALL)
+    private List<SilverConfig> columnsSilver = new ArrayList<SilverConfig>();
 
     public ColumnConfig (LZMetadataConfig lzMetadataConfig, ColumnConfigDTO data){   
         this.fileId = lzMetadataConfig;    

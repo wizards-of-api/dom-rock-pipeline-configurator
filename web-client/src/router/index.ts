@@ -3,6 +3,7 @@ import ListView from '../views/ListView.vue'
 import SandboxView from '@/views/SandboxView.vue'
 import LZConfigView from '@/views/LZConfigView.vue'
 import HomeView from '@/views/HomeView.vue'
+import AdminHomeView from '@/views/AdminHomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
@@ -20,6 +21,11 @@ const router = createRouter({
 			path: '/home',
 			name: 'Home',
 			component: HomeView,
+		},
+		{
+			path: '/admin-home',
+			name: 'Administrador',
+			component: AdminHomeView,
 		},
 		{
 			path: '/list-view',
