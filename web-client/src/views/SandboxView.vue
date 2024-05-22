@@ -3,6 +3,7 @@ import DRButton from '@/components/DRButton.vue'
 import DRTextInput from '@/components/DRTextInput.vue'
 import DRDropDown from '@/components/DRDropDown.vue'
 import DRCheckBox from '@/components/DRCheckBox.vue'
+import Load from '@/components/Load.vue'
 
 import { ref } from 'vue'
 /*
@@ -32,7 +33,7 @@ const toggleHello = () => {
 		<p>
 			<span class="section-title">Landing Zone</span>
 		</p>
-
+		
 		<DRButton :click-behavior="toggleHello">ABC</DRButton>
 		<h1 v-if="showHello">Hello World!</h1>
 		<h1 v-for="number in list" :key="number">
@@ -41,6 +42,9 @@ const toggleHello = () => {
 		<DRTextInput title="Nome da Configuração"></DRTextInput>
 		<DRDropDown title="Nome Dropdown" :option-list="['Hello', 'World']"></DRDropDown>
 		<DRCheckBox title="Nome Checkbox"></DRCheckBox>
+	</div>
+	<div>
+		<Load></Load>
 	</div>
 </template>
 

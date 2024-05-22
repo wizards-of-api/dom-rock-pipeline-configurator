@@ -6,6 +6,7 @@ import HomeView from '@/views/HomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
+import SilverConfigView from '@/views/SilverConfigView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -58,6 +59,11 @@ const router = createRouter({
 			path: '/:pathMatch(.*)*',
 			name: 'NotFound',
 			component: NotFound,
+		},
+		{
+			path: '/silver-config/:id',
+			name: 'Etapa Silver',
+			component: SilverConfigView,
 		},
 	],
 })
