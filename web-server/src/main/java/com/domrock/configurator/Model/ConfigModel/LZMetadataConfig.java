@@ -1,7 +1,9 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
@@ -35,6 +37,8 @@ public class LZMetadataConfig {
     @Column(name = "file_type")
     private String fileType;
     @NotBlank
+    private String fileExtension;
+
     @JsonView(Views.LZ.class)
     @Column(name = "file_origin")
     private String fileOrigin;
@@ -43,6 +47,8 @@ public class LZMetadataConfig {
     @Column(name = "file_frequency")
     private Integer frequency;
     @NotNull
+    private Integer frequencyNumber;
+
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
@@ -51,12 +57,14 @@ public class LZMetadataConfig {
     @Column(name = "file_period")
     private String filePeriod;
     @NotBlank
+    private String frequencyType;
+
     @JsonView(Views.LZ.class)
     @Column(name = "file_name")
     private String fileName;
     @JsonView(Views.LZ.class)
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
-    private List<ColumnConfig> columns = new ArrayList<ColumnConfig>();
+    private List<ColumnConfig> columns = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cnpj")
@@ -65,12 +73,13 @@ public class LZMetadataConfig {
     public LZMetadataConfig(MetadataConfigDTO file){
         this.fileName = file.fileName();
         this.name = file.name();
-        this.fileType = file.fileExtension();
+        this.fileExtension = file.fileExtension();
         this.fileOrigin = file.fileOrigin();
-        this.frequency = file.frequencyNumber();
-        this.filePeriod = file.frequencyType();
-        this.hasHeader = file.hasHeader() ? 1: 0;
+        this.frequencyNumber = file.frequencyNumber();
+        this.frequencyType = file.frequencyType();
+        this.hasHeader = Boolean.TRUE.equals(file.hasHeader()) ? 1: 0;
         this.company = file.company();
     }
     public LZMetadataConfig(){}
+
 }
