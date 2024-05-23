@@ -1,4 +1,23 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+
+const nameRoute = (name:any) => {
+	switch(name) {
+	case "HomeView":
+		return "Home"
+	case "ListView":
+		return "Configurações Landing Zone"
+	case "LZConfigView":
+	case "LZConfigUpdateView":
+		return "Etapa Lading Zone"
+	case "BronzeListView":
+		return "Configurações Bronze"
+	case "BronzeConfigView":
+		return "Etapa Bronze"
+	default:
+		return ""
+	}
+}
+</script>
 
 <template>
   <header>
@@ -6,7 +25,7 @@
       <img src="../assets/dom-rock-logo.png">
     </router-link>
     <div class="user">
-      <h3>{{ $route.name }}</h3>
+      <h3>{{ nameRoute($route.name) }}</h3>
       <img src="../assets/user-icon.png" height="60px"/>
     </div>
   </header>

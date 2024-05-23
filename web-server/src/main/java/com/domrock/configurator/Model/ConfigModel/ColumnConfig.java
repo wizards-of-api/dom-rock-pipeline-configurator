@@ -54,7 +54,7 @@ public class ColumnConfig {
 
     @JsonView(Views.LZ.class)
     @Column(name = "column_empty")
-    private Integer empty;
+    private Integer canBeNull;
 
     @JsonView(Views.LZ.class)
     @Column(name = "column_description")
@@ -78,18 +78,16 @@ public class ColumnConfig {
 
     public ColumnConfig (LZMetadataConfig lzMetadataConfig, ColumnConfigDTO data){   
         this.fileId = lzMetadataConfig;    
-        this.columnNumber = data.index();
-        this.columnName = data.name();
+        this.columnNumber = data.columnNumber();
+        this.columnName = data.columnName();
         this.type = data.type();
-        this.empty = data.CanBeNull() ? 1 : 0;
+        this.canBeNull = data.canBeNull() ? 1 :0;
         this.description = data.description();
         this.status = data.status();
-        this.hash = data.hash() ? 1 : 0;
-        this.valid = data.valid() ? 1 : 0;
-        
+        this.hash = data.hash() ? 1: 0;
+        this.valid = data.valid()? 1: 0;
         lzMetadataConfig.getColumns().add(this);
     }
-
     public ColumnConfig() {}
 
 }

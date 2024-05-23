@@ -1,6 +1,7 @@
 package com.domrock.configurator.Controller;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.ListBronzeValidatedDTO;
 import com.domrock.configurator.Services.LZMetadataConfigServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -19,10 +20,11 @@ public class SilverConfig {
     private LZMetadataConfigServices lzMetadataConfigServices;
 
     @GetMapping("/get-bronze-validated")
-    public ResponseEntity<List<BronzeValidatedDTO>> getBronzeValidated() {
+    public ResponseEntity<ListBronzeValidatedDTO> getBronzeValidated() {
         List<BronzeValidatedDTO> bronzeValidatedDTOS = lzMetadataConfigServices.getAllBronzeValidated();
         try {
-            return ResponseEntity.ok(bronzeValidatedDTOS);
+            ListBronzeValidatedDTO fileList = new ListBronzeValidatedDTO(bronzeValidatedDTOS);
+            return ResponseEntity.ok(fileList);
         } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }

@@ -1,12 +1,9 @@
 <script setup lang="ts">
-import axios from 'axios'
 import router from '@/router'
-import type { LZConfig, BConfig } from '../../lz-config/types'
+import type { validatedBronze} from '../../lz-config/types'
 
 type Props = {
-	configList?: LZConfig[]
-	tagInfo?: 'invalid-tag' | 'valid-tag'
-	bronzeConfig?: BConfig
+	configList?: validatedBronze[]
 }
 const { configList } = defineProps<Props>()
 
@@ -14,32 +11,19 @@ const gotoSilverConfig = () => {
 	router.replace('/home')
 }
 
-const validOrInvalid = (column: BConfig) => {
-	const validation = column?.columns.filter((column) => column.valid === 1)
-	const statuscolumn = column?.columns.filter((column) => column.status === 1)
-	const hashVerify = column?.columns.reduce((string, column) => {
-		if (!column.hash) return string
-		string += `${column.columnName}, `
-		return string
-	}, '')
-
-	// const valid = (validation.length === statuscolumn.length && hashVerify !== "") ? true : false
-	// return valid
-}
 </script>
 <template>
 	<div class="container">
 		<h2>Silver</h2>
-		<div class="grid-wrap" v-if="configList">
+		<div class="grid-wrap" v-if="configList?.length">
 			<button
 				class="banner"
 				v-for="config in configList"
 				:key="config.fileId"
-				@click="gotoSilverConfig(config)"
+				@click="gotoSilverConfig()"
 			>
 				<div class="banner-wrap">
-					<!-- <div :class=" validOrInvalid(config) ? 'valid-tag' : 'invalid-tag'"></div> -->
-					<div>{{ config.name }}</div>
+					<div>{{ config.fileName }}</div>
 				</div>
 			</button>
 		</div>
