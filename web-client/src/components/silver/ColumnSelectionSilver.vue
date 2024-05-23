@@ -4,31 +4,43 @@ import type { SilverConfig } from './types';
 import type { silverFromTo } from './types';
 import DRDropDown from '../DRDropDown.vue';
 import DRTextInput from '../DRTextInput.vue';
+import type { ColumnConfig }from './types';
 import DRButton from '../DRButton.vue';
 import { onMounted, ref } from 'vue';
+import axios from 'axios';
+import router from '@/router';
 
 const emit = defineEmits(['update'])
 const emitUpdate = () => {
 	emit('update')
 }
 
-const toAdd = defineModel('toAdd', {
-	get: (value: any) => {
-		if(value === undefined) return value
-		return Number(value.split(' ')[0])
-	},
-})
-const Teste = ""
+const config = ref<ColumnConfig>()
+const columnIndex = defineModel<string>('index')
+const fromC = defineModel<string>('fromC')
+const toC = defineModel<string>('toC')
 
 type Props = {
     config?: SilverConfig[]
 	silverData?: silverFromTo
 }
 
-const clickTest = ()=>{
-	(console.log('Adicionar'))
-
+const clickTest = () => {
+	emit('update', wrapUpdateMetadata())
 }
+const saveFile = async () => {
+	await axios.put(`http://localhost:8080/silver-config/addSilverFromTo/1`, {
+		silverId: 1,	
+		from:fromC.value,
+		to:toC.value,
+	})}
+
+
+const wrapUpdateMetadata = () => ({
+	columnIndex: columnIndex.value === 'Código' ? 1:1,
+	fromC: fromC.value,
+	toC: toC.value,
+})
 
 
 </script>
@@ -39,27 +51,30 @@ const clickTest = ()=>{
 			<div class="titleInfo">
 					<DRDropDown 
             			title="Coluna"
-						v-model="toAdd"
-            			:option-list="[Teste, 'Código', 'Marca', 'Aparelho', 'Etc...']"
+						v-model="columnIndex"
+            			:option-list="['Código', 'Marca', 'Aparelho', 'Etc...']"
+						@update="clickTest"
 						></DRDropDown>
 					<div class="buttonAlign">
 						<DRButton 
-						:click-behavior="clickTest">Adcionar
+						:click-behavior="saveFile">Adcionar
 						</DRButton>
 						</div>
-					<div class ="rowMetadata">
+					<div class="rowMetadata">
 						<div class="textInfo">
 						<DRTextInput
 						style="grid-area: index"
             			title="De"
-            			v-model="Teste"
+            			v-model="fromC"
+						@update="clickTest"
             			></DRTextInput>
 						</div>
 						<div class="textInfo">
 						<DRTextInput
 						style="grid-area: index"
             			title="Para"
-            			v-model="Teste"
+						@update="clickTest"
+            			v-model="toC"
             			></DRTextInput>
 						</div>
 					</div>

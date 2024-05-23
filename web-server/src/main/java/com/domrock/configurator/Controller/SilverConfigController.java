@@ -2,6 +2,10 @@ package com.domrock.configurator.Controller;
 
 import java.util.Optional;
 
+import com.domrock.configurator.Interface.SilverConfigInterface;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
+import com.domrock.configurator.Model.ConfigModel.SilverConfig;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,10 +46,19 @@ public class SilverConfigController {
     ColumnConfigInterface lzColumnConfigInterface;
 
     @Autowired
+    private LZMetadataConfigInterface lZMetadataConfigInterface;
+
+    @Autowired
     private CsvConverter csvConverter;
 
     @Autowired
+    private SilverConfigInterface silverConfigInterface;
+
+    @Autowired
     private ArrayListToJson arrayListToJson;
+
+    @Autowired
+    private ModelMapper modelMapper;
 
     @GetMapping("/new-excel-to-json")
     public String newExcelToJson(@RequestParam String filePath) {
@@ -77,6 +90,16 @@ public class SilverConfigController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+
+    @Transactional
+    @PutMapping("/addSilverFromTo/{id}")
+    public void addSilverFromTo(@PathVariable int id, @RequestBody SilverConfigDTO silverConfigDTO) {
+        ColumnConfig columnConfig = lzColumnConfigInterface.findById(id).get();
+        SilverConfig silverConfig = new SilverConfig(columnConfig,silverConfigDTO.silverId(),silverConfigDTO.from(),silverConfigDTO.to());
+        silverConfigInterface.save(silverConfig);
+
     }
 
     @DeleteMapping("/delete/{id}")

@@ -1,7 +1,9 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
+import com.domrock.configurator.Model.ConfigModel.ColumnConfig;
+
 public record SilverConfigDTO(
-    Integer index,
+    Integer silverId,
     String from, 
     String to
 ) {}
