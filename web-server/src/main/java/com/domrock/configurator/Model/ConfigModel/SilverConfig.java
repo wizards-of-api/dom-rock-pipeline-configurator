@@ -1,6 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import com.domrock.configurator.Views;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 
@@ -37,4 +38,13 @@ public class SilverConfig {
     @JsonView(Views.Silver.class)
     @Column(name = "column_to")
     private String to;
+
+    public SilverConfig (ColumnConfig columnConfig, SilverConfigDTO data){   
+        this.columnId = columnConfig;
+        this.from = data.from();
+        this.silverId = data.silverId();
+        this.to = data.to();
+        
+        columnConfig.getColumnsSilver().add(this);
+    }
 }

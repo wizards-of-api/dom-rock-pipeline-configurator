@@ -1,10 +1,17 @@
 package com.domrock.configurator.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.domrock.configurator.Interface.SilverConfigInterface;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.ColumnConfigDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.DataConfigDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverColumnResponseDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
 import com.domrock.configurator.Model.ConfigModel.SilverConfig;
+
+import org.hibernate.boot.Metadata;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -24,6 +31,8 @@ import com.domrock.configurator.Services.ArrayListToJson;
 import com.domrock.configurator.Services.ColumnConfigServices;
 import com.domrock.configurator.Services.CsvConverter;
 import com.domrock.configurator.Services.LZMetadataConfigServices;
+import com.domrock.configurator.Services.SilverConfigServices;
+import com.domrock.configurator.Views.Silver;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import jakarta.transaction.Transactional;
@@ -54,6 +63,9 @@ public class SilverConfigController {
     @Autowired
     private SilverConfigInterface silverConfigInterface;
 
+    @Autowired 
+    private SilverConfigServices silverConfigServices;
+
     @Autowired
     private ArrayListToJson arrayListToJson;
 
@@ -79,9 +91,9 @@ public class SilverConfigController {
     @GetMapping("/{id}")
     @Transactional
     @JsonView(Views.Silver.class)
-    public ResponseEntity<LZMetadataConfig> getSilverConfig(@PathVariable Integer id){
+    public ResponseEntity<SilverConfig> getSilverConfig(@PathVariable Integer id){
         try {
-            Optional<LZMetadataConfig> silverConfig = lzMetadataServices.getConfigById(id); 
+            Optional<SilverConfig> silverConfig = silverConfigServices.getConfigById(id); 
             if (silverConfig.isPresent()) {
                 return new ResponseEntity<>(silverConfig.get(), HttpStatus.OK);
             } else {
@@ -92,24 +104,22 @@ public class SilverConfigController {
         }
     }
 
-
     @Transactional
     @PutMapping("/addSilverFromTo/{id}")
     public void addSilverFromTo(@PathVariable int id, @RequestBody SilverConfigDTO silverConfigDTO) {
         ColumnConfig columnConfig = lzColumnConfigInterface.findById(id).get();
         SilverConfig silverConfig = new SilverConfig(columnConfig,silverConfigDTO.silverId(),silverConfigDTO.from(),silverConfigDTO.to());
         silverConfigInterface.save(silverConfig);
-
     }
 
     @DeleteMapping("/delete/{id}")
     @ResponseStatus(code = HttpStatus.NO_CONTENT)
-    public ResponseEntity<ColumnConfig> deleteById (@PathVariable Integer id) {
-        Optional<ColumnConfig> delete = lzColumnConfigInterface.findById(id);
+    public ResponseEntity<SilverConfig> deleteById (@PathVariable Integer id) {
+        Optional<SilverConfig> delete = silverConfigInterface.findById(id);
         if (delete.isEmpty()) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND);
         }
-        lzColumnConfigInterface.delete(delete.get());
+        silverConfigInterface.delete(delete.get());
         return ResponseEntity.noContent().build();
     }
 }
