@@ -1,4 +1,4 @@
-package com.domrock.configurator.Model.ConfigModel;
+package com.domrock.configurator.Config;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;

@@ -14,7 +14,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
-import com.domrock.configurator.Views;
 import com.domrock.configurator.Interface.ColumnConfigInterface;
 import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
@@ -46,7 +45,7 @@ public class SilverConfigController {
     @Autowired
     private SilverConfigInterface silverConfigInterface;
 
-    @Autowired 
+    @Autowired
     private SilverConfigServices silverConfigServices;
 
     @Autowired
@@ -64,10 +63,10 @@ public class SilverConfigController {
     }
 
     @GetMapping("/list-view")
-    public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
-        Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
+    public ResponseEntity<Page<SilverConfig>> getConfigList(@PageableDefault(size = 16) Pageable paginator){
+        Page<SilverConfig> page = silverConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
-    }     
+    }
 
     @GetMapping("fromTo/{id}")
     @Transactional

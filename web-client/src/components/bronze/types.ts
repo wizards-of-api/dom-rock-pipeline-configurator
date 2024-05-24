@@ -13,15 +13,15 @@ export const VALID_COLUMN_TYPES = ['TEXTO', 'INTEIRO', 'DECIMAL', 'VERDADEIRO / 
 export type ValidColumnType = (typeof VALID_COLUMN_TYPES)[number]
 
 export type ColumnConfig = {
-	columnId: Number
-	columnNumber: Number
-	columnName: string
-	description: string
-	empty: number
-	status: number
-	type: string
-	hash: number
-	valid:number
+	columnId?: Number
+	columnNumber?: Number
+	columnName?: string
+	description?: string
+	canBeNull?: number
+	status?: number
+	type?: string
+	hash?: number
+	valid?:number
 }
 
 export type BronzeConfig = {

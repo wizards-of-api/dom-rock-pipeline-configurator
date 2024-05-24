@@ -16,22 +16,20 @@ const validColumn = defineModel<boolean>('validColumn')
 const hash = defineModel<boolean>('hash')
 const status = defineModel<string>('status', {})
 const emit = defineEmits(['update'])
-const emitUpdate = (valor:any) => {
-	setTimeout(() => {
-		emit('update', wrapColumnConfig())
-	}, 1000)
+const emitUpdate = () => {
+	emit('update', wrapColumnConfig())
 }
 onMounted(() => {
 	columnIndex.value = String(baseColumnConfig.columnNumber)
 	name.value = baseColumnConfig.columnName
 	type.value = baseColumnConfig.type
-	canBeNull.value = !!baseColumnConfig.empty
-	validColumn.value = !!baseColumnConfig.valid
-	hash.value = !!baseColumnConfig.hash
+	canBeNull.value = Boolean(baseColumnConfig.canBeNull)
+	validColumn.value = Boolean(baseColumnConfig.valid)
+	hash.value = Boolean(baseColumnConfig.hash)
 	status.value = String(baseColumnConfig.status)
 })
 const wrapColumnConfig = () => ({
-	empty: canBeNull.value ? 1: 0,
+	canBeNull: canBeNull.value ? 1: 0,
 	valid: validColumn.value? 1: 0,
 	hash: hash.value ?1: 0,
 })
@@ -72,18 +70,21 @@ const wrapColumnConfig = () => ({
                 v-model="canBeNull"
                 value= "canBenull"
                 @update="emitUpdate"
+                :disabled="true"
             ></DRCheckBox>
             <DRCheckBox
                 style="grid-area: valid; width: 7rem;"
                 title="Validada?"
                 v-model="validColumn"
                 @update="emitUpdate"
+                :disabled="false"
             ></DRCheckBox>
             <DRCheckBox
                 style="grid-area: can-null; width: 12rem;"
                 title="Usar como hash?"
                 v-model="hash"
                 @update="emitUpdate"
+                :disabled="false"
             ></DRCheckBox>
         </div>
     </div>
