@@ -1,9 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;

@@ -31,6 +31,8 @@ import com.domrock.configurator.Services.CsvConverter;
 import com.domrock.configurator.Services.LZMetadataConfigServices;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import com.fasterxml.jackson.databind.DeserializationFeature;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 @RestController
 @RequestMapping("/lz-config")
@@ -109,6 +111,8 @@ public class LZConfigController {
     }
 
     @PostMapping("/save")
+    @Transactional
+    @JsonView(Views.LZ.class)
     public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
 

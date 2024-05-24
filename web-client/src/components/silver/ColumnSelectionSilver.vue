@@ -29,7 +29,7 @@ const clickTest = () => {
 	emit('update', wrapUpdateMetadata())
 }
 const saveFile = async () => {
-	await axios.put(`http://localhost:8080/silver-config/addSilverFromTo/1`, {
+	await axios.post(`http://localhost:8080/silver-config/addSilverFromTo/1`, {
 		silverId: 1,	
 		from:fromC.value,
 		to:toC.value,

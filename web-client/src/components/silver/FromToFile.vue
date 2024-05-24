@@ -4,6 +4,7 @@ import DRSectionTitle from '../DRSectionTitle.vue'
 import SilverColumnRow from './SilverColumnRow.vue'
 import type { silverFromTo , SilverConfig} from './types'
 import axios from 'axios';
+import router from '@/router';
 
 type Props = {
     baseColumnList?: SilverConfig []| []
