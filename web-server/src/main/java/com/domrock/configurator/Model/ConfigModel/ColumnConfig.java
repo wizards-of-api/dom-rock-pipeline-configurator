@@ -16,7 +16,9 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -41,26 +43,32 @@ public class ColumnConfig {
     private Integer columnId;
 
     @JsonView(Views.LZ.class)
+    @NotBlank
     @Column(name = "column_name")
     private String columnName;
 
     @JsonView(Views.LZ.class)
+    @NotNull
     @Column(name = "column_number")
     private Integer columnNumber;
 
     @JsonView(Views.LZ.class)
+    @NotBlank
     @Column(name = "column_type")
     private String type;
 
     @JsonView(Views.LZ.class)
+    @NotNull
     @Column(name = "column_empty")
     private Integer canBeNull;
 
     @JsonView(Views.LZ.class)
+    @Size(max = 255)
     @Column(name = "column_description")
     private String description;
 
     @JsonView(Views.LZ.class)
+    @NotNull
     @Column(name = "column_active")
     private Integer status;
 
@@ -74,7 +82,6 @@ public class ColumnConfig {
     @Check(constraints = "column_valid = 1")
     @Column(name = "column_valid")
     private Integer valid;
-
 
     public ColumnConfig (LZMetadataConfig lzMetadataConfig, ColumnConfigDTO data){   
         this.fileId = lzMetadataConfig;    

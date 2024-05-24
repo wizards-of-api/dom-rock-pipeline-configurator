@@ -34,7 +34,7 @@ const toAdd = defineModel('toAdd', {
 	},
 })
 const addColumn = () => {
-	if(!toAdd.value || toAdd.value === '') return
+	if (toAdd.value === undefined || toAdd.value === '') return
 	const columnIndex = toAdd.value as number
 	columnList[columnIndex].status = 1
 	setActiveCount()

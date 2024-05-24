@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 import com.domrock.configurator.Views;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
@@ -27,35 +28,31 @@ public class LZMetadataConfig {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "file_id")
     private Integer fileId;
-
+    @NotBlank
     @JsonView(Views.LZ.class)
     @Column(name = "file_config_name")
     private String name;
-
+    @NotBlank
     @JsonView(Views.LZ.class)
     @Column(name = "file_type")
     private String fileExtension;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_origin")
     private String fileOrigin;
-
+    @NotNull
     @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
     private Integer frequencyNumber;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
-
+    @NotBlank
     @JsonView(Views.LZ.class)
     @Column(name = "file_period")
     private String frequencyType;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_name")
     private String fileName;
-
     @JsonView(Views.LZ.class)
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<>();
