@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
+import com.domrock.configurator.Views;
 import com.domrock.configurator.Interface.ColumnConfigInterface;
 import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
