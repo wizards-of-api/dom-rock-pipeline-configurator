@@ -1,4 +1,3 @@
-
 CREATE TABLE file_column
 (
     column_id          INT auto_increment PRIMARY KEY,
