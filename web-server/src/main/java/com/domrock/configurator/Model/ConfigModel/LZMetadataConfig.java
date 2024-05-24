@@ -35,30 +35,21 @@ public class LZMetadataConfig {
     @NotBlank
     @JsonView(Views.LZ.class)
     @Column(name = "file_type")
-    private String fileType;
-    @NotBlank
     private String fileExtension;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_origin")
     private String fileOrigin;
     @NotNull
     @JsonView(Views.LZ.class)
     @Column(name = "file_frequency")
-    private Integer frequency;
-    @NotNull
     private Integer frequencyNumber;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_has_header")
     private Integer hasHeader;
     @NotBlank
     @JsonView(Views.LZ.class)
     @Column(name = "file_period")
-    private String filePeriod;
-    @NotBlank
     private String frequencyType;
-
     @JsonView(Views.LZ.class)
     @Column(name = "file_name")
     private String fileName;
