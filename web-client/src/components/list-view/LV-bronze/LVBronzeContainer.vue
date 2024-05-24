@@ -1,16 +1,16 @@
 <script setup lang="ts">
 import type { LZConfig, BConfig } from '../../lz-config/types'
+import validImage from '@/assets/valid.png'
+import invalidImage from '@/assets/invalid.png'
 
 type Props = {
 	configList?: LZConfig[]
     onBannerClick: (index: LZConfig) => void
-	tagInfo?: 'invalid-tag' | 'valid-tag'
 	bronzeConfig?: BConfig
 }
 const { configList, onBannerClick } = defineProps<Props>()
 
-
-const validOrInvalid = (column:BConfig ) =>{
+const getImageSrc = (column: BConfig) => {
 	const validation = column?.columns.filter((column) => column.valid === 1)
 	const statuscolumn = column?.columns.filter((column)=> column.status === 1)
 	const hashVerify = column?.columns.reduce((string, column) => {
@@ -19,8 +19,8 @@ const validOrInvalid = (column:BConfig ) =>{
 		return string
 	}, '')
 	
-	const valid = (validation.length === statuscolumn.length && hashVerify !== "") ? true : false
-	return valid
+	const isValid = (validation.length === statuscolumn.length && hashVerify !== "") ? true : false
+	return isValid ? validImage : invalidImage
 }
 </script>
 <template>
@@ -28,8 +28,8 @@ const validOrInvalid = (column:BConfig ) =>{
         <h2>Bronze</h2>
         <div class="grid-wrap" v-if="configList">
             <button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">
-				<div class = "banner-wrap">
-					<div :class=" validOrInvalid(config) ? 'valid-tag' : 'invalid-tag'"></div>
+				<div class="banner-wrap">
+					<img :src="getImageSrc(config)" alt="Validation Status" class="status-icon" />
 					<div>{{ config.name }}</div> 
 				</div>
             </button>
@@ -42,9 +42,9 @@ const validOrInvalid = (column:BConfig ) =>{
 	padding: var(--gap) 0;
 	display: grid;
 	grid-template-columns: 1fr;
-	grid-template-rows: 10px, 1fr;
+	grid-template-rows: 10px 1fr; 
 	gap: var(--gap) var(--gap);
-	justify-content:flex-start;
+	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
 	justify-items: center;
@@ -63,30 +63,22 @@ const validOrInvalid = (column:BConfig ) =>{
 	overflow-y: hidden;
 }
 .top-bar {
-  display: flex;
-  justify-content: flex-end;
+	display: flex;
+	justify-content: flex-end;
 }
 .banner {
 	background: var(--color-banner);
 	border-color: var(--color-banner);
 	color: var(--color-banner-text);
-  	outline-color: var(--color-banner-text);
+	outline-color: var(--color-banner-text);
 	border-width: 3px;
 	font-size: 1.4rem;
 	height: 100px;
 	width: 200px;
 }
-.invalid-tag{
-	background: #f00;
-	border-radius:50%;
-	width: 10px;
-	height: 10px;
-}
-.valid-tag{
-	background: rgb(0, 255, 0);
-	border-radius:50%;
-	width: 10px;
-	height: 10px;
+.status-icon {
+	width:  20px; 
+	height: 20px; 
 }
 .container {
 	width: 960px;

@@ -41,7 +41,6 @@ const toggleHello = () => {
 		</h1>
 		<DRTextInput title="Nome da Configuração"></DRTextInput>
 		<DRDropDown title="Nome Dropdown" :option-list="['Hello', 'World']"></DRDropDown>
-		<DRCheckBox title="Nome Checkbox"></DRCheckBox>
 	</div>
 	<div>
 		<Load></Load>

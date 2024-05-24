@@ -8,7 +8,7 @@ CREATE TABLE file_column
     column_empty       INT          NOT NULL,
     column_description VARCHAR(225) NOT NULL,
     column_active      INT          NOT NULL,
-    column_is_hash     INT          NOT NULL DEFAULT -1,
-    column_valid       INT          NOT NULL DEFAULT -1,
+    column_is_hash     INT          DEFAULT -1,
+    column_valid       INT          DEFAULT -1,
     CONSTRAINT fk_file_id FOREIGN KEY (file_id) REFERENCES lz_config (file_id)
 );

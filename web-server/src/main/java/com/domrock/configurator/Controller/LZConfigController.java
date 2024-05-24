@@ -125,7 +125,7 @@ public class LZConfigController {
     @Transactional
     public ResponseEntity<LZMetadataConfig> updateConfigById(@PathVariable Integer id, @RequestBody LZMetadataConfig newConfigData) {
         try {
-            LZMetadataConfig updatedConfig = lzMetadataServices.updateConfigById(id, newConfigData);
+            LZMetadataConfig updatedConfig = lzMetadataServices.updateLzData(id, newConfigData);
             if (updatedConfig != null) {
                 return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
             } else {
