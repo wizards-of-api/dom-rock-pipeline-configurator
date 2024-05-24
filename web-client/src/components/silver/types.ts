@@ -25,13 +25,9 @@ export type ColumnConfig = {
 }
 
 export type SilverConfig = {
-	fileId: number
-	fileName: string
-	fileOrigin: string
-	filePeriod: string
-	fileType: string
-	frequency: number
-	name: string
+	id_silver: number
+	from_c: string
+	to_c: string
 	columns: Array<{
 		columnId: Number
 		columnNumber: Number

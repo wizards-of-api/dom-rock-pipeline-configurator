@@ -1,15 +1,26 @@
 <script setup lang="ts">
-import { onBeforeMount, ref} from 'vue';
+import { onBeforeMount, ref, onMounted} from 'vue';
 import DRSectionTitle from '../DRSectionTitle.vue'
 import SilverColumnRow from './SilverColumnRow.vue'
-import type { silverFromTo } from './types'
+import type { silverFromTo , SilverConfig} from './types'
+import axios from 'axios';
+
 type Props = {
-    baseColumnList?: silverFromTo[] | []
+    baseColumnList?: SilverConfig []| []
 }
 const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList?.map(baseColumn => baseColumn)
 const emit = defineEmits(['update'])
+const config = ref<SilverConfig>()
 
+
+const getConfig = async () => {
+	const response = await axios.get(`NEW ENDPOINT GET ALL SILVER FROM FILE ID/${router.currentRoute.value.params.id}`)
+	return response.data
+}
+onMounted(async () => {
+	config.value = await getConfig()
+})
 const emitUpdate = (index:any, data:any) => {
 	if(columnList){
 		const column = columnList[index] 

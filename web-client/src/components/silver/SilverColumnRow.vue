@@ -8,7 +8,7 @@ import DRButton from '../DRButton.vue';
 const baseFromTo: silverFromTo = {
     id_silver: 1,
     from_c: 'de',
-    to_c: 'para'
+    to_c: 'para',
 }
 const columnIndex = defineModel<string>('index')
 const fromC = defineModel<string>('fromC')
@@ -27,6 +27,7 @@ onMounted(() => {
 })
 
 const clickTest = () => {
+    
     console.log(columnIndex.value, fromC.value, toC.value)
     console.log("Remover")
 }
