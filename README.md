@@ -19,6 +19,7 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 |**Cauê Vieira da Silva**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/cau%C3%AA-vieira-ba62b4244/)|
 
 # Requisitos Funcionais
+
 |Requisito|Descrição|
 | -------- |-------- |
 |1|Desenvolver uma interface de cadastro do cliente, solução e usuários autorizados a
@@ -39,6 +40,7 @@ quantidade de campos, etc.|
 |7|Desenvolver uma interface que mostre a visão analítica completa da configuração|
 
 # Requisitos Não Funcionais
+
 |Requisito|Descrição|
 | -------- |-------- |
 |8|Login e autenticação e permissão de usuários (por cliente, solução e estágio de
