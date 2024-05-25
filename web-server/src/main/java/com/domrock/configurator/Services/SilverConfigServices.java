@@ -2,7 +2,9 @@ package com.domrock.configurator.Services;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
 import org.modelmapper.ModelMapper;
@@ -47,14 +49,20 @@ public class SilverConfigServices {
      * @return a list of SilverConfigDTO objects corresponding to the SilverConfig entities
      * associated with the specified file ID
      */
-    public List<SilverConfig> getAllSilverConfigByFileId(Integer fileId) {
-        List<SilverConfig> silverConfigList = silverConfigInterface.findAllSilverByFileId(fileId);
-//        List<SilverConfigDTO> silverConfigDTOList = new ArrayList<SilverConfigDTO>();
-//        for (SilverConfig silverConfig : silverConfigList) {
-//            SilverConfigDTO silverConfigDTO = modelMapper.map(silverConfig, SilverConfigDTO.class);
-//            silverConfigDTOList.add(silverConfigDTO);
-//        }
-        return silverConfigList;
+    public List<SilverConfigDTO> getAllSilverConfigByFileId(Integer fileId) {
+        List<Object[]> queryObjects = silverConfigInterface.findAllSilverByFileId(fileId);
+        if (queryObjects.isEmpty()) {
+            throw new NoSuchElementException("Silver config not found");
+        } else {
+            return queryObjects.stream()
+                    .map(objects -> new SilverConfigDTO(
+                            (Integer) objects[0],
+                            (Integer) objects[1],
+                            (String) objects[2],
+                            (String) objects[3])
+                    )
+                    .collect(Collectors.toList());
+        }
     }
 
 }

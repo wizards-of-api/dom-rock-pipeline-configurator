@@ -126,9 +126,9 @@ public class SilverConfigController {
     }
 
     @GetMapping("/get-by-fileid/{fileId}")
-    public ResponseEntity<List<SilverConfig>> getAllSilverByFileId(@PathVariable Integer fileId) {
+    public ResponseEntity<List<SilverConfigDTO>> getAllSilverByFileId(@PathVariable Integer fileId) {
         try {
-            List<SilverConfig> silverConfigList = silverConfigServices.getAllSilverConfigByFileId(fileId);
+            List<SilverConfigDTO> silverConfigList = silverConfigServices.getAllSilverConfigByFileId(fileId);
             if (silverConfigList.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             } else {
