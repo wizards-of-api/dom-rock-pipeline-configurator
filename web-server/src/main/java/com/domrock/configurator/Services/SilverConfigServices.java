@@ -4,6 +4,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
+import jakarta.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,18 +25,20 @@ public class SilverConfigServices {
     @Autowired
     private ModelMapper modelMapper;
 
-    public SilverConfig saveSilverConfig(Integer id, SilverConfig silverData) {
-        Optional<ColumnConfig> columnData = columnConfigInterface.findById(id);
-        if (columnData.isPresent()) {
-           ColumnConfig newColumnData = columnData.get();
-           silverData.setColumnId(newColumnData);
-           return silverConfigInterface.save(silverData);
-        }
-        else {
-            return null;
+    @Transactional
+    public SilverConfigDTO saveSilver(SilverConfigDTO silverConfigDTO) {
+        if (silverConfigDTO == null) {
+            throw new IllegalArgumentException("SilverConfigDTO cannot be null");
+        } else {
+            SilverConfig silverConfig = modelMapper.map(silverConfigDTO, SilverConfig.class);
+            Optional<ColumnConfig> column = columnConfigInterface.findById(silverConfigDTO.getColumnId());
+            silverConfig.setColumnId(column.get());
+            silverConfigInterface.save(silverConfig);
+            return silverConfigDTO;
         }
     }
 
+    @Transactional
     public Optional<SilverConfig> getConfigById(Integer id) {
         return silverConfigInterface.findById(id);
     }
@@ -46,6 +49,7 @@ public class SilverConfigServices {
      * @return a list of SilverConfigDTO objects corresponding to the queried columns
      * associated with the specified file ID
      */
+    @Transactional
     public List<Object> getAllSilverConfigByFileId(Integer fileId) {
         List<Object[]> queryObjects = silverConfigInterface.findAllSilverByFileId(fileId);
         if (queryObjects.isEmpty()) {

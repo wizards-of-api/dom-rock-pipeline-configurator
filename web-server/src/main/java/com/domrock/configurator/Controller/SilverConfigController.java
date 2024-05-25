@@ -72,7 +72,6 @@ public class SilverConfigController {
     }
 
     @GetMapping("fromTo/{id}")
-    @Transactional
     @JsonView(Views.Silver.class)
     public ResponseEntity<SilverConfig> getSilverFromToConfig(@PathVariable Integer id){
         try {
@@ -88,7 +87,6 @@ public class SilverConfigController {
     }
 
     @GetMapping("/{id}")
-    @Transactional
     @JsonView(Views.Silver.class)
     public ResponseEntity<LZMetadataConfig> getLZConfig(@PathVariable Integer id) {
         try {
@@ -103,15 +101,14 @@ public class SilverConfigController {
         }
     }
 
-    @Transactional
-    @PostMapping("/save/{id}")
-    public ResponseEntity<SilverConfig> postConfig(@PathVariable Integer id, @RequestBody SilverConfig data) {
-       SilverConfig newSilverData = silverConfigServices.saveSilverConfig(id, data);
-       if (newSilverData != null) {
-        return new ResponseEntity<>(newSilverData, HttpStatus.OK);
-    } else {
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-    }
+    @PostMapping("/save")
+    public ResponseEntity<SilverConfigDTO> postSilver(@RequestBody SilverConfigDTO silverConfigDTO) {
+        try {
+            silverConfigServices.saveSilver(silverConfigDTO);
+            return ResponseEntity.ok(silverConfigDTO);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
     }
 
     @DeleteMapping("/delete/{id}")
