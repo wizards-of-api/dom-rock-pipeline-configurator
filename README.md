@@ -22,29 +22,21 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 
 |Requisito|Descrição|
 | -------- |-------- |
-|1|Desenvolver uma interface de cadastro do cliente, solução e usuários autorizados a
-configurar os dados|
-|2|Desenvolver uma interface de upload de dados csv ou excel e apresentação da estrutura
-dos dados (campos, tipos, regras – pode ou não conter nulos, descrição do significado do
-campo na perspectiva do negócio)|
-|3|Desenvolver uma interface que define quais campos serão mapeados como chave de
-identificação dos dados.|
-|4|Desenvolver uma interface que será aplicada uma regra comum aos clientes que 
-chamamos de “de/para” (exemplo: tipo de movimento 802 = transferência de estoque)|
+|1|Desenvolver uma interface de cadastro do cliente, solução e usuários autorizados a configurar os dados|
+|2|Desenvolver uma interface de upload de dados csv ou excel e apresentação da estrutura dos dados (campos, tipos, regras – pode ou não conter nulos, descrição do significado do campo na perspectiva do negócio)|
+|3|Desenvolver uma interface que define quais campos serão mapeados como chave de identificação dos dados.|
+|4|Desenvolver uma interface que será aplicada uma regra comum aos clientes que  chamamos de “de/para” (exemplo: tipo de movimento 802 = transferência de estoque)|
 |5|Desenvolver uma interface que será feito o mapeamento de cruzamento de dados (pode
 ser 1 ou mais fontes de dados com as respectivas chaves, para cada cruzamento ter o
 espaço para descrever o significado do negócio). NÃO APLICÁVEL|
-|6|Desenvolver um dashboad a respeito dos dados configurados para um perfil
-administrador para visões quantitativas como clientes, tipos de fontes de dados,
-quantidade de campos, etc.|
+|6|Desenvolver um dashboad a respeito dos dados configurados para um perfil administrador para visões quantitativas como clientes, tipos de fontes de dados, quantidade de campos, etc.|
 |7|Desenvolver uma interface que mostre a visão analítica completa da configuração|
 
 # Requisitos Não Funcionais
 
 |Requisito|Descrição|
 | -------- |-------- |
-|8|Login e autenticação e permissão de usuários (por cliente, solução e estágio de
-configuração)|
+|8|Login e autenticação e permissão de usuários (por cliente, solução e estágio de configuração)|
 |9|Modelagem de Banco de Dados que será utilizado para gerar arquivos YAML.NÃO APLICÁVEL O YALM|
 |10|Log contendo a rastreabilidade das configurações|
 |11|O front-end deve ser desenvolvido de forma minimalista. |
