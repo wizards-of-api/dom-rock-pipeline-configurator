@@ -20,7 +20,7 @@ import lombok.Getter;
 public class SilverConfig {
 
     @JsonIgnore
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JsonView(Views.LZ.class)
     @JoinColumn(name = "column_id")
     private ColumnConfig columnId;
