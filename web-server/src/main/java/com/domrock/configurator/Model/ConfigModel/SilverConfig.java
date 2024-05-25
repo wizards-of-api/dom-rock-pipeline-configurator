@@ -41,8 +41,8 @@ public class SilverConfig {
 
     public SilverConfig (ColumnConfig columnConfig, SilverConfigDTO data){   
         this.columnId = columnConfig;
-        this.from = data.from();
-        this.to = data.to();
+        this.from = data.getFrom();
+        this.to = data.getTo();
         columnConfig.getColumnsSilver().add(this);
     }
 }
