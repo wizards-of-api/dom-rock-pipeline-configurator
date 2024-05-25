@@ -14,7 +14,7 @@ import SilverColumnRow from '@/components/silver/SilverColumnRow.vue'
 import Load from '@/components/Load.vue'
 import router from '@/router'
 
-const config = ref<SilverConfig[]>()
+const config = ref<SilverConfig>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 const getConfig = async () => {
@@ -53,9 +53,9 @@ const saveFile = async () => {
 				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
 				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 			</nav>
-			<main v-if="config">
+			<main>
 				<MetadataSilver></MetadataSilver>
-				<FromTo :base-column-list="config"></FromTo>
+				<FromTo></FromTo>
 			</main>
 		</div>
 	</div>
