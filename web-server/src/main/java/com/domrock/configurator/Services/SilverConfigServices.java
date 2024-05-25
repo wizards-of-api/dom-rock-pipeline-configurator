@@ -45,8 +45,8 @@ public class SilverConfigServices {
 
     /**
      * Retrieves a list of all SilverConfigs as DTOs by the specified file ID.
-     * @param fileId the ID of the file the SilverConfigDTO objects are queried.
-     * @return a list of SilverConfigDTO objects corresponding to the SilverConfig entities
+     * @param fileId the ID of the file the SilverConfigDTO objects are queried from.
+     * @return a list of SilverConfigDTO objects corresponding to the queried columns
      * associated with the specified file ID
      */
     public List<SilverConfigDTO> getAllSilverConfigByFileId(Integer fileId) {
