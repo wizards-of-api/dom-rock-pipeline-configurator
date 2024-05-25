@@ -1,8 +1,10 @@
 package com.domrock.configurator.Controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import com.domrock.configurator.Interface.SilverConfigInterface;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SilverConfigDTO;
 import com.domrock.configurator.Model.ConfigModel.SilverConfig;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +123,19 @@ public class SilverConfigController {
         }
         silverConfigInterface.delete(delete.get());
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/get-by-fileid/{fileId}")
+    public ResponseEntity<List<SilverConfig>> getAllSilverByFileId(@PathVariable Integer fileId) {
+        try {
+            List<SilverConfig> silverConfigList = silverConfigServices.getAllSilverConfigByFileId(fileId);
+            if (silverConfigList.isEmpty()) {
+                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
+            } else {
+                return new ResponseEntity<>(silverConfigList, HttpStatus.OK);
+            }
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
