@@ -28,7 +28,7 @@ const fileExtension = defineModel<string>('fileExtension')
 const hasHeader = defineModel<string>('hasHeader')
 const fileName = defineModel<string>('fileName')
 const separator = defineModel<string>('separator')
-const columnList = defineModel<ColumnConfig[]>('columnList')
+const columnListUpdate = defineModel<ColumnConfig[]>('columnList')
 const inputFile = ref<HTMLInputElement>()
 
 const wrapUpdateMetadata = () => ({
@@ -59,7 +59,7 @@ const uploadFile = async ($event: Event) => {
 	
 	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
 	const responseColumns = response.data.columns
-	 columnList.value = responseColumns.map((data: ResponseColumn) => {
+	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
 		
 		return Object.assign(
 			{
@@ -84,7 +84,7 @@ onMounted(()=>{
 	hasHeader.value = valuesExistingInThisFile?.hasHeader? "Sim": ""
 	fileName.value = valuesExistingInThisFile?.fileName ?? "",
 	separator.value = valuesExistingInThisFile ?"," : "",
-	columnList.value =  valuesExistingInThisFile?.columns?.map((data: ColumnConfig) => {
+	columnListUpdate.value =  valuesExistingInThisFile?.columns?.map((data: ColumnConfig) => {
 		return Object.assign(
 			{	columnId: data.columnId,
 				type: data.type,
@@ -100,12 +100,12 @@ onMounted(()=>{
 		)
 	}) ?? []
 	emitUpdate()
-	emit('updateColumns', columnList)
+	emit('updateColumns', columnListUpdate)
 })
 
 </script>
 <template>
-	<div style="width: 100%" v-if="columnList">
+	<div style="width: 100%" v-if="columnList || columnListUpdate">
 		<DRSectionTitle title="Upload"></DRSectionTitle>
 		<div class="grid upload">
 			<DRDropDown
