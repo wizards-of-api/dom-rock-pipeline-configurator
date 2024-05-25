@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import type { silverFromTo } from './types'
+import type { SilverConfig } from './types'
 import DRTextInput from '../DRTextInput.vue'
 import { onMounted } from 'vue'
 import DRButton from '../DRButton.vue';
 
 
-const baseFromTo: silverFromTo = {
-    id_silver: 1,
-    from_c: 'de',
-    to_c: 'para',
+const Props = {
+    basecolumnconfig: SilverConfig,
 }
-const columnIndex = defineModel<string>('index')
-const fromC = defineModel<string>('fromC')
-const toC = defineModel<string>('toC')
+
+const { baseColumnList } = defineProps<Props>()
+const columnIndex = defineModel<string>('columns')
+const fromC = defineModel<string>('from_c')
+const toC = defineModel<string>('toc_c')
 
 const emit = defineEmits(['update'])
 const emitUpdate = (valor:any) => {
@@ -21,15 +21,14 @@ const emitUpdate = (valor:any) => {
 	}, 1000)
 }
 onMounted(() => {
-	columnIndex.value = String(baseFromTo.id_silver)
+	columnIndex = basecolumnconfig.columns.columnId,
 	fromC.value = baseFromTo.from_c
 	toC.value = baseFromTo.to_c
 })
 
 const clickTest = () => {
-    
-    console.log(columnIndex.value, fromC.value, toC.value)
-    console.log("Remover")
+console.log(columnIndex.value, fromC.value, toC.value)
+console.log("Remover")
 }
 
 </script>

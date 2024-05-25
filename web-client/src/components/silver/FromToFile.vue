@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onBeforeMount, ref, onMounted} from 'vue';
+import {ref} from 'vue';
 import DRSectionTitle from '../DRSectionTitle.vue'
 import SilverColumnRow from './SilverColumnRow.vue'
 import type { silverFromTo , SilverConfig} from './types'
@@ -15,13 +15,7 @@ const emit = defineEmits(['update'])
 const config = ref<SilverConfig>()
 
 
-const getConfig = async () => {
-	const response = await axios.get(`NEW ENDPOINT GET ALL SILVER FROM FILE ID/${router.currentRoute.value.params.id}`)
-	return response.data
-}
-onMounted(async () => {
-	config.value = await getConfig()
-})
+
 const emitUpdate = (index:any, data:any) => {
 	if(columnList){
 		const column = columnList[index] 
@@ -30,8 +24,6 @@ const emitUpdate = (index:any, data:any) => {
 	}
 }
 
-onBeforeMount(()=> {
-})
 
 </script>
 <template>

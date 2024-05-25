@@ -5,6 +5,7 @@ import type { silverFromTo } from './types';
 import DRDropDown from '../DRDropDown.vue';
 import DRTextInput from '../DRTextInput.vue';
 import type { ColumnConfig }from './types';
+import SilverColumnRow from './SilverColumnRow.vue';
 import DRButton from '../DRButton.vue';
 import { onMounted, ref } from 'vue';
 import axios from 'axios';
@@ -15,7 +16,7 @@ const emitUpdate = () => {
 	emit('update')
 }
 
-const config = ref<ColumnConfig>()
+const config = ref<SilverConfig>()
 const columnIndex = defineModel<string>('index')
 const fromC = defineModel<string>('fromC')
 const toC = defineModel<string>('toC')
@@ -80,7 +81,6 @@ const wrapUpdateMetadata = () => ({
             			></DRTextInput>
 						</div>
 					</div>
-					
 				</div>	
 			</div>
 	</main>
