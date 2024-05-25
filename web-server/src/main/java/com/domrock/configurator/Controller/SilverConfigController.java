@@ -126,13 +126,13 @@ public class SilverConfigController {
     }
 
     @GetMapping("/get-by-fileid/{fileId}")
-    public ResponseEntity<List<SilverConfigDTO>> getAllSilverByFileId(@PathVariable Integer fileId) {
+    public ResponseEntity<List<Object>> getAllSilverByFileId(@PathVariable Integer fileId) {
         try {
-            List<SilverConfigDTO> silverConfigList = silverConfigServices.getAllSilverConfigByFileId(fileId);
-            if (silverConfigList.isEmpty()) {
+            List<Object> objectList = silverConfigServices.getAllSilverConfigByFileId(fileId);
+            if (objectList.isEmpty()) {
                 throw new ResponseStatusException(HttpStatus.NOT_FOUND);
             } else {
-                return new ResponseEntity<>(silverConfigList, HttpStatus.OK);
+                return new ResponseEntity<>(objectList, HttpStatus.OK);
             }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

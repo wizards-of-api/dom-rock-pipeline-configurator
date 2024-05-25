@@ -14,11 +14,11 @@ import java.util.Objects;
 @Repository
 public interface SilverConfigInterface extends JpaRepository<SilverConfig, Integer>{
     @Query(value =
-            "SELECT s.id_silver, s.column_id, s.column_from, s.column_to " +
+            "SELECT s.id_silver, s.column_id, c.column_name, s.column_from, s.column_to " +
             "FROM silver s " +
-            "LEFT JOIN file_column f " +
-            "ON s.column_id = f.column_id " +
-            "WHERE f.file_id = :fileId",
+            "LEFT JOIN file_column c " +
+            "ON s.column_id = c.column_id " +
+            "WHERE c.file_id = :fileId",
             nativeQuery = true)
     public List<Object[]> findAllSilverByFileId(@Param("fileId") Integer fileId);
 }
