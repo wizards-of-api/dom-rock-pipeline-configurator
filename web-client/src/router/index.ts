@@ -7,6 +7,7 @@ import AdminHomeView from '@/views/AdminHomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
+import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 
 const router = createRouter({
@@ -46,6 +47,11 @@ const router = createRouter({
 			path: '/list-view-bronze',
 			name: 'BronzeListView',
 			component: BronzeListView,
+		},
+		{
+			path: '/list-view-silver',
+			name: 'Configurações Silver',
+			component: SilverListView,
 		},
 		{
 			path: '/sandbox',

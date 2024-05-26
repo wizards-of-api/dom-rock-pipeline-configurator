@@ -1,7 +1,13 @@
 package com.domrock.configurator.Services;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.stream.Collectors;
 import java.util.*;
 
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -88,5 +94,15 @@ public class LZMetadataConfigServices {
     public Optional<LZMetadataConfig> getConfigById(Integer id) {
         return lzConfigInterface.findById(id);
     }
-    
+
+    public List<BronzeValidatedDTO> getAllBronzeValidated() {
+        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated();
+        if (queryResult.isEmpty()) {
+            throw new NoSuchElementException("No Bronze validated data found");
+        } else {
+            return queryResult.stream()
+                    .map(objects -> new BronzeValidatedDTO((Integer) objects[0], (String) objects[1]))
+                    .collect(Collectors.toList());
+        }
+    }
 }
