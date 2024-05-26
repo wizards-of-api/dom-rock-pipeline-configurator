@@ -8,16 +8,11 @@ import MetadataSilver from '@/components/silver/ColumnSelectionSilver.vue'
 import FromTo from '@/components/silver/FromToFile.vue'
 import router from '@/router'
 import type { LZConfigView } from '@/components/lz-config/types'
+import ImportantMessage from '@/components/ImportantMessage.vue'
 
-const config = ref<SilverConfig>()
 const configAll = ref<SilverConfig[]>([])
 const fileConfig = ref<LZConfigView>()
 const showLeaveModal = ref(false)
-
-const saveFile = async () => {
-	await axios.put(`http://localhost:8080/silver-config/update/${router.currentRoute.value.params.id}`, config.value)
-	router.replace(`/list-view-silver`)
-}
 
 const getAllConfigs = async () => {
 	const response = await axios.get(`http://localhost:8080/silver-config/get-by-fileid/${router.currentRoute.value.params.id}`)
@@ -25,7 +20,7 @@ const getAllConfigs = async () => {
 }
 
 const getAllColumns = async () => {
-	const response = await axios.get(`http://localhost:8080/lz-config/1`)
+	const response = await axios.get(`http://localhost:8080/lz-config/2`)
 	return response.data
 }
 
@@ -35,7 +30,7 @@ onMounted(async () => {
 })
 </script>
 <template>
-	<div v-if="fileConfig">
+	<div v-if="fileConfig?.columns">
 		<div style="max-height: 100vh; overflow-y: scroll;">
 			<AppHeader>
 			</AppHeader>
@@ -44,7 +39,10 @@ onMounted(async () => {
 			</nav>
 			<main>
 				<MetadataSilver :file-config="fileConfig"></MetadataSilver>
-				<FromTo :base-column-list="configAll"></FromTo>
+				<div v-if="configAll.length === 0">
+					<ImportantMessage></ImportantMessage>
+				</div>
+				<FromTo v-if="configAll.length>0" :base-column-list="configAll"></FromTo>
 			</main>
 		</div>
 	</div>
@@ -77,4 +75,5 @@ main {
 	align-items: flex-start;
 	gap:30px;
 }
+
 </style>

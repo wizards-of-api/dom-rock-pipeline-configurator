@@ -126,11 +126,7 @@ public class SilverConfigController {
     public ResponseEntity<List<Object>> getAllSilverByFileId(@PathVariable Integer fileId) {
         try {
             List<Object> objectList = silverConfigServices.getAllSilverConfigByFileId(fileId);
-            if (objectList.isEmpty()) {
-                throw new ResponseStatusException(HttpStatus.NOT_FOUND);
-            } else {
-                return new ResponseEntity<>(objectList, HttpStatus.OK);
-            }
+            return new ResponseEntity<>(objectList, HttpStatus.OK);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }

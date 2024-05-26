@@ -27,8 +27,8 @@ export type ColumnConfig = {
 export type SilverConfig = {
 	columnId: number
 	silverId: number
-	from_c: string
-	to_c: string
+	from: string
+	to: string
 	columnName: string
 }
 export type silverFromTo ={

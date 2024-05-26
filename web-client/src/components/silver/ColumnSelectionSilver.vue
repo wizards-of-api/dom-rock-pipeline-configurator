@@ -1,12 +1,10 @@
 <script setup lang="ts">
-import DRSectionTitle from '../DRSectionTitle.vue'
 import type { ColumnConfig} from './types'
 import DRDropDown from '../DRDropDown.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import axios from 'axios'
 import type { LZConfigView } from '../lz-config/types'
-import { onMounted } from 'vue'
 
 type Props = {
 	fileConfig?: LZConfigView
@@ -19,27 +17,22 @@ const emitUpdate = () => {
 const columnList = fileConfig?.columns?.map(columns => columns)
 const filterActive = (column: ColumnConfig) => column.status === 1
 const mapOptions = (column: ColumnConfig) => `${column.columnNumber} ${column.columnName}`
-
 const fromC = defineModel<string>('fromC')
 const toC = defineModel<string>('toC')
 const columnId = defineModel<number>('columnId')
 const saveFile = async () => {
-	console.log(fileConfig)
 	const toFromJson = {
 		columnId:columnId.value,
 	 	from:fromC.value,
 	 	to:toC.value,
 	}
-	console.log(toFromJson)
-	await axios.post(`http://localhost:8080/silver-config/save`, toFromJson)}
-
-
-
+	await axios.post(`http://localhost:8080/silver-config/save`, toFromJson)
+	location.reload()
+}
 const toAdd = defineModel('toAdd', {
 	get: (value: any) => {
 		const filteredColumnNumber: number | undefined = parseInt(value?.split(' ')[0])
 		const filteredColumn = columnList?.filter(column => column.columnNumber === filteredColumnNumber)
-		console.log(filteredColumn?.[0])
 		columnId.value = Number(filteredColumn?.[0]?.columnId)
 		return value
 	},
@@ -55,7 +48,7 @@ const wrapColumnConfig = () => ({
 <template>
 	<div>
 		<div class="wrapper">
-			<h2>{{ fileConfig?.name }}</h2>
+			<h2>Nome da configuração : {{ fileConfig?.name }}</h2>
 			<hr/>
     	</div>
 		<main>
@@ -69,7 +62,7 @@ const wrapColumnConfig = () => ({
 							></DRDropDown>
 						<div class="buttonAlign">
 							<DRButton 
-							:click-behavior="saveFile">Adcionar
+							:click-behavior="saveFile">Adicionar
 							</DRButton>
 							</div>
 						<div class="rowMetadata">
@@ -137,7 +130,7 @@ main{
 }
 
 .wrapper {
-    width: 100%;
+    width: 117%;
 }
 h2 {
     padding: var(--small-gap) 0;

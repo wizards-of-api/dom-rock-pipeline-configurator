@@ -53,7 +53,7 @@ public class SilverConfigServices {
     public List<Object> getAllSilverConfigByFileId(Integer fileId) {
         List<Object[]> queryObjects = silverConfigInterface.findAllSilverByFileId(fileId);
         if (queryObjects.isEmpty()) {
-            throw new NoSuchElementException("Silver config not found");
+            return Collections.emptyList();
         } else {
             return queryObjects.stream()
                     .map(objects -> {

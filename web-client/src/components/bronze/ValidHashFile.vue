@@ -37,7 +37,7 @@ onBeforeMount(()=> {
 			<BronzeColumnRow 
 				v-for="(columnConfig, index) in columnList"
 					:base-column-config="columnConfig"
-					:key="`${index}${columnConfig}`"
+					:key="`${columnConfig.columnId}`"
 					@update="(column) => {emitUpdate(index, column)}"
 				>
 			</BronzeColumnRow>
