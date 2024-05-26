@@ -60,11 +60,6 @@ const wrapColumnConfig = () => ({
 						v-model="toAdd"
 						@update="emitUpdate"
 							></DRDropDown>
-						<div class="buttonAlign">
-							<DRButton 
-							:click-behavior="saveFile">Adicionar
-							</DRButton>
-							</div>
 						<div class="rowMetadata">
 							<div class="textInfo">
 							<DRTextInput
@@ -81,6 +76,12 @@ const wrapColumnConfig = () => ({
 							@update="emitUpdate"
 							v-model="toC"
 							></DRTextInput>
+							</div>
+							<div class="textInfo">
+							<DRButton
+							style="grid-area: index"
+							:click-behavior="saveFile">Adicionar
+							</DRButton>
 							</div>
 						</div>
 					</div>	
@@ -106,13 +107,12 @@ main{
     justify-content: end;
 }
 .rowMetadata{
-	display:grid;
-	grid-template-columns: 1fr 1fr 100px 1fr;
-	grid-template-rows:1fr;
-	align-items: center;
-	column-gap: 25%;
-    flex-direction: column;
-    justify-content: space-between;
+	display: grid;
+    grid-template-columns: 1fr 1fr 1150px 1fr;
+    grid-template-rows: 1fr;
+    align-items: center;
+    column-gap: 25%;
+    justify-items: center;
 }
 .titleInfo{
 	display:flex;
@@ -127,10 +127,11 @@ main{
 	display:flex;
 	flex-direction: row;
 	gap:10px;
+	justify-content: center;
 }
 
 .wrapper {
-    width: 117%;
+    width: 121%;
 }
 h2 {
     padding: var(--small-gap) 0;

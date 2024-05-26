@@ -84,14 +84,12 @@ const deleteFromTo = async (silverId:number | undefined) => {
 	row-gap: var(--gap);
 	align-items: last baseline;
 	justify-content: flex-start;
-	padding: var(--big-gap) 0;
 }
 .column-config {
     width: 100%;
     grid-template-columns: 20% 20% 20% 20% 20%;
-	grid-template-rows: min-content 2fr;
+	grid-template-rows: min-content 1fr;
 	grid-template-areas:
-		'name from to delete'
-		'description  description description description';
+		'name from to delete';
 }
 </style>

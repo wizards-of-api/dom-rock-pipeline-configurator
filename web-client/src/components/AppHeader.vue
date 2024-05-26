@@ -13,6 +13,10 @@ const nameRoute = (name:any) => {
 		return "Configurações Bronze"
 	case "BronzeConfigView":
 		return "Etapa Bronze"
+  case "SilverListView":
+    return "Configurações Silver"
+  case "SilverConfigView":
+    return "Etapa Silver"
 	default:
 		return ""
 	}

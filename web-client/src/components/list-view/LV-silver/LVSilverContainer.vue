@@ -7,8 +7,8 @@ type Props = {
 }
 const { configList } = defineProps<Props>()
 
-const gotoSilverConfig = () => {
-	router.replace('/home')
+const gotoSilverConfig = (id: number) => {
+	router.replace(`/silver-config/${id}`)
 }
 
 </script>
@@ -20,7 +20,7 @@ const gotoSilverConfig = () => {
 				class="banner"
 				v-for="config in configList"
 				:key="config.fileId"
-				@click="gotoSilverConfig()"
+				@click="gotoSilverConfig(config.fileId)"
 			>
 				<div class="banner-wrap">
 					<div>{{ config.fileName }}</div>

@@ -19,8 +19,12 @@ const getAllConfigs = async () => {
 	return response.data
 }
 
+const goToListViewSilver = () => {
+	return router.replace('/list-view-silver')
+} 
+
 const getAllColumns = async () => {
-	const response = await axios.get(`http://localhost:8080/lz-config/2`)
+	const response = await axios.get(`http://localhost:8080/lz-config/${router.currentRoute.value.params.id}`)
 	return response.data
 }
 
@@ -35,7 +39,7 @@ onMounted(async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
+				<DRButton :click-behavior="goToListViewSilver">Voltar</DRButton>
 			</nav>
 			<main>
 				<MetadataSilver :file-config="fileConfig"></MetadataSilver>
