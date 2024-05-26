@@ -30,9 +30,9 @@ const clickTest = () => {
 	emit('update', wrapUpdateMetadata())
 }
 const saveFile = async () => {
-	await axios.post(`http://localhost:8080/silver-config/save/${router.currentRoute.value.params.id}`, {
+	await axios.post(`http://localhost:8080/silver-config/save`, {
 		silverId: null,
-		columnId: columnIndex.value,
+		columnId: 1,
 		from:fromC.value,
 		to:toC.value,
 	})}

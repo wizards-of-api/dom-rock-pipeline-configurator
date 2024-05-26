@@ -1,16 +1,16 @@
 <script setup lang="ts">
-import {ref} from 'vue';
+import {ref} from 'vue'
 import DRSectionTitle from '../DRSectionTitle.vue'
 import SilverColumnRow from './SilverColumnRow.vue'
-import type { silverFromTo , SilverConfig} from './types'
-import axios from 'axios';
-import router from '@/router';
+import type {SilverConfig} from './types'
+
 
 type Props = {
-    baseColumnList?: SilverConfig []| []
+    baseColumnList: SilverConfig[]| []
 }
+
 const { baseColumnList } = defineProps<Props>()
-const columnList = baseColumnList?.map(baseColumn => baseColumn)
+const columnList = baseColumnList.map(baseColumn => baseColumn)
 const emit = defineEmits(['update'])
 const config = ref<SilverConfig>()
 
@@ -27,15 +27,11 @@ const emitUpdate = (index:any, data:any) => {
 
 </script>
 <template>
-	<DRSectionTitle title="De/Para"></DRSectionTitle>	
-	<SilverColumnRow :base-from-to="columnList"></SilverColumnRow>	
-			<SilverColumnRow 
-				v-for="(columnConfig, index) in columnList"
-					:base-column-config="columnConfig"
-					:key="`${index}${columnConfig}`"
-					@update="(column) => {emitUpdate(index, column)}"
-				>
-			</SilverColumnRow>
+	<DRSectionTitle title="De/Para"></DRSectionTitle>
+	<div v-for="SilverConfig in baseColumnList" :key="SilverConfig.columnId">
+	<SilverColumnRow :base-from-to="SilverConfig"></SilverColumnRow>	
+
+</div>
 	<main>
 	</main>
 </template>

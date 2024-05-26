@@ -2,17 +2,19 @@
 import type { SilverConfig } from './types'
 import DRTextInput from '../DRTextInput.vue'
 import { onMounted } from 'vue'
-import DRButton from '../DRButton.vue';
+import DRButton from '../DRButton.vue'
 
 
-const Props = {
-    basecolumnconfig: SilverConfig,
+type Props = {
+    basecolumnconfig: SilverConfig|SilverConfig,
 }
 
-const { baseColumnList } = defineProps<Props>()
-const columnIndex = defineModel<string>('columns')
+const { basecolumnconfig } = defineProps<Props>()
+const columnId = defineModel<number>('columnId')
+const silverId = defineModel<number>('silverId')
 const fromC = defineModel<string>('from_c')
 const toC = defineModel<string>('toc_c')
+const columnName = defineModel<string>('columnName')
 
 const emit = defineEmits(['update'])
 const emitUpdate = (valor:any) => {
@@ -21,26 +23,26 @@ const emitUpdate = (valor:any) => {
 	}, 1000)
 }
 onMounted(() => {
-	columnIndex = basecolumnconfig.columns.columnId,
-	fromC.value = baseFromTo.from_c
-	toC.value = baseFromTo.to_c
+	columnId.value = basecolumnconfig.columnId,
+	silverId.value = basecolumnconfig.silverId,
+	fromC.value = basecolumnconfig.from_c
+	toC.value = basecolumnconfig.to_c
 })
 
 const clickTest = () => {
-console.log(columnIndex.value, fromC.value, toC.value)
-console.log("Remover")
+
 }
 
 </script>
 <template>
     <div
         class="grid column-config"
-        :key="columnIndex">
+        :key="columnId">
         <DRTextInput
             style="grid-area: index"
             title="Número da Coluna"
-            default-value="String(baseFromTo.id_silver)"
-            v-model="columnIndex"
+            default-value='columnId.value'
+            v-model="columnId"
             @update="emitUpdate"
             disabled
         ></DRTextInput>

@@ -25,22 +25,11 @@ export type ColumnConfig = {
 }
 
 export type SilverConfig = {
-	id_silver: number
+	columnId: number
+	silverId: number
 	from_c: string
 	to_c: string
-	columns: Array<{
-		columnId: Number
-		columnNumber: Number
-		columnName: string
-		description: string
-		empty: number
-		status: number
-		type: string
-        hash: number
-        valid:number
-	}>
-
-
+	columnName: string
 }
 export type silverFromTo ={
 	id_silver: number

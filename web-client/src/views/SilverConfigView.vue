@@ -10,12 +10,11 @@ import MetadataSilver from '@/components/silver/ColumnSelectionSilver.vue'
 import FromTo from '@/components/silver/FromToFile.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
-import SilverColumnRow from '@/components/silver/SilverColumnRow.vue'
 import Load from '@/components/Load.vue'
 import router from '@/router'
 
 const config = ref<SilverConfig>()
-const configAll = ref<SilverConfig[]>()
+const configAll = ref<SilverConfig[]>([])
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 const getConfig = async () => {
@@ -23,7 +22,8 @@ const getConfig = async () => {
 	return response.data
 }
 onMounted(async () => {
-	config.value = await getConfig()
+	config.value = await getConfig(),
+	configAll.value = await getAllConfigs()
 })
 
 const saveFile = async () => {
@@ -35,9 +35,6 @@ const getAllConfigs = async () => {
 	const response = await axios.get(`http://localhost:8080/silver-config/get-by-fileid/${router.currentRoute.value.params.id}`)
 	return response.data
 }
-onMounted(async () => {
-	configAll.value = await getAllConfigs()
-})
 
 </script>
 <template>
