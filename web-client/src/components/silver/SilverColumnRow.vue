@@ -18,15 +18,13 @@ const columnName = defineModel<string>('columnName')
 
 const emit = defineEmits(['update'])
 const emitUpdate = (valor:any) => {
-	setTimeout(() => {
-		emit('update')
-	}, 1000)
+	emit('update')
 }
 onMounted(() => {
-	columnId.value = basecolumnconfig.columnId,
-	silverId.value = basecolumnconfig.silverId,
-	fromC.value = basecolumnconfig.from_c
-	toC.value = basecolumnconfig.to_c
+	columnId.value = basecolumnconfig?.columnId,
+	silverId.value = basecolumnconfig?.silverId,
+	fromC.value = basecolumnconfig?.from_c
+	toC.value = basecolumnconfig?.to_c
 })
 
 const clickTest = () => {

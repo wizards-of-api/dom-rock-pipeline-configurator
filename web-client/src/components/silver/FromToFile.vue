@@ -31,7 +31,7 @@ const emitUpdate = (index:any, data:any) => {
 	<div v-for="SilverConfig in baseColumnList" :key="SilverConfig.columnId">
 	<SilverColumnRow :base-from-to="SilverConfig"></SilverColumnRow>	
 
-</div>
+	</div>
 	<main>
 	</main>
 </template>

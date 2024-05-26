@@ -2,60 +2,48 @@
 import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import {  type SilverConfig } from '@/components/silver/types'
-import { type silverFromTo } from '@/components/silver/types'
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
-import DRModal from '@/components/DRModal.vue'
 import MetadataSilver from '@/components/silver/ColumnSelectionSilver.vue'
 import FromTo from '@/components/silver/FromToFile.vue'
-import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
-import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
-import Load from '@/components/Load.vue'
 import router from '@/router'
+import type { LZConfigView } from '@/components/lz-config/types'
 
 const config = ref<SilverConfig>()
 const configAll = ref<SilverConfig[]>([])
+const fileConfig = ref<LZConfigView>()
 const showLeaveModal = ref(false)
-const showSavedModal = ref(false)
-const getConfig = async () => {
-	const response = await axios.get(`http://localhost:8080/silver-config/${router.currentRoute.value.params.id}`)
-	return response.data
-}
-onMounted(async () => {
-	config.value = await getConfig(),
-	configAll.value = await getAllConfigs()
-})
 
 const saveFile = async () => {
 	await axios.put(`http://localhost:8080/silver-config/update/${router.currentRoute.value.params.id}`, config.value)
 	router.replace(`/list-view-silver`)
 }
-	
+
 const getAllConfigs = async () => {
 	const response = await axios.get(`http://localhost:8080/silver-config/get-by-fileid/${router.currentRoute.value.params.id}`)
 	return response.data
 }
 
+const getAllColumns = async () => {
+	const response = await axios.get(`http://localhost:8080/lz-config/1`)
+	return response.data
+}
+
+onMounted(async () => {
+	fileConfig.value = await getAllColumns()
+	configAll.value = await getAllConfigs()
+})
 </script>
 <template>
-	<div>
-		<div>
-			<DRModal :show="showLeaveModal" @click-out="showLeaveModal = false">
-				<LZModalLeave :close-modal="() => showLeaveModal = false"></LZModalLeave>
-			</DRModal>
-			<DRModal :show="showSavedModal">
-				<LZModalSaved></LZModalSaved>
-			</DRModal>
-		</div>
+	<div v-if="fileConfig">
 		<div style="max-height: 100vh; overflow-y: scroll;">
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
 				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
 			</nav>
 			<main>
-				<MetadataSilver></MetadataSilver>
+				<MetadataSilver :file-config="fileConfig"></MetadataSilver>
 				<FromTo :base-column-list="configAll"></FromTo>
 			</main>
 		</div>

@@ -1,89 +1,99 @@
 <script setup lang="ts">
 import DRSectionTitle from '../DRSectionTitle.vue'
-import type { SilverConfig } from './types';
-import type { silverFromTo } from './types';
-import DRDropDown from '../DRDropDown.vue';
-import DRTextInput from '../DRTextInput.vue';
-import type { ColumnConfig }from './types';
-import SilverColumnRow from './SilverColumnRow.vue';
-import DRButton from '../DRButton.vue';
-import { onMounted, ref } from 'vue';
-import axios from 'axios';
-import router from '@/router';
-
-const emit = defineEmits(['update'])
-const emitUpdate = () => {
-	emit('update')
-}
-
-const config = ref<SilverConfig>()
-const columnIndex = defineModel<string>('index')
-const fromC = defineModel<string>('fromC')
-const toC = defineModel<string>('toC')
+import type { ColumnConfig} from './types'
+import DRDropDown from '../DRDropDown.vue'
+import DRTextInput from '../DRTextInput.vue'
+import DRButton from '../DRButton.vue'
+import axios from 'axios'
+import type { LZConfigView } from '../lz-config/types'
+import { onMounted } from 'vue'
 
 type Props = {
-    config?: SilverConfig[]
-	silverData?: silverFromTo
+	fileConfig?: LZConfigView
 }
+const { fileConfig } = defineProps<Props>()
+const emit = defineEmits(['update'])
+const emitUpdate = () => {
+	emit('update', wrapColumnConfig())
+}
+const columnList = fileConfig?.columns?.map(columns => columns)
+const filterActive = (column: ColumnConfig) => column.status === 1
+const mapOptions = (column: ColumnConfig) => `${column.columnNumber} ${column.columnName}`
 
-const clickTest = () => {
-	emit('update', wrapUpdateMetadata())
-}
+const fromC = defineModel<string>('fromC')
+const toC = defineModel<string>('toC')
+const columnId = defineModel<number>('columnId')
 const saveFile = async () => {
-	await axios.post(`http://localhost:8080/silver-config/save`, {
-		silverId: null,
-		columnId: 1,
-		from:fromC.value,
-		to:toC.value,
-	})}
+	console.log(fileConfig)
+	const toFromJson = {
+		columnId:columnId.value,
+	 	from:fromC.value,
+	 	to:toC.value,
+	}
+	console.log(toFromJson)
+	await axios.post(`http://localhost:8080/silver-config/save`, toFromJson)}
 
 
-const wrapUpdateMetadata = () => ({
-	silverIs: null,
-	columnIndex: columnIndex.value === 'Código' ? 1:1,
-	fromC: fromC.value,
-	toC: toC.value,
+
+const toAdd = defineModel('toAdd', {
+	get: (value: any) => {
+		const filteredColumnNumber: number | undefined = parseInt(value?.split(' ')[0])
+		const filteredColumn = columnList?.filter(column => column.columnNumber === filteredColumnNumber)
+		console.log(filteredColumn?.[0])
+		columnId.value = Number(filteredColumn?.[0]?.columnId)
+		return value
+	},
 })
 
+const wrapColumnConfig = () => ({
+	columnId: toAdd,
+	from:fromC.value,
+	to:toC.value,
+})
 
 </script>
 <template>
-	<DRSectionTitle title="Nome_Da_Configuração"></DRSectionTitle>
-	<main>
-		<div class="containerMetadata">
-			<div class="titleInfo">
-					<DRDropDown 
-            			title="Coluna"
-						v-model="columnIndex"
-            			:option-list="['Código', 'Marca', 'Aparelho', 'Etc...']"
-						@update="clickTest"
-						></DRDropDown>
-					<div class="buttonAlign">
-						<DRButton 
-						:click-behavior="saveFile">Adcionar
-						</DRButton>
+	<div>
+		<div class="wrapper">
+			<h2>{{ fileConfig?.name }}</h2>
+			<hr/>
+    	</div>
+		<main>
+			<div class="containerMetadata">
+				<div class="titleInfo">
+						<DRDropDown 
+						title="Coluna"
+                		:option-list="columnList?.filter(filterActive).map(mapOptions)"
+						v-model="toAdd"
+						@update="emitUpdate"
+							></DRDropDown>
+						<div class="buttonAlign">
+							<DRButton 
+							:click-behavior="saveFile">Adcionar
+							</DRButton>
+							</div>
+						<div class="rowMetadata">
+							<div class="textInfo">
+							<DRTextInput
+							style="grid-area: index"
+							title="De"
+							v-model="fromC"
+							@update="emitUpdate"
+							></DRTextInput>
+							</div>
+							<div class="textInfo">
+							<DRTextInput
+							style="grid-area: index"
+							title="Para"
+							@update="emitUpdate"
+							v-model="toC"
+							></DRTextInput>
+							</div>
 						</div>
-					<div class="rowMetadata">
-						<div class="textInfo">
-						<DRTextInput
-						style="grid-area: index"
-            			title="De"
-            			v-model="fromC"
-						@update="clickTest"
-            			></DRTextInput>
-						</div>
-						<div class="textInfo">
-						<DRTextInput
-						style="grid-area: index"
-            			title="Para"
-						@update="clickTest"
-            			v-model="toC"
-            			></DRTextInput>
-						</div>
-					</div>
-				</div>	
-			</div>
-	</main>
+					</div>	
+				</div>
+		</main>
+	</div>
 </template>
 <style scoped lang="scss">
 main{
@@ -124,6 +134,17 @@ main{
 	display:flex;
 	flex-direction: row;
 	gap:10px;
+}
+
+.wrapper {
+    width: 100%;
+}
+h2 {
+    padding: var(--small-gap) 0;
+}
+hr {
+    border: 0;
+    border-top: 2px solid var(--color-separator);
 }
 
 </style>
