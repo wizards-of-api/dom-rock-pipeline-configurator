@@ -80,3 +80,13 @@ export type BConfig = {
 		valid: number
 	}>
 }
+
+export type validatedFileBronze = {
+	files: validatedBronze[]
+}
+
+export type validatedBronze = {
+	fileId: number
+	fileName: string
+}
+
