@@ -38,10 +38,10 @@ const validOrInvalid = () =>{
     <div class="modal">
         <span style="grid-area: config-name;"> <strong> {{ lzConfig.name }} </strong></span>
             <span style="grid-area: file-name;">Arquivo:  {{ lzConfig.fileName }} </span>
-            <span style="grid-area: file-type; text-align: right;">Tipo:  {{ lzConfig.fileType }} </span>
+            <span style="grid-area: file-type; text-align: right;">Tipo:  {{ lzConfig.fileExtension }} </span>
             <span style="grid-area: file-origin;">Origem:  {{ lzConfig.fileOrigin }} </span>
             <span style="grid-area: hash;">Hash: {{ hashVerify }} </span>
-            <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequency }} {{ lzConfig.filePeriod }} </span>
+            <span style="grid-area: file-frequency;">Frequencia:  {{ lzConfig.frequencyNumber }} {{ lzConfig.frequencyType }} </span>
             <span style="grid-area: valid;">Status: {{ validOrInvalid() }}</span>
             <div style="grid-area: columns;">
                 <h2>Colunas</h2>

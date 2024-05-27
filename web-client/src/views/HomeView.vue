@@ -4,13 +4,18 @@ import DRButton from '@/components/DRButton.vue'
 import router from '../router'
 
 const routeScrenn = (nomeRouter:String) => {
-	if(nomeRouter === "LZ"){
+	switch (nomeRouter) {
+	case "LZ":
 		router.push('list-view')
-	}
-	else if(nomeRouter === "BRONZE"){
+		break
+	case "BRONZE":
 		router.push('list-view-bronze')
-	}else{
-		console.log("Silver")
+		break
+	case "SILVER":
+		router.push('list-view-silver')
+		break
+	default:
+		console.error("Nome do roteador inválido:", nomeRouter)
 	}
 }
 </script>

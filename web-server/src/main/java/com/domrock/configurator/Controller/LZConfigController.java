@@ -65,7 +65,19 @@ public class LZConfigController {
     public ResponseEntity<Page<LZMetadataConfig>> getConfigList(@PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
-    }  
+    }
+    
+    @GetMapping("/list-view/{configName}")
+    public ResponseEntity<List<LZMetadataConfig>> getConfigListByName(@PathVariable String configName){
+        try{
+            List<LZMetadataConfig> listConfig = lzMetadataConfigInterface.findByName(configName);
+        return ResponseEntity.ok(listConfig);
+        }
+        catch(Exception e){
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 
     @GetMapping("/{id}")
     @Transactional
@@ -97,6 +109,8 @@ public class LZConfigController {
     }
 
     @PostMapping("/save")
+    @Transactional
+    @JsonView(Views.LZ.class)
     public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
 
@@ -113,7 +127,7 @@ public class LZConfigController {
     @Transactional
     public ResponseEntity<LZMetadataConfig> updateConfigById(@PathVariable Integer id, @RequestBody LZMetadataConfig newConfigData) {
         try {
-            LZMetadataConfig updatedConfig = lzMetadataServices.updateConfigById(id, newConfigData);
+            LZMetadataConfig updatedConfig = lzMetadataServices.updateLzData(id, newConfigData);
             if (updatedConfig != null) {
                 return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
             } else {

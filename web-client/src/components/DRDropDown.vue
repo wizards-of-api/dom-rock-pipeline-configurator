@@ -1,7 +1,7 @@
 <script setup lang="ts">
 type Props = {
 	title: string
-	optionList: readonly string[]
+	optionList?: readonly string[]
 	displayOption?: string
 }
 

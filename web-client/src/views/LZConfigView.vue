@@ -29,7 +29,6 @@ const metadata: MetadataConfig = {
 	fileExtension: 'csv',
 	frequencyNumber: 3,
 	frequencyType: 'Dias',
-	separator: ',',
 	hasHeader: true,
 }
 
@@ -42,7 +41,6 @@ const onUpdateMetadata = (newMetadata: MetadataConfig) => {
 
 const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 	columnList = newColumnList
-	console.log(columnList)
 }
 
 const saveFile = async () => {

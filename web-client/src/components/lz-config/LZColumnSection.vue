@@ -11,7 +11,7 @@ type Props = {
 }
 
 const filterInactive = (column: ColumnConfig) => column.status === 0
-const mapOptions = (column: ColumnConfig) => `${column.index} ${column.name}`
+const mapOptions = (column: ColumnConfig) => `${column.columnNumber} ${column.columnName}`
 
 const { baseColumnList } = defineProps<Props>()
 const columnList = baseColumnList.map(baseColumn => baseColumn)
@@ -20,9 +20,12 @@ const activeColumnCount = ref(0)
 const emit = defineEmits(['update'])
 const emitUpdate = () => {
 	emit('update', columnList)
+	
 }
 
-const setActiveCount = () => activeColumnCount.value = columnList.filter(filterInactive).length
+const setActiveCount = () => {
+	activeColumnCount.value = columnList.filter(filterInactive).length
+}
 
 const toAdd = defineModel('toAdd', {
 	get: (value: any) => {
@@ -31,7 +34,7 @@ const toAdd = defineModel('toAdd', {
 	},
 })
 const addColumn = () => {
-	if(!toAdd.value || toAdd.value === '') return
+	if (toAdd.value === undefined || toAdd.value === '') return
 	const columnIndex = toAdd.value as number
 	columnList[columnIndex].status = 1
 	setActiveCount()
