@@ -27,17 +27,16 @@ export type ColumnConfig = {
 export type BronzeConfig = {
 	fileId: number
 	fileName: string
-	fileOrigin: string
-	filePeriod: string
-	fileType: string
-	frequency: number
+	fileExtension: string
+	frequencyType: string
+	frequencyNumber: number
 	name: string
 	columns: Array<{
 		columnId: Number
 		columnNumber: Number
 		columnName: string
 		description: string
-		empty: number
+		canBeNull: number
 		status: number
 		type: string
         hash: number

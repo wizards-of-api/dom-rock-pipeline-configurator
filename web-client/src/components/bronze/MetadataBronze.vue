@@ -23,11 +23,11 @@ const {config} = defineProps<Props>()
 			<div class="titleInfo">
 				<div class="textInfo">
 					<p class="sizeWord">Origem:</p>
-					<p class="sizeWord">{{config.fileOrigin}}</p>
+					<p class="sizeWord">{{config.fileExtension}}</p>
 				</div>
 				<div class="textInfo">	
 					<p class="sizeWord">Frequencia:</p>
-					<p class="sizeWord">{{config.frequency}}</p>
+					<p class="sizeWord">{{config.frequencyNumber}} {{ config.frequencyType }}</p>
 				</div>
 			</div>
 	    </div>
