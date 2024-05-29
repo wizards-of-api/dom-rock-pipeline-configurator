@@ -1,21 +1,20 @@
 package com.domrock.configurator.Services;
 
 import com.domrock.configurator.Interface.PermissionRepository;
+import com.domrock.configurator.Interface.UserPermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
+import com.domrock.configurator.Model.ConfigModel.*;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.PermissionDto;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
-import com.domrock.configurator.Model.ConfigModel.Permission;
-import com.domrock.configurator.Model.ConfigModel.PermissionType;
-import com.domrock.configurator.Model.ConfigModel.User;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
+import java.util.Set;
 
 import static java.util.stream.Collectors.toList;
 
@@ -23,6 +22,9 @@ import static java.util.stream.Collectors.toList;
 public class UserService {
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserPermissionRepository userPermissionRepository;
 
     @Autowired
     private PermissionRepository permissionRepository;
@@ -67,10 +69,9 @@ public class UserService {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
             String permissionString = PermissionType.values()[permissionCreated].name();
-            Permission adfhqifda = permissionRepository.findPermissionByType(permissionString);
-            PermissionDto permission = modelMapper.map(permissionRepository.findPermissionByType(permissionString), PermissionDto.class);
-            Permission permissionToAdd = modelMapper.map(permission, Permission.class);
-            user.getPermissions().add(permissionToAdd);
+            Permission adfhqifda = permissionRepository.findByType(permissionString);
+
+
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
@@ -85,21 +86,23 @@ public class UserService {
      * @throws NoSuchElementException if no user is found with the email.
      */
     @Transactional
-    public UserDTO removeUserPermission(String email, String permissionType) {
-        User user = userRepository.findById(email).orElse(null);
+    public UserDTO removeUserPermission(String email, int permissionType) {
+            User user = userRepository.findById(email).orElse(null);
         if (user == null) {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
-            Permission permission = permissionRepository.findPermissionByType(permissionType);
-            user.getPermissions().remove(permission);
-            userRepository.save(user);
+            userPermissionRepository.deleteById(new UserPermissionId(email,permissionType));
             return modelMapper.map(user, UserDTO.class);
         }
     }
 
+
     @Transactional
     public void createUser(UserDTO userDTO) {
         User user = modelMapper.map(userDTO, User.class);
+        Set<Company> companies = new HashSet<>();
+        user.setCompanies(companies);
         userRepository.save(user);
+
     }
 }

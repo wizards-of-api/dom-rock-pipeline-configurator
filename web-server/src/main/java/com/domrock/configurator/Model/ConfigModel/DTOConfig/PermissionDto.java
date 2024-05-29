@@ -1,16 +1,17 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 import lombok.Value;
 
 import java.io.Serializable;
-import java.util.Set;
 
 /**
  * DTO for {@link com.domrock.configurator.Model.ConfigModel.Permission}
  */
-@Value
+@AllArgsConstructor
+@NoArgsConstructor
 public class PermissionDto implements Serializable {
-    Integer id_permission;
+    Integer id;
     String type;
-    Set<String> userEmails;
 }

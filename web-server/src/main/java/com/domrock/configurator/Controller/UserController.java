@@ -1,6 +1,13 @@
 package com.domrock.configurator.Controller;
 
+import com.domrock.configurator.Interface.PermissionRepository;
+import com.domrock.configurator.Interface.UserPermissionRepository;
+import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
+import com.domrock.configurator.Model.ConfigModel.User;
+import com.domrock.configurator.Model.ConfigModel.UserPermission;
+import com.domrock.configurator.Model.ConfigModel.UserPermissionId;
+import com.domrock.configurator.Services.UserPermissionService;
 import com.domrock.configurator.Services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +25,10 @@ public class UserController {
     private UserService userService;
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserPermissionService userPermissionService;
+    @Autowired
+    private PermissionRepository permissionRepository;
 
     @GetMapping("/get-all-users")
     public ResponseEntity<List<UserDTO>> getAllUsers() {
@@ -31,10 +42,12 @@ public class UserController {
     @PutMapping("/create-user/{permissionType}")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO , @PathVariable int permissionType) {
         try{
+            userDTO.setIsSuper((byte) 0);
             userService.createUser(userDTO);
-            userService.addUserPermission(userDTO.getEmail(),permissionType-1);
+            userPermissionService.createUserPermission(modelMapper.map(userService.findByEmail(userDTO.getEmail()),User.class),permissionType);
             return ResponseEntity.ok(modelMapper.map(userDTO, UserDTO.class));
         }catch (Exception e){
+            System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
         }
 
@@ -53,7 +66,7 @@ public class UserController {
 
     @DeleteMapping("/{userEmail}/permissions/{permissionType}")
     public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-                                                    @PathVariable("permissionType") String permissionType) {
+                                                    @PathVariable("permissionType") int permissionType) {
         try {
             UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
             return ResponseEntity.ok(userDTO);
