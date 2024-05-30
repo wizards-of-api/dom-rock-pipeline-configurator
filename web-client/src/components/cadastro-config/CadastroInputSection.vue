@@ -90,11 +90,18 @@ const wrapUpdateMetadata = () => ({
 			v-model="permissoes"
 			@update="emitUpdate"
 		></DRDropDown>
-		<DRButton :click-behavior="saveFile">Cadastrar</DRButton>
+		<div class="saveButton">
+			<DRButton :click-behavior="saveFile">Cadastrar</DRButton>
+		</div>
 		</div>
 	</div>
 </template>
 <style scoped lang="scss">
+
+.saveButton{
+	margin: -80px;
+}
+
 .grid {
 	display: grid;
 	column-gap: var(--big-gap);
@@ -111,10 +118,9 @@ const wrapUpdateMetadata = () => ({
 		'email empresas empresas empresas upload';
 }
 .checkBox{
-    display: flex;
+	display: flex;
 	align-items: last baseline;
-    flex-direction: row;
+	flex-direction: row;
 	justify-content: flex-start;
-    
 }
 </style>
