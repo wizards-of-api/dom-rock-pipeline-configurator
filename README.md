@@ -68,6 +68,10 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 
+# Documentação
+
++ Documentação Dom Rock Pipeline Configurator: [Documentação](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Documentação%20Dom%20Rock%20Pipeline%20Configurator.pdf)
+
 <div align="left"><hr width=70%></div>
 
 
