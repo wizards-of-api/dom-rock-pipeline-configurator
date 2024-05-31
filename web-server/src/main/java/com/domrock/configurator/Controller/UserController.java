@@ -39,12 +39,12 @@ public class UserController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping("/create-user/{permissionType}")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO , @PathVariable int permissionType) {
+    @PutMapping("/create-user")
+    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         try{
             userDTO.setIsSuper((byte) 0);
             userService.createUser(userDTO);
-            userPermissionService.createUserPermission(modelMapper.map(userService.findByEmail(userDTO.getEmail()),User.class),permissionType);
+            userPermissionService.createUserPermission(userDTO);
             return ResponseEntity.ok(modelMapper.map(userDTO, UserDTO.class));
         }catch (Exception e){
             System.out.println(e.getMessage());

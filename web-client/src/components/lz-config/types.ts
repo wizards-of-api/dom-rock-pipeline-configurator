@@ -74,4 +74,7 @@ export type CadastroConfig= {
 	email: string
 	senha: string
 	super: boolean
+	lzbool: boolean
+	bronzebool: boolean
+	silverbool: boolean
 }

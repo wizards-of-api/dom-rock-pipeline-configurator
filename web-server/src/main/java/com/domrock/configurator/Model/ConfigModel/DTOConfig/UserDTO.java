@@ -18,6 +18,8 @@ public class UserDTO implements Serializable {
     String name;
     String password;
     Byte isSuper;
+    boolean lzbool;
+    boolean bronzebool;
+    boolean silverbool;
     private Set<String> companyCnpjs;
-
 }

@@ -20,24 +20,33 @@ const emitUpdate = () => {
 
 const nome = defineModel<String>('nome')
 const email = defineModel<String>('email')
-const permissoes = defineModel<String>('permissoes')
+const lzbool = defineModel<boolean>('lzbool')
+const bronzebool = defineModel<boolean>('bronzebool')
+const silverbool = defineModel<boolean>('silverbool')
 const senha = defineModel<String>('senha')
 const isSuper = defineModel<boolean>('isSuper')
 
 
 const saveFile = async () => {
-	await axios.put('http://localhost:8080/user/create-user/'.concat(wrapUpdateMetadata().permissoes)  , {
+	await axios.put('http://localhost:8080/user/create-user' , {
 		name:nome.value,
 		email:email.value,
 		password:senha.value,
 		isSuper:null,
-	})}
+		lzbool: lzbool.value,
+		bronzebool: bronzebool.value,
+		silverbool: silverbool.value,
+
+	},
+	
+
+)}
 
 const wrapUpdateMetadata = () => ({
 	nome: nome.value,
 	email: email.value,
 	senha:senha.value,
-	permissoes: permissoes.value === 'LZ' ? '1' : permissoes.value === 'Bronze' ? '2' : permissoes.value === 'Silver' ? '3' : '1',
+	permissoes: [lzbool.value,bronzebool.value,silverbool.value],
 	isSuper: isSuper.value,
 })
 
@@ -61,20 +70,19 @@ const wrapUpdateMetadata = () => ({
 			<DRCheckBox
 				style="grid-area: lz; width: 2rem;"
 				title="LZ"
-				v-model="canBeNull"
-				value= "canBenull"
+				v-model="lzbool"
 				@update="emitUpdate"
 			></DRCheckBox>
 			<DRCheckBox
 				style="grid-area: bronze; width: 5rem;"
 				title="Bronze"
-				v-model="validColumn"
+				v-model="bronzebool"
 				@update="emitUpdate"
 			></DRCheckBox>
 			<DRCheckBox
 				style="grid-area: silver; width: 5rem;"
 				title="Silver"
-				v-model="hash"
+				v-model="silverbool"
 				@update="emitUpdate"
 			></DRCheckBox>
 			<DRTextInput
