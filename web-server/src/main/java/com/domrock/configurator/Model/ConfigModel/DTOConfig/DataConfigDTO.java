@@ -4,6 +4,6 @@ import java.util.List;
 
 public record DataConfigDTO(
     MetadataConfigDTO metadata,
-    List<ColumnConfigDTO> columns
-) {}    
-
+    List<ColumnConfigDTO> columns,
+    List<SilverConfigDTO> columnsFromTo
+) {}

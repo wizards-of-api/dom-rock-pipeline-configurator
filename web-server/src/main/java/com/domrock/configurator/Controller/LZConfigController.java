@@ -76,7 +76,7 @@ public class LZConfigController {
         catch(Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-}
+    }
 
 
     @GetMapping("/{id}")
@@ -109,6 +109,8 @@ public class LZConfigController {
     }
 
     @PostMapping("/save")
+    @Transactional
+    @JsonView(Views.LZ.class)
     public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
 
@@ -125,7 +127,7 @@ public class LZConfigController {
     @Transactional
     public ResponseEntity<LZMetadataConfig> updateConfigById(@PathVariable Integer id, @RequestBody LZMetadataConfig newConfigData) {
         try {
-            LZMetadataConfig updatedConfig = lzMetadataServices.updateConfigById(id, newConfigData);
+            LZMetadataConfig updatedConfig = lzMetadataServices.updateLzData(id, newConfigData);
             if (updatedConfig != null) {
                 return new ResponseEntity<>(updatedConfig, HttpStatus.OK);
             } else {
