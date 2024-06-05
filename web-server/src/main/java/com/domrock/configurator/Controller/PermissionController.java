@@ -22,7 +22,7 @@ public class PermissionController {
     private ModelMapper modelMapper;
 
     @GetMapping("/{permissionType}/users")
-    public ResponseEntity<List<UserDTO>> getUsersByPermission(@PathVariable("permissionType") String permissionType) {
+    public ResponseEntity<List<UserDTO>> getUsersByPermission(@PathVariable("permissionType") int permissionType) {
         try {
             List<UserDTO> userDTOS = permissionService.getUsersByPermission(permissionType);
             return ResponseEntity.ok(userDTOS);

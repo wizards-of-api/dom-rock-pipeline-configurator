@@ -1,6 +1,7 @@
 package com.domrock.configurator.Services;
 
 import com.domrock.configurator.Interface.PermissionRepository;
+import com.domrock.configurator.Interface.UserPermissionRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Model.ConfigModel.Permission;
 import com.domrock.configurator.Model.ConfigModel.User;
@@ -21,13 +22,15 @@ public class PermissionService {
 
     @Autowired
     private ModelMapper modelMapper;
+    @Autowired
+    private UserPermissionRepository userPermissionRepository;
 
-    public List<UserDTO> getUsersByPermission(String permissionType) {
-        Permission permission = permissionRepository.findByType(permissionType);
+    public List<UserDTO> getUsersByPermission(int permissionType) {
+        Permission permission = permissionRepository.findById(permissionType);
         if (permission == null) {
             throw new NoSuchElementException("Permission not found: " + permissionType);
         }
-        Set<User> users = permission.getUsers();
+        Set<User> users = userPermissionRepository.findAllUsersByPermissionId(permissionType);
         return users.stream()
                 .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());

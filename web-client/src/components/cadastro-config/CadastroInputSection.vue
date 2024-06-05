@@ -18,12 +18,12 @@ const emitUpdate = () => {
 }
 
 
-const nome = defineModel<String>('nome')
-const email = defineModel<String>('email')
+const nome = defineModel<string>('nome')
+const email = defineModel<string>('email')
 const lzbool = defineModel<boolean>('lzbool')
 const bronzebool = defineModel<boolean>('bronzebool')
 const silverbool = defineModel<boolean>('silverbool')
-const senha = defineModel<String>('senha')
+const senha = defineModel<string>('senha')
 const isSuper = defineModel<boolean>('isSuper')
 
 
@@ -95,7 +95,7 @@ const wrapUpdateMetadata = () => ({
 			style="grid-area: empresas; width: 14rem"
 			title="Empresa"
 			:option-list="'two'"
-			v-model="permissoes"
+			v-model="empresas"
 			@update="emitUpdate"
 		></DRDropDown>
 		<div class="saveButton">
