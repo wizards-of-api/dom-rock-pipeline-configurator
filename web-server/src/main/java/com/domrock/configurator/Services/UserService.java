@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
@@ -99,5 +100,16 @@ public class UserService {
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
+    }
+
+    // Used by AuthenticationService
+    @Transactional
+    public User saveUser(User user) {
+        if (user.getEmail() == null) {
+            user.setCreatedAt(LocalDateTime.now());
+        }
+
+        user.setUpdatedAt(LocalDateTime.now());
+        return userRepository.save(user);
     }
 }
