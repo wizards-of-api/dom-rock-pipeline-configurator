@@ -1,10 +1,7 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +15,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Entity
 @Table(name = "user")
 public class User implements UserDetails {
@@ -32,8 +30,6 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "is_super", nullable = false, columnDefinition = "TINYINT", length = 1)
-    private boolean isSuper;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
