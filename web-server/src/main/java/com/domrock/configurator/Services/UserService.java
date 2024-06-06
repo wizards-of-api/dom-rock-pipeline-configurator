@@ -61,48 +61,30 @@ public class UserService {
     }
 
     /**
-     * Adds a permission to the user with the given email.
+     * Sets the permission for the user with the given email.
      *
-     * @param email           the email of the user to whom the permission should be added.
-     * @param permissionType  the type of permission to be added.
-     * @return                {@link UserDTO} representing the user entity after adding the permission.
-     * @throws NoSuchElementException if no user is found with the email.
+     * @param email           the email of the user for whom the permission should be set.
+     * @param permissionId    the ID of the permission to be set.
+     * @return                {@link UserDTO} representing the user entity after setting the permission.
+     * @throws NoSuchElementException if no user is found with the email or no permission is found with the ID.
      */
     @Transactional
-    public UserDTO addUserPermission(String email, String permissionType) {
+    public UserDTO setUserPermission(String email, Integer permissionId) {
         User user = userRepository.findById(email).orElse(null);
         if (user == null) {
             throw new NoSuchElementException("No user found with email: " + email);
         } else {
-            Permission permission = permissionRepository.findByType(permissionType);
-            user.getPermissions().add(permission);
+            Permission permission = permissionRepository.findById(permissionId).orElse(null);
+            if (permission == null) {
+                throw new NoSuchElementException("No permission found with ID: " + permissionId);
+            }
+            user.setPermission(permission);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
     }
 
-    /**
-     * Removes a permission from the user with the given email.
-     *
-     * @param email           the email of the user from whom the permission should be removed.
-     * @param permissionType  the type of permission to be removed.
-     * @return                {@link UserDTO} representing the user entity after removing the permission.
-     * @throws NoSuchElementException if no user is found with the email.
-     */
-    @Transactional
-    public UserDTO removeUserPermission(String email, String permissionType) {
-        User user = userRepository.findById(email).orElse(null);
-        if (user == null) {
-            throw new NoSuchElementException("No user found with email: " + email);
-        } else {
-            Permission permission = permissionRepository.findByType(permissionType);
-            user.getPermissions().remove(permission);
-            userRepository.save(user);
-            return modelMapper.map(user, UserDTO.class);
-        }
-    }
-
-    // Used by AuthenticationService
+    // Used by AuthenticationService, so it needs to be Entity instead of DTO
     @Transactional
     public User saveUser(User user) {
         if (user.getEmail() == null) {
