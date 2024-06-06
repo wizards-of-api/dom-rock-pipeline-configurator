@@ -29,22 +29,11 @@ public class UserController {
         }
     }
 
-    @PostMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,
-                                                 @PathVariable("permissionType") String permissionType) {
+    @PostMapping("/{userEmail}/permissions/{permissionId}")
+    public ResponseEntity<UserDTO> setPermission(@PathVariable("userEmail") String userEmail,
+                                                 @PathVariable("permissionId") Integer permissionId) {
         try {
-            UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-
-    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-                                                    @PathVariable("permissionType") String permissionType) {
-        try {
-            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
+            UserDTO userDTO = userService.setUserPermission(userEmail, permissionId);
             return ResponseEntity.ok(userDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
