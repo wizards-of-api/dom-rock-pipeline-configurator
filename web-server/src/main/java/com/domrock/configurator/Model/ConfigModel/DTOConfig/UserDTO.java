@@ -12,6 +12,6 @@ import lombok.Setter;
 public class UserDTO {
     private String name;
     private String email;
-    private String password;
-    private boolean isSuper;
+    private Integer permissionId; // Assuming permissionId is an Integer
+    private String companyCnpj; // Assuming companyCnpj is a String
 }
