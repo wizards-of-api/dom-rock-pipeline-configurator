@@ -36,13 +36,9 @@ public class User implements UserDetails {
     @JoinColumn(name = "permission_id", referencedColumnName = "id_permission")
     private Permission permission;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_company",
-            joinColumns = @JoinColumn(name = "user_email"),
-            inverseJoinColumns = @JoinColumn(name = "company_cnpj")
-    )
-    private Set<Company> companies;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_cnpj", referencedColumnName = "cnpj")
+    private Company company;
 
     LocalDateTime createdAt;
 
