@@ -23,6 +23,6 @@ public class Permission {
     @Column(name = "type", unique = true)
     private String type;
 
-    @ManyToMany(mappedBy = "permissions", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY)
     private Set<User> users;
 }

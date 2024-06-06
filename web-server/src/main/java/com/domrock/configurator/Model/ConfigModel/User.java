@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.time.LocalDateTime;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
@@ -31,13 +32,9 @@ public class User implements UserDetails {
     private String password;
 
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_permission",
-            joinColumns = @JoinColumn(name = "user_email"),
-            inverseJoinColumns = @JoinColumn(name = "permission_id")
-    )
-    private Set<Permission> permissions;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "permission_id", referencedColumnName = "id_permission")
+    private Permission permission;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -50,9 +47,6 @@ public class User implements UserDetails {
     LocalDateTime createdAt;
 
     LocalDateTime updatedAt;
-
-    @Enumerated(EnumType.STRING)
-    Role role;
 
 
     @Override
