@@ -1,14 +1,35 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
-import { ref } from 'vue'
+import {ref, watch} from 'vue'
 import DonutChart from '@/components/DonutChart.vue'
+import {generateColors } from '@/utils/colorUtils'
 
-const chartData = ref({
-	labels: ['Xé', 'Zé', 'Ré', 'Dó', 'Só'],
-	values: [1, 1, 1, 1, 1],
-	colors: ['#fa2e59', '#ff703f', '#f7bc05', '#ecf6bb', '#76bcad'],
+interface ChartData {
+  labels: string[];
+  values: number[];
+  colors: string[];
+  title: string;
+}
+
+const labels = ['Xé', 'Zé', 'Ré', 'Dó', 'Só', 'paulinho']
+
+const labelsLength = labels.length;
+
+const chartData = ref<ChartData>({
+	labels: labels,
+	values: Array(labelsLength).fill(1),
+	colors: generateColors(labelsLength),
 	title: 'Usuário por empresa',
 })
+
+console.log(chartData.value.colors);
+
+watch(
+	() => chartData.value.labels,
+	(newLabels) => {
+		chartData.value.colors = generateColors(newLabels.length)
+	},
+	{ immediate: true })
 
 </script>
 <template>
