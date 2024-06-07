@@ -90,3 +90,11 @@ export type validatedBronze = {
 	fileName: string
 }
 
+export type Log = {
+	logId: number
+	logDate: String
+	logUSer: string
+	logInterprise: String
+	logAction: String
+} 
+
