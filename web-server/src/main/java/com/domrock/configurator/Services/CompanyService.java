@@ -110,4 +110,10 @@ public class CompanyService {
         }
     }
 
+    @Transactional
+    public List<Company> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
+        return companies;
+    }
+
 }

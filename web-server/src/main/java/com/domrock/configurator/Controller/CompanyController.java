@@ -1,5 +1,6 @@
 package com.domrock.configurator.Controller;
 
+import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Services.CompanyService;
@@ -8,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 
@@ -54,6 +56,22 @@ public class CompanyController {
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @GetMapping("/getAllCompanies")
+    public ResponseEntity<List<CompanyDTO>> getAllCompanies() {
+        try{
+            List<Company> companies = companyService.getAllCompanies();
+            List<CompanyDTO> companyDTOS = new ArrayList<>();
+            for (Company company : companies) {
+                CompanyDTO companyDTO = modelMapper.map(company, CompanyDTO.class);
+                companyDTOS.add(companyDTO);
+            }
+            return ResponseEntity.ok(companyDTOS);
+        }
+        catch(Exception e){
             return ResponseEntity.badRequest().body(null);
         }
     }

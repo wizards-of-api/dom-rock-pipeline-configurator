@@ -26,12 +26,5 @@ public class User {
     @Column(name = "is_super", nullable = false, columnDefinition = "0")
     private Byte isSuper;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(
-            name = "user_company",
-            joinColumns = @JoinColumn(name = "user_email"),
-            inverseJoinColumns = @JoinColumn(name = "company_cnpj")
-    )
-    private Set<Company> companies;
 }
 
