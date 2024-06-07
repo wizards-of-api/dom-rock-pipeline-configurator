@@ -13,7 +13,7 @@ interface ChartData {
 
 const labels = ['Xé', 'Zé', 'Ré', 'Dó', 'Só', 'paulinho']
 
-const labelsLength = labels.length;
+const labelsLength = labels.length
 
 const chartData = ref<ChartData>({
 	labels: labels,

@@ -71,7 +71,7 @@ const router = createRouter({
 			component: SilverConfigView,
 		},
 		{
-			path: '/dashboardView',
+			path: '/dashboard-view',
 			name: 'DashboardView',
 			component: DashboardView,
 		},
