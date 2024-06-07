@@ -1,5 +1,6 @@
 package com.domrock.configurator.Services;
 
+import com.domrock.configurator.Model.ConfigModel.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,8 +26,12 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
-    public String generateToken(UserDetails userDetails) {
-        return generateToken(new HashMap<>(), userDetails);
+    public String generateToken(User user) {
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("company", user.getCompany());
+        claims.put("permissionID", user.getPermission().getPermissionId());
+        claims.put("permission", user.getPermission().getType());
+        return generateToken(claims, user);
     }
 
     public boolean isTokenValid(String token, UserDetails userDetails) {
@@ -58,11 +63,11 @@ public class JwtService {
         return Keys.hmacShaKeyFor(keyBites);
     }
 
-    private String generateToken(Map<String, Object> claims, UserDetails userDetails) {
+    private String generateToken(Map<String, Object> claims, User user) {
         return Jwts
                 .builder()
                 .setClaims(claims)
-                .setSubject(userDetails.getUsername())
+                .setSubject(user.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + jwtExpirationMs))
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
