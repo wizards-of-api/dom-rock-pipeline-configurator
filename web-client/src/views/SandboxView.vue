@@ -1,10 +1,5 @@
 <script setup lang="ts">
-import DRButton from '@/components/DRButton.vue'
-import DRTextInput from '@/components/DRTextInput.vue'
-import DRDropDown from '@/components/DRDropDown.vue'
-import DRCheckBox from '@/components/DRCheckBox.vue'
-import Load from '@/components/Load.vue'
-
+import TableComponent from '@/components/TableComponent.vue'
 import { ref } from 'vue'
 /*
 This view is suposed to test components in Dev mode
@@ -13,17 +8,43 @@ No route should lead to this view
 
 // TODO Remove this view on production
 
-const list = [0, 1, 2, 3]
-let showHello = ref(false)
-
-const toggleHello = () => {
-	console.log('Hello World!')
-	showHello.value = !showHello.value
-}
+const listLog = [
+	{
+		logId: 1,
+		logDate: "10/02/1997",
+		logUSer: "Claudio",
+		logInterprise: "Fatec",
+		logAction: "DELETE",
+	},
+	{
+		logId: 2,
+		logDate: "10/02/1997",
+		logUSer: "Fred",
+		logInterprise: "Americanas",
+		logAction: "UPDATE",
+	},
+	{
+		logId: 3,
+		logDate: "10/02/1997",
+		logUSer: "FLAVIO",
+		logInterprise: "LOL",
+		logAction: "DELETE",
+	},
+	{
+		logId: 4,
+		logDate: "10/02/1997",
+		logUSer: "Aloisio",
+		logInterprise: "Mc donald's",
+		logAction: "DELETE",
+	},
+]
 </script>
 
 <template>
 	<div id="sandbox">
+		<TableComponent :log-list="listLog"></TableComponent>
+    </div>
+	<!-- 
 		<h1>Foo</h1>
 		<p>
 			Lorem Ipsum
@@ -44,7 +65,7 @@ const toggleHello = () => {
 	</div>
 	<div>
 		<Load></Load>
-	</div>
+	</div> -->
 </template>
 
 <style lang="scss">
