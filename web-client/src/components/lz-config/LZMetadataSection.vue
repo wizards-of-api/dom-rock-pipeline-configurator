@@ -2,12 +2,18 @@
 import DRSectionTitle from '../DRSectionTitle.vue'
 import DRDropDown from '../DRDropDown.vue'
 import DRTextInput from '../DRTextInput.vue'
+import type { LZConfigView } from './types';
+import { onMounted } from 'vue';
 
 const emit = defineEmits(['update'])
 
 const emitUpdate = () => {
 	emit('update', wrapMetadata())
 }
+type Props = {
+    valuesExistingInThisFile?: LZConfigView
+}
+const { valuesExistingInThisFile } = defineProps<Props>()
 
 const name = defineModel<string>('name')
 const fileOrigin = defineModel<string>('fileOrigin')
@@ -18,7 +24,14 @@ const wrapMetadata = () => ({
 	name: name.value,
 	fileOrigin: fileOrigin.value,
 	frequencyNumber: Number(frequencyNumber.value),
-	frequencyType: frequencyType.value === 'Dias' ? 'dias' : frequencyType.value === 'Meses' ? 'meses' : frequencyType.value === 'Semanas' ? 'semanas' : 'anos',
+	frequencyType: frequencyType.value === 'DIAS' ? 'dias' : frequencyType.value === 'MESES' ? 'meses' : frequencyType.value === 'SEMANAS' ? 'semanas' : 'anos',
+})
+
+onMounted(()=>{
+	name.value = valuesExistingInThisFile?.name ? String(valuesExistingInThisFile?.name) : ""
+	fileOrigin.value = valuesExistingInThisFile?.fileOrigin ?? ""
+	frequencyNumber.value = valuesExistingInThisFile?.frequencyNumber ? String(valuesExistingInThisFile?.frequencyNumber): ""
+	frequencyType.value = String(valuesExistingInThisFile?.frequencyType?.toUpperCase()) ??""
 })
 
 </script>
@@ -48,7 +61,7 @@ const wrapMetadata = () => ({
 		<DRDropDown
 			style="grid-area: period"
 			title="Período"
-			:option-list="['Dias', 'Meses', 'Anos', 'Semanas']"
+			:option-list="['DIAS', 'MESES', 'ANOS', 'SEMANAS']"
 			v-model="frequencyType"
 			@update="emitUpdate"
 		></DRDropDown>

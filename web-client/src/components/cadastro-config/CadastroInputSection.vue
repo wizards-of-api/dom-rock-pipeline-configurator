@@ -6,10 +6,13 @@ import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import axios from 'axios'
 
-import type { CadastroConfig } from '@/components/lz-config/types'
+import type { CadastroConfig, EmpresaConfig } from '@/components/lz-config/types'
 const config = ref<CadastroConfig>()
 const showModal = ref(false)
 const selectedConfig = ref<CadastroConfig>()
+
+const empresaConfig = ref<EmpresaConfig>()
+const empresas = defineModel<string[]>('fantasyName')
 
 const emit = defineEmits(['update'])
 
@@ -41,6 +44,10 @@ const saveFile = async () => {
 	
 
 )}
+const getEmpresas = async () => {
+	await axios.get(`http://localhost:8080/company/getAllCompanies`)
+
+}
 
 const wrapUpdateMetadata = () => ({
 	nome: nome.value,
@@ -94,7 +101,7 @@ const wrapUpdateMetadata = () => ({
 			<DRDropDown
 			style="grid-area: empresas; width: 14rem"
 			title="Empresa"
-			:option-list="'two'"
+			:option-list="empresa"
 			v-model="empresas"
 			@update="emitUpdate"
 		></DRDropDown>

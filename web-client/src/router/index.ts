@@ -7,19 +7,16 @@ import AdminHomeView from '@/views/AdminHomeView.vue'
 import NotFound from '@/views/NotFound.vue'
 import BronzeListView from '@/views/BronzeListView.vue'
 import BronzeConfigView from '@/views/BronzeConfigView.vue'
-import CreateUserView from '@/views/CreateUserView.vue'
+import SilverConfigView from '@/views/SilverConfigView.vue'
+import SilverListView from '@/views/SilverListView.vue'
+import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
 	routes: [
 		{
-			path: '',
-			name: 'Home',
-			component: HomeView,
-		},
-		{
 			path: '/home',
-			name: 'Home',
+			name: 'HomeView',
 			component: HomeView,
 		},
 		{
@@ -28,38 +25,34 @@ const router = createRouter({
 			component: AdminHomeView,
 		},
 		{
-			path: '/user-register',
-			name: 'Cadastro de Usuários',
-			component: CreateUserView,
-		},
-		{
 			path: '/list-view',
-			name: 'Configurações Landing Zone',
-			component: ListView,
-		},
-		{
-			path: '/list-view',
-			name: 'list-view',
+			name: 'ListView',
 			component: ListView,
 		},
 		{
 			path: '/bronze-config/:id',
-			name: 'Etapa Bronze',
+			name: 'BronzeConfigView',
 			component: BronzeConfigView,
 		},
 		{
 			path: '/lz-config',
-			name: 'Etapa Landing Zone',
-			// route level code-splitting
-			// this generates a separate chunk (About.[hash].js) for this route
-			// which is lazy-loaded when the route is visited.
-			// component: () => import('../views/LZConfigView.vue'),
+			name: 'LZConfigView',
 			component: LZConfigView,
 		},
 		{
+			path: '/lz-config/update/:id',
+			name: 'LZConfigUpdateView',
+			component: LZConfigUpdateView,
+		},
+		{
 			path: '/list-view-bronze',
-			name: 'Configurações Bronze',
+			name: 'BronzeListView',
 			component: BronzeListView,
+		},
+		{
+			path: '/list-view-silver',
+			name: 'SilverListView',
+			component: SilverListView,
 		},
 		{
 			path: '/sandbox',
@@ -70,6 +63,11 @@ const router = createRouter({
 			path: '/:pathMatch(.*)*',
 			name: 'NotFound',
 			component: NotFound,
+		},
+		{
+			path: '/silver-config/:id',
+			name: 'SilverConfigView',
+			component: SilverConfigView,
 		},
 	],
 })

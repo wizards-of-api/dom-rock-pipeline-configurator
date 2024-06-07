@@ -12,7 +12,7 @@ const emit = defineEmits(['update'])
 const nameHash = defineModel<string>('nameHash')
 const listHashValue =(columnList:ColumnConfig[]) =>{
 	const ListHash = columnList?.filter(column => column.hash === 1)
-	const valueHash = ListHash?.map(e => e.columnName.replace(""," "))
+	const valueHash = ListHash?.map(e => e.columnName?.replace(""," "))
 	nameHash.value = valueHash.toString()
 }
 const emitUpdate = (index:any, data:any) => {
@@ -37,7 +37,7 @@ onBeforeMount(()=> {
 			<BronzeColumnRow 
 				v-for="(columnConfig, index) in columnList"
 					:base-column-config="columnConfig"
-					:key="`${index}${columnConfig}`"
+					:key="`${columnConfig.columnId}`"
 					@update="(column) => {emitUpdate(index, column)}"
 				>
 			</BronzeColumnRow>
