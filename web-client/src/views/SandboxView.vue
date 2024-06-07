@@ -4,7 +4,7 @@ import DonutChart from '@/components/DonutChart.vue'
 
 const chartData = ref({
 	labels: ['Casa bahia', 'Magalu', 'AluminioLTDA', 'MedicalAlfa', 'WilsonStore'],
-	values: [2, 3, 5, 7, 10],
+	values: [1, 1, 1, 1, 1],
 	colors: ['#fa2e59', '#ff703f', '#f7bc05', '#ecf6bb', '#76bcad'],
 	title: 'Configurações por empresa',
 })

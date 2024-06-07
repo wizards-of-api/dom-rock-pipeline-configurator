@@ -10,6 +10,7 @@ import BronzeConfigView from '@/views/BronzeConfigView.vue'
 import SilverConfigView from '@/views/SilverConfigView.vue'
 import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
+import DashboardView from "@/views/DashboardView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +69,11 @@ const router = createRouter({
 			path: '/silver-config/:id',
 			name: 'SilverConfigView',
 			component: SilverConfigView,
+		},
+		{
+			path: '/dashboardView',
+			name: 'DashboardView',
+			component: DashboardView,
 		},
 	],
 })
