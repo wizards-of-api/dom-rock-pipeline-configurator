@@ -1,13 +1,15 @@
-<template>
-	<div class="chart-container">
-		<Doughnut :data="chartData" :options="chartOptions"></Doughnut>
-	</div>
-</template>
-
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, ref } from 'vue'
 import { Doughnut } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, ArcElement, CategoryScale } from 'chart.js'
+import {
+	Chart as ChartJS,
+	Title,
+	Tooltip,
+	Legend,
+	ArcElement,
+	CategoryScale,
+	type ChartOptions,
+} from 'chart.js'
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
@@ -22,7 +24,7 @@ const props = defineProps<{
 	chartData: ChartDataProps
 }>()
 
-const chartData = {
+const chartData = ref({
 	labels: props.chartData.labels,
 	datasets: [
 		{
@@ -30,16 +32,16 @@ const chartData = {
 			backgroundColor: props.chartData.colors,
 		},
 	],
-}
+})
 
-const chartOptions = {
+const chartOptions: ChartOptions<'doughnut'> = {
 	responsive: true,
 	maintainAspectRatio: false,
 	plugins: {
 		legend: {
 			labels: {
 				color: 'white',
-				maxWidth: 100,
+				boxWidth: 100,
 			},
 			position: 'top',
 		},
@@ -51,6 +53,12 @@ const chartOptions = {
 	},
 }
 </script>
+
+<template>
+	<div class="chart-container">
+		<Doughnut :data="chartData" :options="chartOptions"></Doughnut>
+	</div>
+</template>
 
 <style scoped>
 .chart-container {

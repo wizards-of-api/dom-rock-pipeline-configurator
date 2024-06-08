@@ -110,4 +110,9 @@ public class CompanyService {
         }
     }
 
+    // Chama o número de Usuários por Empresa
+    public List<Object[]> getNumberOfUsersByCompany() {
+        return companyRepository.getNumberOfUsersByCompany();
+    }
+
 }

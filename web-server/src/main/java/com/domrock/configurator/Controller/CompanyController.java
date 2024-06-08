@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -56,5 +58,19 @@ public class CompanyController {
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
+    }
+
+    @GetMapping("/usersByCompany")
+    public Map<String, Integer> getNumberOfUsersByCompany() {
+        List<Object[]> data = companyService.getNumberOfUsersByCompany();
+        Map<String, Integer> result = new HashMap<>();
+        
+        for (Object[] record : data) {
+            String companyName = (String) record[0];
+            Long userCount = (Long) record[1];
+            result.put(companyName, userCount.intValue());
+        }
+        
+        return result;
     }
 }
