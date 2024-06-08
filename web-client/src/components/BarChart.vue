@@ -6,7 +6,7 @@
   
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs'
-import { defineProps } from 'vue'
+import { defineProps, computed } from 'vue'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import type { ChartOptions } from 'chart.js'
   
@@ -16,24 +16,28 @@ ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
   // Define props type
   interface ChartDataProps {
 	labels: string[];
-	values: number[];
-	colors: string[];
-	title: string;
+	datasets: Array<{
+	  label: string;
+	  data: number[];
+	  backgroundColor: string[];
+	  borderColor: string[];
+	  borderWidth: number;
+	}>;
   }
   
 // Define the props
 const props = defineProps<{ chartData: ChartDataProps }>()
   
 // Set up the chart data based on props
-const chartData = {
-	labels: props.chartData.labels,
-	datasets: [
-	  {
-			data: props.chartData.values,
-			backgroundColor: props.chartData.colors,
-	  },
-	],
-}
+const chartData = computed(() => {
+	return {
+	  labels: props.chartData.labels,
+	  datasets: props.chartData.datasets.map(dataset => ({
+			...dataset,
+			label: dataset.label, // Use the label passed from App.vue
+	  })),
+	}
+})
   
 // Set up the chart options
 const chartOptions: ChartOptions<'bar'> = {
@@ -48,7 +52,6 @@ const chartOptions: ChartOptions<'bar'> = {
 	  },
 	  title: {
 			display: true,
-			text: props.chartData.title,
 			color: 'white',
 	  },
 	},
@@ -71,8 +74,9 @@ const chartOptions: ChartOptions<'bar'> = {
   <style scoped>
   .chart-container {
 	width: 100%;
-	max-width: 800px;
+	max-width: 555px;
 	height: 400px;
-	margin: 0 auto;
+	margin: 10px;
   }
   </style>
+  
