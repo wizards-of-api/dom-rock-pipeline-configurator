@@ -10,6 +10,8 @@ import BronzeConfigView from '@/views/BronzeConfigView.vue'
 import SilverConfigView from '@/views/SilverConfigView.vue'
 import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
+import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
+import CreateUserView from '@/views/CreateUserView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -68,6 +70,11 @@ const router = createRouter({
 			path: '/silver-config/:id',
 			name: 'SilverConfigView',
 			component: SilverConfigView,
+		},
+		{
+			path: '/user-register',
+			name: 'UserRegister',
+			component: CreateUserView,
 		},
 	],
 })

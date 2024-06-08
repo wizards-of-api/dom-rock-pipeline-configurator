@@ -21,7 +21,4 @@ public class Company {
 
     @Column(name = "fantasy_name", nullable = false)
     private String fantasyName;
-
-    @ManyToMany(mappedBy = "companies", fetch = FetchType.LAZY)
-    private Set<User> users;
 }

@@ -90,3 +90,20 @@ export type validatedBronze = {
 	fileName: string
 }
 
+export type CadastroConfig= {
+	nome: string
+	email: string
+	senha: string
+	super: boolean
+	lzbool: boolean
+	bronzebool: boolean
+	silverbool: boolean
+	empresa: string
+}
+
+export type EmpresaConfig ={
+	cnpj?: string
+	fantasyName?: string
+
+}
+

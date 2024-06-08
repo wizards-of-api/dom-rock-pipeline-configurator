@@ -24,41 +24,41 @@ public class CompanyController {
     @Autowired
     private ModelMapper modelMapper;
 
-    @GetMapping("/{cnpj}/users")
-    public ResponseEntity<List<UserDTO>> getCompanyUsers(@PathVariable("cnpj") String cnpj) {
-        try {
-            List<UserDTO> userDTOS = companyService.getCompanyUsers(cnpj);
-            return ResponseEntity.ok(userDTOS);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    @PostMapping("/{cnpj}/users/{userEmail}")
-    public ResponseEntity<CompanyDTO> addCompanyUser(@PathVariable("cnpj") String cnpj,
-                                                     @PathVariable("userEmail") String userEmail) {
-        try {
-            CompanyDTO companyDTO = companyService.addCompanyUser(cnpj, userEmail);
-            return ResponseEntity.ok(companyDTO);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
-
-    @DeleteMapping("/{cnpj}/users/{userEmail}")
-    public ResponseEntity<CompanyDTO> removeCompanyUser(@PathVariable("cnpj") String cnpj,
-                                                        @PathVariable("userEmail") String userEmail) {
-        try {
-            CompanyDTO companyDTO = companyService.removeCompanyUser(cnpj, userEmail);
-            return ResponseEntity.ok(companyDTO);
-        } catch (NoSuchElementException e) {
-            return ResponseEntity.notFound().build();
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+//    @GetMapping("/{cnpj}/users")
+//    public ResponseEntity<List<UserDTO>> getCompanyUsers(@PathVariable("cnpj") String cnpj) {
+//        try {
+//            List<UserDTO> userDTOS = companyService.getCompanyUsers(cnpj);
+//            return ResponseEntity.ok(userDTOS);
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+//
+//    @PostMapping("/{cnpj}/users/{userEmail}")
+//    public ResponseEntity<CompanyDTO> addCompanyUser(@PathVariable("cnpj") String cnpj,
+//                                                     @PathVariable("userEmail") String userEmail) {
+//        try {
+//            CompanyDTO companyDTO = companyService.addCompanyUser(cnpj, userEmail);
+//            return ResponseEntity.ok(companyDTO);
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//    }
+//
+//    @DeleteMapping("/{cnpj}/users/{userEmail}")
+//    public ResponseEntity<CompanyDTO> removeCompanyUser(@PathVariable("cnpj") String cnpj,
+//                                                        @PathVariable("userEmail") String userEmail) {
+//        try {
+//            CompanyDTO companyDTO = companyService.removeCompanyUser(cnpj, userEmail);
+//            return ResponseEntity.ok(companyDTO);
+//        } catch (NoSuchElementException e) {
+//            return ResponseEntity.notFound().build();
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//    }
 
     @GetMapping("/getAllCompanies")
     public ResponseEntity<List<CompanyDTO>> getAllCompanies() {

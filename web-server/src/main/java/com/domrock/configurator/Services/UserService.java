@@ -100,8 +100,7 @@ public class UserService {
     @Transactional
     public void createUser(UserDTO userDTO) {
         User user = modelMapper.map(userDTO, User.class);
-        Set<Company> companies = new HashSet<>();
-        user.setCompanies(companies);
+        Company company = new Company();
         userRepository.save(user);
 
     }

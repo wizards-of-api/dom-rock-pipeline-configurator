@@ -6,13 +6,13 @@ import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import axios from 'axios'
 
-import type { CadastroConfig, EmpresaConfig } from '@/components/lz-config/types'
+import type { CadastroConfig, EmpresaConfig, LZConfigView } from '@/components/lz-config/types'
+import type { ColumnConfig } from '@/components/silver/types'
 const config = ref<CadastroConfig>()
 const showModal = ref(false)
 const selectedConfig = ref<CadastroConfig>()
 
-const empresaConfig = ref<EmpresaConfig>()
-const empresas = defineModel<string[]>('fantasyName')
+const empresaConfig = ref<EmpresaConfig[]>()
 
 const emit = defineEmits(['update'])
 
@@ -28,7 +28,10 @@ const bronzebool = defineModel<boolean>('bronzebool')
 const silverbool = defineModel<boolean>('silverbool')
 const senha = defineModel<string>('senha')
 const isSuper = defineModel<boolean>('isSuper')
+const empresa = defineModel<string>('empresa')
 
+const companyLists = empresaConfig?.value?.map(columns => columns)
+const mapOptions = (column: EmpresaConfig) => `${column.fantasyName}`
 
 const saveFile = async () => {
 	await axios.put('http://localhost:8080/user/create-user' , {
@@ -39,15 +42,17 @@ const saveFile = async () => {
 		lzbool: lzbool.value,
 		bronzebool: bronzebool.value,
 		silverbool: silverbool.value,
-
+		empresa: empresa.value,
 	},
-	
-
 )}
 const getEmpresas = async () => {
-	await axios.get(`http://localhost:8080/company/getAllCompanies`)
+	const response = await axios.get(`http://localhost:8080/company/getAllCompanies`)
+	return response.data
 
 }
+onMounted(async () => {
+	empresaConfig.value = await getEmpresas()
+})
 
 const wrapUpdateMetadata = () => ({
 	nome: nome.value,
@@ -55,6 +60,8 @@ const wrapUpdateMetadata = () => ({
 	senha:senha.value,
 	permissoes: [lzbool.value,bronzebool.value,silverbool.value],
 	isSuper: isSuper.value,
+	empresa: empresa.value,
+
 })
 
 
@@ -101,8 +108,8 @@ const wrapUpdateMetadata = () => ({
 			<DRDropDown
 			style="grid-area: empresas; width: 14rem"
 			title="Empresa"
-			:option-list="empresa"
-			v-model="empresas"
+			:option-list="empresaConfig?.map(mapOptions)"
+			v-model="empresa"
 			@update="emitUpdate"
 		></DRDropDown>
 		<div class="saveButton">
