@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
-import { ref } from 'vue'
 import PieChart from '@/components/PieChart.vue'
 import { onMounted, ref } from 'vue'
 import DonutChart from '@/components/DonutChart.vue'
@@ -12,16 +11,7 @@ const pieChartConfigList = ref([
 	{ label: 'Categoria D', value: 40, color: '#ecf6bb' },
 ])
 
-const donutChartConfigList = ref([
-	{ label: 'Paulo', value: 1, color: 'pink' },
-	{ label: 'Julio', value: 1, color: 'magenta' },
-	{ label: 'Pedro', value: 1, color: 'lightblue' },
-	{ label: 'Andre', value: 1, color: 'gray' },
-	{ label: 'Cauê', value: 1, color: 'red' },
-])
-
 const pieChartTitle = ref('Distribuição por Categoria')
-const donutChartTitle = ref('Usuário por Empresa')
 const fontSize = ref(22) // Definindo o tamanho da fonte
 import { generateColors } from '@/utils/colorUtils'
 
@@ -77,22 +67,13 @@ onMounted(() => {
 			</div>
 			<div class="chart-wrapper">
 				<DonutChart
-					:title="donutChartTitle"
-					:configList="donutChartConfigList"
-					:fontSize="fontSize"
+					v-if="chartData.labels.length"
+					:chartData="chartData"
 					class="custom-donut-chart"
-				/>
+				></DonutChart>
 			</div>
 		</div>
 	</main>
-	<AppHeader> </AppHeader>
-	<div id="donutChartContainer">
-		<DonutChart
-			v-if="chartData.labels.length"
-			:chartData="chartData"
-			class="custom-donut-chart"
-		></DonutChart>
-	</div>
 </template>
 
 <style scoped lang="scss">
