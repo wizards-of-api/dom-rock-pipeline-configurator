@@ -13,10 +13,13 @@ import {
 
 ChartJS.register(Title, Tooltip, Legend, ArcElement, CategoryScale)
 
-interface ChartDataProps {
-	labels: string[]
-	values: number[]
-	colors: string[]
+interface ConfigItem {
+	label: string
+	value: number
+	color: string
+}
+
+interface ChartProps {
 	title: string
 }
 
@@ -28,8 +31,9 @@ const chartData = ref({
 	labels: props.chartData.labels,
 	datasets: [
 		{
-			data: props.chartData.values,
-			backgroundColor: props.chartData.colors,
+			data: props.configList.map((item) => item.value),
+			backgroundColor: props.configList.map((item) => item.color),
+			hoverOffset: 4,
 		},
 	],
 })
@@ -37,6 +41,7 @@ const chartData = ref({
 const chartOptions: ChartOptions<'doughnut'> = {
 	responsive: true,
 	maintainAspectRatio: false,
+	cutout: '50%', // Aqui fazemos o gráfico ser um donut
 	plugins: {
 		legend: {
 			labels: {
@@ -47,7 +52,7 @@ const chartOptions: ChartOptions<'doughnut'> = {
 		},
 		title: {
 			display: true,
-			text: props.chartData.title,
+			text: props.title,
 			color: 'white',
 		},
 	},

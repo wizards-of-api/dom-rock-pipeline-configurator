@@ -2,12 +2,10 @@ package com.domrock.configurator.Interface;
 
 import java.util.List;
 
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
-import org.springframework.data.jpa.repository.Query;
 
 public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfig, Integer>{
 
@@ -19,4 +17,7 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     
     @Query(value = "SELECT * FROM lz_config WHERE file_config_name LIKE %:searchedName%", nativeQuery = true)
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
+
+    @Query(value = "select count(lz.file_id) as contagem, c.fantasy_name from company c join lz_config lz on lz.cnpj = c.cnpj group by c.fantasy_name", nativeQuery = true)
+    public List<Object[]> findConfigsByCompany();
 }
