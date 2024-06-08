@@ -1,6 +1,7 @@
 <template>
 	<div class="chart-container">
-	  <Pie :data="chartData" :options="chartOptions"></Pie>	</div>
+	  <Pie :data="chartData" :options="chartOptions"></Pie>
+	</div>
   </template>
   
 <script setup lang="ts">
@@ -30,7 +31,6 @@ const chartData = computed(() => ({
 	  {
 			data: props.configList.map(item => item.value),
 			backgroundColor: props.configList.map(item => item.color),
-			hoverOffset: 4,
 	  },
 	],
 }))
@@ -38,7 +38,6 @@ const chartData = computed(() => ({
 const chartOptions: ChartOptions<'pie'> = {
 	responsive: true,
 	maintainAspectRatio: false,
-	cutout: '50%', // Aqui fazemos o gráfico ser um donut
 	plugins: {
 	  legend: {
 			labels: {
@@ -64,5 +63,4 @@ const chartOptions: ChartOptions<'pie'> = {
 	margin: 0 auto;
   }
   </style>
-  
   
