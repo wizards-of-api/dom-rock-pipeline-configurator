@@ -19,5 +19,5 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
 
     @Query(value = "select count(lz.file_id) as contagem, c.fantasy_name from company c join lz_config lz on lz.cnpj = c.cnpj group by c.fantasy_name", nativeQuery = true)
-    public List<String> findConfigsByCompany();
+    public List<Object[]> findConfigsByCompany();
 }
