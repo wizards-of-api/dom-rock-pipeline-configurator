@@ -1,5 +1,8 @@
 package com.domrock.configurator.Controller;
 
+import com.domrock.configurator.Interface.LZMetadataConfigInterface;
+import com.domrock.configurator.Model.ConfigModel.Company;
+import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Services.CompanyService;
@@ -20,6 +23,9 @@ public class CompanyController {
     private CompanyService companyService;
 
     @Autowired
+    private LZMetadataConfigInterface lzMetadataConfigInterfaces;
+
+    @Autowired
     private ModelMapper modelMapper;
 
     @GetMapping("/{cnpj}/users")
@@ -27,6 +33,16 @@ public class CompanyController {
         try {
             List<UserDTO> userDTOS = companyService.getCompanyUsers(cnpj);
             return ResponseEntity.ok(userDTOS);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+    @GetMapping("/companies")
+    public ResponseEntity<List<String>> getCompanies() {
+        try {
+            List<String> company = lzMetadataConfigInterfaces.findConfigsByCompany();
+            return ResponseEntity.ok(company);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
