@@ -26,9 +26,18 @@ public class JwtService {
         return extractClaim(token, Claims::getSubject);
     }
 
+    public String extractUserEmail(String token) {
+        return extractClaim(token, claims -> claims.get("userEmail", String.class));
+    }
+
+    public String extractCompanyCnpj(String token) {
+        return extractClaim(token, claims -> claims.get("companyCnpj", String.class));
+    }
+
     public String generateToken(User user) {
         Map<String, Object> claims = new HashMap<>();
-        claims.put("company", user.getCompany());
+        claims.put("userEmail", user.getEmail());
+        claims.put("companyCnpj", user.getCompany().getCnpj());
         claims.put("permissionID", user.getPermission().getPermissionId());
         claims.put("permission", user.getPermission().getType());
         return generateToken(claims, user);
