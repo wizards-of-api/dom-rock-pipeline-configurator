@@ -1,6 +1,7 @@
 package com.domrock.configurator.Filter;
 
 import com.domrock.configurator.Services.JwtService;
+import com.domrock.configurator.Services.LogService;
 import com.domrock.configurator.Services.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -24,6 +25,7 @@ import java.io.IOException;
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private final JwtService jwtService;
     private final UserService userService;
+    private final LogService logService;
 
     @Override
     protected void doFilterInternal(@NonNull HttpServletRequest request,
@@ -48,6 +50,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
                 context.setAuthentication(authToken);
                 SecurityContextHolder.setContext(context);
+
+                String loggedInUserEmail = jwtService.extractUserEmail(jwt);
+                String loggedInUserCompanyCnpj = jwtService.extractCompanyCnpj(jwt);
+                String action = request.getMethod();
+                logService.saveLog(loggedInUserEmail, loggedInUserCompanyCnpj, action);
             }
         }
         filterChain.doFilter(request, response);
