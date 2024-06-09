@@ -9,10 +9,9 @@ import java.util.List;
 
 public interface LogRepository extends JpaRepository<Log, Integer> {
 
-    @Query(value = "SELECT new com.domrock.configurator.Model.ConfigModel.DTOConfig.LogViewDTO" +
-            "(l.id, l.logDateTime, u.name, c.fantasyName, l.action) " +
+    @Query("SELECT new com.domrock.configurator.Model.ConfigModel.DTOConfig.LogViewDTO(l.id, l.logDateTime, u.name, c.fantasyName, l.action) " +
             "FROM Log l " +
             "JOIN User u ON l.userEmail = u.email " +
-            "JOIN Company c ON u.company.cnpj = c.cnpj", nativeQuery = true)
+            "JOIN Company c ON u.company.cnpj = c.cnpj")
     public List<LogViewDTO> findAllLogsWithUserNameAndCompanyName();
 }
