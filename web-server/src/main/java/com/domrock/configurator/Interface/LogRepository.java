@@ -13,5 +13,5 @@ public interface LogRepository extends JpaRepository<Log, Integer> {
             "FROM Log l " +
             "JOIN User u ON l.userEmail = u.email " +
             "JOIN Company c ON u.company.cnpj = c.cnpj")
-    public List<LogViewDTO> findAllLogsWithUserNameAndCompanyName();
+    List<LogViewDTO> findAllLogsWithUserNameAndCompanyName();
 }
