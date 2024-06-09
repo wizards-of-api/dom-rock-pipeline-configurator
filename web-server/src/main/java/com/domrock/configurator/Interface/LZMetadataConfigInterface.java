@@ -17,7 +17,4 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     
     @Query(value = "SELECT * FROM lz_config WHERE file_config_name LIKE %:searchedName%", nativeQuery = true)
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
-
-    @Query(value = "select count(lz.file_id) as contagem, c.fantasy_name from company c join lz_config lz on lz.cnpj = c.cnpj group by c.fantasy_name", nativeQuery = true)
-    public List<Object[]> findConfigsByCompany();
 }

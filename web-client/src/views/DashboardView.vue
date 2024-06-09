@@ -3,17 +3,40 @@ import AppHeader from '@/components/AppHeader.vue'
 import PieChart from '@/components/PieChart.vue'
 import { onMounted, ref } from 'vue'
 import DonutChart from '@/components/DonutChart.vue'
-
-const pieChartConfigList = ref([
-	{ label: '', value: 10, color: '#fa2e59' },
-	{ label: 'Categoria B', value: 20, color: '#ff703f' },
-	{ label: 'Categoria C', value: 30, color: '#f7bc05' },
-	{ label: 'Categoria D', value: 40, color: '#ecf6bb' },
-])
-
-const pieChartTitle = ref('Distribuição por Categoria')
-const fontSize = ref(22) // Definindo o tamanho da fonte
 import { generateColors } from '@/utils/colorUtils'
+
+interface PieChartData {
+	labels: string[]
+	values: number[]
+	colors: string[]
+	title: string
+}
+
+const pieChartData = ref<PieChartData>({
+	labels: [],
+	values: [], 
+	colors: [],
+	title: 'Configurações por Empresa',
+})
+
+const fetchPieChart = async () => {
+	try {	
+		const response = await fetch(`http://localhost:8080/company/allConfigsByCompanies`)
+		const data = await response.json()
+
+		const labels = Object.keys(data)
+		const values = Object.values(data) as number[]
+
+		pieChartData.value = {
+			labels,
+			values,
+			colors: generateColors(labels.length),
+			title: 'Configurações por Empresa',
+		}
+	} catch (e) {
+		console.error('Não há informações sobre esse gráfico', e)
+	}
+}
 
 interface ChartData {
 	labels: string[]
@@ -50,6 +73,7 @@ const fetchChartData = async () => {
 
 onMounted(() => {
 	fetchChartData()
+	fetchPieChart()
 })
 </script>
 
@@ -59,11 +83,10 @@ onMounted(() => {
 		<div id="chartsContainer">
 			<div class="chart-wrapper">
 				<PieChart
-					:title="pieChartTitle"
-					:configList="pieChartConfigList"
-					:fontSize="fontSize"
+					v-if="pieChartData.labels.length"
+					:pieChartData="pieChartData"
 					class="custom-pie-chart"
-				/>
+				></PieChart>
 			</div>
 			<div class="chart-wrapper">
 				<DonutChart
@@ -97,21 +120,21 @@ main {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	flex-direction: row; /* Alinha os gráficos lado a lado */
-	width: 400%;
-	height: 400%;
+	flex-direction: row;
+	width: 100%;
+	height: 100%;
 	margin-top: 100px;
-	gap: 500px; /* Adiciona espaçamento entre os gráficos */
+	gap: 50px;
 }
 
 .chart-wrapper {
 	width: 200%;
-	max-width: 500px; /* Ajusta a largura máxima dos gráficos */
+	max-width: 500px;
 	margin: 1px 0;
 }
 
 .custom-pie-chart,
 .custom-donut-chart {
-	width: 400%;
+	width: 100%;
 }
 </style>

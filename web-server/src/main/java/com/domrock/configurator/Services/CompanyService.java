@@ -5,7 +5,6 @@ import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.ConfigsCompanyDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Model.ConfigModel.User;
 import org.modelmapper.ModelMapper;
@@ -24,9 +23,6 @@ public class CompanyService {
 
     @Autowired
     private UserRepository userRepository;
-
-    @Autowired
-    private LZMetadataConfigInterface lzMetadataConfigInterfaces;
 
     @Autowired
     private ModelMapper modelMapper;
@@ -120,14 +116,7 @@ public class CompanyService {
         return companyRepository.getNumberOfUsersByCompany();
     }
 
-    public List<ConfigsCompanyDTO> getConfigsbyCompanies() {
-        List<Object[]> company = lzMetadataConfigInterfaces.findConfigsByCompany();
-        if (company.isEmpty()) {
-            throw new NoSuchElementException("No configs encountered in this company...");
-        } else {
-            return company.stream()
-                .map(configByCompany -> new ConfigsCompanyDTO((Long) configByCompany[0], (String) configByCompany[1]))
-                .collect(Collectors.toList());
-        }
+    public List<Object[]> getConfigsbyCompanies() {
+        return companyRepository.findConfigsByCompany();
     }
 }

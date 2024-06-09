@@ -1,8 +1,6 @@
 package com.domrock.configurator.Controller;
 
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.ConfigsCompanyDTO;
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.ListConfigsByCompanyDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Services.CompanyService;
 import org.modelmapper.ModelMapper;
@@ -77,13 +75,16 @@ public class CompanyController {
     }
 
     @GetMapping("/allConfigsByCompanies")
-    public ResponseEntity<ListConfigsByCompanyDTO> getAllConfigsByCompany() {
-        List<ConfigsCompanyDTO> configsCompany = companyService.getConfigsbyCompanies();
-        try {
-            ListConfigsByCompanyDTO allConfigsByCompany = new ListConfigsByCompanyDTO(configsCompany);
-            return ResponseEntity.ok(allConfigsByCompany);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+    public Map<String, Integer> getAllConfigsByCompany() {
+        List<Object[]> configsCompany = companyService.getConfigsbyCompanies();
+        Map<String, Integer> configs = new HashMap<>();
+
+        for (Object[] itens : configsCompany) {
+            String companyName = (String) itens[0];
+            Long configsCont = (Long) itens[1];
+            configs.put(companyName, configsCont.intValue());
         }
+        
+        return configs;
     }
 }
