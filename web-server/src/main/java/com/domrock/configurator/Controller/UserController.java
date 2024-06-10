@@ -42,7 +42,6 @@ public class UserController {
     @PutMapping("/create-user")
     public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
         try{
-            userDTO.setIsSuper((byte) 0);
             userService.createUser(userDTO);
             userPermissionService.createUserPermission(userDTO);
             return ResponseEntity.ok(modelMapper.map(userDTO, UserDTO.class));

@@ -31,6 +31,11 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "permission_id", nullable = false)
+    private int permissionId;
+
+    @Column(name = "company_cnpj", nullable = false)
+    private String companyCnpj;
 
 
     LocalDateTime createdAt;
@@ -40,7 +45,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(permission.getType()));
+        return Collections.singletonList(new SimpleGrantedAuthority("lz"));
     }
 
     @Override
