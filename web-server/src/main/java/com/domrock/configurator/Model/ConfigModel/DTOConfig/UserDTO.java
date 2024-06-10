@@ -1,25 +1,19 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
-import com.domrock.configurator.Model.ConfigModel.Company;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-import java.io.Serializable;
-import java.util.Set;
-
-/**
- * DTO for {@link com.domrock.configurator.Model.ConfigModel.User}
- */
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UserDTO implements Serializable {
-    String email;
-    String name;
-    String password;
-    Byte isSuper;
+public class UserDTO {
+    private String name;
+    private String email;
+    private String companyCnpj; // Assuming companyCnpj is a String
     boolean lzbool;
     boolean bronzebool;
     boolean silverbool;
-    private Set<String> companyCnpjs;
 }

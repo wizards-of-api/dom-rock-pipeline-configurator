@@ -39,10 +39,10 @@ const saveFile = async () => {
 		email:email.value,
 		password:senha.value,
 		isSuper:null,
+		empresa: empresa.value,
 		lzbool: lzbool.value,
 		bronzebool: bronzebool.value,
 		silverbool: silverbool.value,
-		empresa: empresa.value,
 	},
 )}
 const getEmpresas = async () => {
