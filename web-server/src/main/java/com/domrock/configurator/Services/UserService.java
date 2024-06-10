@@ -8,6 +8,9 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.PermissionDto;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -32,6 +35,14 @@ public class UserService {
     @Autowired
     private ModelMapper modelMapper;
 
+    public UserDetailsService userDetailsService() {
+        return new UserDetailsService() {
+            @Override
+            public UserDetails loadUserByUsername(String userEmail) throws UsernameNotFoundException {
+                return userRepository.findByEmail(userEmail).orElseThrow(() -> new UsernameNotFoundException(userEmail));
+            }
+        };
+    }
     /**
      * Retrieves and converts to DTO all users from the repository.
      *
