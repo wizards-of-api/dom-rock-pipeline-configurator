@@ -21,4 +21,7 @@ public class Company {
 
     @Column(name = "fantasy_name", nullable = false)
     private String fantasyName;
+
+    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    private Set<User> users;
 }
