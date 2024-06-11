@@ -54,7 +54,7 @@ import DashboardView from './DashboardView.vue'
 <style lang="scss">
 #sandbox {
 	flex-grow: 1;
-	padding: 0 128px;
+	padding: 0 500px;
 	border: 1px solid var(--color-text);
 	border-top: 0;
 	border-bottom: 0;
@@ -62,5 +62,13 @@ import DashboardView from './DashboardView.vue'
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
-}
-</style>
+  }
+  
+  .chart-container {
+	width: 100%;
+	max-width: 800px;
+	height: 400px;
+	margin: 10px;
+  }
+  </style>
+  
