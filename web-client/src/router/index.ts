@@ -12,6 +12,7 @@ import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
 import CreateUserView from '@/views/CreateUserView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -75,6 +76,9 @@ const router = createRouter({
 			path: '/user-register',
 			name: 'UserRegister',
 			component: CreateUserView,
+			path: '/login',
+			name: 'LoginView',
+			component: LoginView,
 		},
 	],
 })
