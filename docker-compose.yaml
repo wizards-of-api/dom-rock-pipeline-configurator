@@ -1,0 +1,16 @@
+volumes:
+  domrockbd03:
+
+services:
+  mysql:
+    image: mysql:8.3.0
+    environment:  
+      MYSQL_ROOT_PASSWORD: userdomrockbd
+      MYSQL_DATABASE: domrockbd
+      MYSQL_USER: userdomrockbd
+      MYSQL_PASSWORD: userdomrockbd
+    ports:
+      - 3306:3306
+    volumes:
+      - domrockbd03:/var/lib/mysql
+      - ./database/:/docker-entrypoint-initdb.d/
