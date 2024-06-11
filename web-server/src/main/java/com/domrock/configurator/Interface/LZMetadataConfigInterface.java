@@ -2,12 +2,10 @@ package com.domrock.configurator.Interface;
 
 import java.util.List;
 
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import com.domrock.configurator.Model.ConfigModel.LZMetadataConfig;
-import org.springframework.data.jpa.repository.Query;
 
 public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfig, Integer>{
 

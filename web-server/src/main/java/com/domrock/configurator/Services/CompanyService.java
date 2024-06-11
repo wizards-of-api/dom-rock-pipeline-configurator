@@ -1,6 +1,7 @@
 package com.domrock.configurator.Services;
 
 import com.domrock.configurator.Interface.CompanyRepository;
+import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
@@ -110,4 +111,12 @@ public class CompanyService {
         }
     }
 
+    // Chama o número de Usuários por Empresa
+    public List<Object[]> getNumberOfUsersByCompany() {
+        return companyRepository.getNumberOfUsersByCompany();
+    }
+
+    public List<Object[]> getConfigsbyCompanies() {
+        return companyRepository.findConfigsByCompany();
+    }
 }
