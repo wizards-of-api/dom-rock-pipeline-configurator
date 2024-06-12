@@ -1,10 +1,9 @@
 package com.domrock.configurator.Services;
 
+import com.domrock.configurator.Config.PasswordConfig;
 import com.domrock.configurator.Interface.PermissionRepository;
-import com.domrock.configurator.Interface.UserPermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.*;
-import com.domrock.configurator.Model.ConfigModel.DTOConfig.PermissionDto;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,13 +26,13 @@ public class UserService {
     private UserRepository userRepository;
 
     @Autowired
-    private UserPermissionRepository userPermissionRepository;
-
-    @Autowired
     private PermissionRepository permissionRepository;
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private PasswordConfig bCryptPasswordEncoder;
 
     public UserDetailsService userDetailsService() {
         return new UserDetailsService() {
@@ -88,28 +87,10 @@ public class UserService {
         }
     }
 
-    /**
-     * Removes a permission from the user with the given email.
-     *
-     * @param email           the email of the user from whom the permission should be removed.
-     * @param permissionType  the type of permission to be removed.
-     * @return                {@link UserDTO} representing the user entity after removing the permission.
-     * @throws NoSuchElementException if no user is found with the email.
-     */
-    @Transactional
-    public UserDTO removeUserPermission(String email, int permissionType) {
-            User user = userRepository.findById(email).orElse(null);
-        if (user == null) {
-            throw new NoSuchElementException("No user found with email: " + email);
-        } else {
-            userPermissionRepository.deleteById(new UserPermissionId(email,permissionType));
-            return modelMapper.map(user, UserDTO.class);
-        }
-    }
-
 
     @Transactional
     public void createUser(UserDTO userDTO) {
+        userDTO.setPassword(bCryptPasswordEncoder.passwordEncoder().encode(userDTO.getPassword()));
         User user = modelMapper.map(userDTO, User.class);
         Company company = new Company();
         userRepository.save(user);

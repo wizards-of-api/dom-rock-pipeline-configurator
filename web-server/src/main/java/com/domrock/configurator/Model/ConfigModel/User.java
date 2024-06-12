@@ -1,51 +1,59 @@
 package com.domrock.configurator.Model.ConfigModel;
 
+import com.fasterxml.jackson.annotation.JsonSubTypes;
 import jakarta.persistence.*;
-import lombok.*;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.time.Instant;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Builder
 @Entity
+@Builder
 @Table(name = "user")
 public class User implements UserDetails {
-
-    @Column(name = "name", nullable = false)
-    private String name;
-
     @Id
+    @Size(max = 255)
     @Column(name = "email", nullable = false)
     private String email;
 
+    @Size(max = 255)
+    @NotNull
+    @Column(name = "name", nullable = false)
+    private String name;
+
+    @Size(max = 255)
+    @NotNull
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "permission_id", nullable = false)
-    private int permissionId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "permission_id")
+    private Permission permission;
 
-    @Column(name = "company_cnpj", nullable = false)
-    private String companyCnpj;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "company_cnpj")
+    private Company companyCnpj;
 
+    @Column(name = "created_at")
+    private Instant createdAt;
 
-    LocalDateTime createdAt;
-
-    LocalDateTime updatedAt;
-
+    @Column(name = "updated_at")
+    private Instant updatedAt;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority("lz"));
+        return Collections.singletonList(new SimpleGrantedAuthority(permission.getType()));
     }
 
     @Override

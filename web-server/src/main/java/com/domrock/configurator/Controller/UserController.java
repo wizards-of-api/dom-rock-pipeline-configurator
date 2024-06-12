@@ -1,13 +1,10 @@
 package com.domrock.configurator.Controller;
 
 import com.domrock.configurator.Interface.PermissionRepository;
-import com.domrock.configurator.Interface.UserPermissionRepository;
-import com.domrock.configurator.Interface.UserRepository;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.JwtAuhenticationResponseDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SignupRequestDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
-import com.domrock.configurator.Model.ConfigModel.User;
-import com.domrock.configurator.Model.ConfigModel.UserPermission;
-import com.domrock.configurator.Model.ConfigModel.UserPermissionId;
-import com.domrock.configurator.Services.UserPermissionService;
+import com.domrock.configurator.Services.AuthenticationService;
 import com.domrock.configurator.Services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,9 +21,9 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private ModelMapper modelMapper;
+    private AuthenticationService authenticationService;
     @Autowired
-    private UserPermissionService userPermissionService;
+    private ModelMapper modelMapper;
     @Autowired
     private PermissionRepository permissionRepository;
 
@@ -40,11 +37,10 @@ public class UserController {
         }
     }
     @PutMapping("/create-user")
-    public ResponseEntity<UserDTO> createUser(@RequestBody UserDTO userDTO) {
+    public ResponseEntity<JwtAuhenticationResponseDTO> createUser(@RequestBody SignupRequestDTO signupRequestDTO) {
         try{
-            userService.createUser(userDTO);
-            userPermissionService.createUserPermission(userDTO);
-            return ResponseEntity.ok(modelMapper.map(userDTO, UserDTO.class));
+            authenticationService.signup(signupRequestDTO);
+            return ResponseEntity.ok(authenticationService.signup(signupRequestDTO));
         }catch (Exception e){
             System.out.println(e.getMessage());
             return ResponseEntity.notFound().build();
@@ -63,14 +59,15 @@ public class UserController {
         }
     }
 
-    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-                                                    @PathVariable("permissionType") int permissionType) {
-        try {
-            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
-        }
-    }
+//    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
+//    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
+//                                                    @PathVariable("permissionType") int permissionType) {
+//        try {
+//            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
+//            return ResponseEntity.ok(userDTO);
+//        } catch (Exception e) {
+//            return ResponseEntity.badRequest().body(null);
+//        }
+//    }
+
 }

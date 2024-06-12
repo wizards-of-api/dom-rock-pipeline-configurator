@@ -13,4 +13,7 @@ public class SignupRequestDTO {
     String name;
     String email;
     String password;
+    int permission;
+    String companyCnpj;
+
 }
