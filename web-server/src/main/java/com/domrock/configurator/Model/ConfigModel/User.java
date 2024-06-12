@@ -31,14 +31,11 @@ public class User implements UserDetails {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "permission_id", nullable = false)
+    private int permissionId;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "permission_id", referencedColumnName = "id_permission")
-    private Permission permission;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "company_cnpj", referencedColumnName = "cnpj")
-    private Company company;
+    @Column(name = "company_cnpj", nullable = false)
+    private String companyCnpj;
 
     LocalDateTime createdAt;
 
@@ -47,7 +44,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.singletonList(new SimpleGrantedAuthority(permission.getType()));
+        return Collections.singletonList(new SimpleGrantedAuthority(permissionId));
     }
 
     @Override

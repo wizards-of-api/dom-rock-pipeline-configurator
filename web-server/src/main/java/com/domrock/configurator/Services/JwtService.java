@@ -9,6 +9,7 @@ import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -18,7 +19,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    String jwtSecretKey = "codigo-super-mega-ultra-secreto";
+    String jwtSecretKey = "codigosupermegaultrasecreto";
 
     Long jwtExpirationMs = 3600000L; // 1h
 
@@ -68,8 +69,7 @@ public class JwtService {
     }
 
     private Key getSigningKey() {
-        byte[] keyBites = Decoders.BASE64.decode(jwtSecretKey);
-        return Keys.hmacShaKeyFor(keyBites);
+        return Keys.hmacShaKeyFor(jwtSecretKey.getBytes(StandardCharsets.UTF_8));
     }
 
     private String generateToken(Map<String, Object> claims, User user) {

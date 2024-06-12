@@ -1,5 +1,6 @@
 package com.domrock.configurator.Services;
 
+import com.domrock.configurator.Interface.CompanyRepository;
 import com.domrock.configurator.Interface.PermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.JwtAuhenticationResponseDTO;
@@ -22,6 +23,7 @@ public class AuthenticationService {
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
     private final PermissionRepository permissionRepository;
+    private final CompanyRepository companyRepository;
 
     public JwtAuhenticationResponseDTO signup(SignupRequestDTO request) {
         var user = User

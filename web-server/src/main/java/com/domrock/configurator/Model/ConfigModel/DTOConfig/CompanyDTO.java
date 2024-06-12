@@ -10,6 +10,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class CompanyDTO {
-    private String cnpj;
+    private String companycnpj;
     private String fantasyName;
 }

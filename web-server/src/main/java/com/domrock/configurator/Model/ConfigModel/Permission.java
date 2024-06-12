@@ -13,16 +13,14 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "permission")
+@Table(name = "permission", schema = "domrock")
 public class Permission {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_permission", nullable = false)
-    private Integer permissionId;
+    private Integer id;
 
-    @Column(name = "type", unique = true)
+    @Column(name = "type", length = 10)
     private String type;
 
-    @OneToMany(mappedBy = "permission", fetch = FetchType.LAZY)
-    private Set<User> users;
 }
