@@ -9,5 +9,6 @@ CREATE TABLE lz_config
     file_frequency   INT                NOT NULL,
     file_has_header  INT                NOT NULL,
     cnpj             VARCHAR(14),
+    file_timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     CONSTRAINT fk_cnpj FOREIGN KEY (cnpj) REFERENCES company (cnpj)
 );

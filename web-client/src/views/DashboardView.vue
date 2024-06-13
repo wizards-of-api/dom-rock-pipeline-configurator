@@ -4,6 +4,7 @@ import PieChart from '@/components/PieChart.vue'
 import { onMounted, ref } from 'vue'
 import DonutChart from '@/components/DonutChart.vue'
 import { generateColors } from '@/utils/colorUtils'
+import BarChart from '@/components/BarChart.vue'
 
 interface PieChartData {
 	labels: string[]
@@ -71,7 +72,44 @@ const fetchChartData = async () => {
 	}
 }
 
+interface BarChartData {
+	labels: string[]
+	values: number[]
+	colors: string[]
+	label: string
+}
+
+
+const barChartData = ref<BarChartData>({
+	labels: [],
+	values: [],
+	colors: [],
+	label: "quantidade de configurações",
+
+})
+  
+const fetchBarChartData = async () => {
+	try {
+		const response = await fetch(`http://localhost:8080/lz-config/count-lzfiles`)
+		const data = await response.json()
+
+		const labels1 = Object.keys(data)
+		const values1 = Object.values(data) as number[]
+
+		barChartData.value = {
+			labels: labels1,
+			values: values1,
+			colors: generateColors(1),
+			label: "quantidade de configurações",
+		}
+	} catch (e) {
+		console.error('Erro buscando data do gráfico', e)
+	}
+
+}
+
 onMounted(() => {
+	fetchBarChartData()
 	fetchChartData()
 	fetchPieChart()
 })
@@ -94,6 +132,13 @@ onMounted(() => {
 					:chartData="chartData"
 					class="custom-donut-chart"
 				></DonutChart>
+			</div>
+			<div class="chart-wrapper">
+				<BarChart
+					v-if="barChartData.labels.length"
+					:barChartData="barChartData"
+					class="custom-bar-chart"
+				></BarChart>
 			</div>
 		</div>
 	</main>
@@ -133,6 +178,7 @@ main {
 	margin: 1px 0;
 }
 
+.custom-bar-chart,
 .custom-pie-chart,
 .custom-donut-chart {
 	width: 100%;

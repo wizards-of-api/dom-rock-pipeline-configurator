@@ -1,12 +1,12 @@
 <template>
 	<div class="chart-container">
-	  <Bar :data="chartData" :options="chartOptions"></Bar>
+	  <Bar :data="barChartData" :options="chartOptions"></Bar>
 	</div>
   </template>
   
 <script setup lang="ts">
 import { Bar } from 'vue-chartjs'
-import { defineProps, computed } from 'vue'
+import { defineProps, ref } from 'vue'
 import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
 import type { ChartOptions } from 'chart.js'
   
@@ -14,29 +14,33 @@ import type { ChartOptions } from 'chart.js'
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
   
   // Define props type
-  interface ChartDataProps {
-	labels: string[];
-	datasets: Array<{
-	  label: string;
-	  data: number[];
-	  backgroundColor: string[];
-	  borderColor: string[];
-	  borderWidth: number;
-	}>;
+  interface BarChartData {
+	labels: string[]
+	values: number[]
+	colors: string[]
+	label: string
   }
   
 // Define the props
-const props = defineProps<{ chartData: ChartDataProps }>()
+const props = defineProps<{ 
+	barChartData: BarChartData 
+}>()
   
 // Set up the chart data based on props
-const chartData = computed(() => {
-	return {
-	  labels: props.chartData.labels,
-	  datasets: props.chartData.datasets.map(dataset => ({
-			...dataset,
-			label: dataset.label, // Use the label passed from App.vue
-	  })),
-	}
+const barChartData = ref({
+	type: 'bar',
+	labels: props.barChartData.labels,
+	datasets: [
+	    {
+			data: props.barChartData.values,
+			backgroundColor: props.barChartData.colors,
+			label: props.barChartData.label,
+			borderColor: 'rgba(255, 255, 255, 1)',
+			borderWidth: 2,
+			
+	    },
+	],
+
 })
   
 // Set up the chart options

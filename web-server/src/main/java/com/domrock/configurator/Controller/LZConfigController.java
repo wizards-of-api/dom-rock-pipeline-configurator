@@ -1,6 +1,8 @@
 package com.domrock.configurator.Controller;
 
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.http.HttpStatus;
@@ -148,4 +150,19 @@ public class LZConfigController {
         lzMetadataConfigInterface.delete(delete.get());
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/count-lzfiles")
+    public Map<String, Long> getAllCountFilesByDay() {
+        List<Object[]> configsCompany = lzMetadataServices.getCountFilesByDay();
+        Map<String, Long> configsDate = new LinkedHashMap<>();
+
+        for (Object[] itens : configsCompany) {
+            String companyName = (String) itens[0];
+            Long configsCont = (Long) itens[1];
+            configsDate.put(companyName, configsCont);
+            System.out.println(("configuração = " + configsDate.toString()));
+        }
+        return configsDate;
+    }
+
 }

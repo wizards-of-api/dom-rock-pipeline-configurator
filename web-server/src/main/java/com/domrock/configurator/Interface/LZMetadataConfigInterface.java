@@ -17,4 +17,7 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     
     @Query(value = "SELECT * FROM lz_config WHERE file_config_name LIKE %:searchedName%", nativeQuery = true)
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
+
+    @Query(value = "SELECT DATE_FORMAT(file_timestamp, '%d-%m-%Y') as DAY, COUNT(file_id) as QTD FROM lz_config GROUP BY DATE_FORMAT(file_timestamp, '%d-%m-%Y') ORDER BY DATE_FORMAT(file_timestamp, '%d-%m-%Y')", nativeQuery = true)
+    public List<Object[]> countFilesByDay();
 }
