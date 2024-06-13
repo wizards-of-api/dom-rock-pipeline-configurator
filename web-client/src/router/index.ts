@@ -76,6 +76,8 @@ const router = createRouter({
 			path: '/user-register',
 			name: 'UserRegister',
 			component: CreateUserView,
+		},
+		{
 			path: '/login',
 			name: 'LoginView',
 			component: LoginView,

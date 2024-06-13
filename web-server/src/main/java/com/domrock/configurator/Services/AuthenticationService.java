@@ -32,7 +32,7 @@ public class AuthenticationService {
                 .name(request.getName())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .permission(permissionRepository.findById(request.getPermission())) // mudei ta
+                .permission(permissionRepository.findById(request.getPermission()))
                 .build();
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         userService.createUser(userDTO);

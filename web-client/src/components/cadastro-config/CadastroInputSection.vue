@@ -33,17 +33,27 @@ const empresa = defineModel<string>('empresa')
 const companyLists = empresaConfig?.value?.map(columns => columns)
 const mapOptions = (column: EmpresaConfig) => `${column.fantasyName}`
 
+const header = {
+
+}
+
 const saveFile = async () => {
-	await axios.put('http://localhost:8080/user/create-user' , {
-		name:nome.value,
-		email:email.value,
-		password:senha.value,
-		isSuper:null,
-		empresa: empresa.value,
-		lzbool: lzbool.value,
-		bronzebool: bronzebool.value,
-		silverbool: silverbool.value,
-	},
+	await axios.put('http://localhost:8080/user/create-user',
+		{
+			name:nome.value,
+			email:email.value,
+			password:senha.value,
+			isSuper:null,
+			empresa: empresa.value,
+			lzbool: lzbool.value,
+			bronzebool: bronzebool.value,
+			silverbool: silverbool.value,
+		}, {
+			headers: {
+				'Content-Type': 'application/json',
+				'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJwZXJtaXNzaW9uSUQiOjEsInVzZXJFbWFpbCI6ImFhYW11bGVrbGVrbGVrbGVrQHdpei5jb20iLCJzdWIiOiJhYWFtdWxla2xla2xla2xla0B3aXouY29tIiwiaWF0IjoxNzE4MjMxNDUxLCJleHAiOjE3MTgyMzUwNTF9.EF8AIAp9krjMz-ebwXhAFwQKGIEhfSlWHhg41ePj11M'
+			},
+		},
 )}
 const getEmpresas = async () => {
 	const response = await axios.get(`http://localhost:8080/company/getAllCompanies`)
