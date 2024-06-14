@@ -15,6 +15,7 @@ import java.util.List;
 public class LogController {
     private final LogService logService;
 
+    @RequestMapping("/getall")
     @GetMapping
     public List<LogViewDTO> getAllLogs() {
         return logService.getAllLogsWithUserNameandCompanyName();

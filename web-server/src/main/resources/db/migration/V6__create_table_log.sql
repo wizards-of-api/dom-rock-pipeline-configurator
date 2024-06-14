@@ -1,4 +1,4 @@
-CREATE TABLE Log
+CREATE TABLE log
 (
     log_id INT AUTO_INCREMENT PRIMARY KEY,
     log_user_email VARCHAR(255),
