@@ -5,14 +5,12 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.LoginRequestDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.SignupRequestDTO;
 import com.domrock.configurator.Services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationController {
     private final AuthenticationService authenticationService;
 
