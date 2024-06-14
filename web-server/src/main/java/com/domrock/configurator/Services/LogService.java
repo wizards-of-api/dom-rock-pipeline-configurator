@@ -41,6 +41,7 @@ public class LogService {
                     map.put("userName", objects[2]);
                     map.put("companyName", objects[3]);
                     map.put("action", objects[4]);
+                    map.put("responseCode", objects[5]);
                     return modelMapper.map(map, LogViewDTO.class);
                 }).collect(Collectors.toList());
     }
