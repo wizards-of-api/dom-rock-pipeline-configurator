@@ -1,29 +1,36 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
+import {onMounted, ref} from 'vue'
 import axios from 'axios'
 import TableComponent from '@/components/TableComponent.vue'
 import AppHeader from '@/components/AppHeader.vue'
 
-const API_URL = 'http://localhost:8080/logs/getall'
+const API_URL = 'http://localhost:8080/logs'
 
 const listLog = ref([])
 
 const loadLogs = async () => {
-    try {
-        const response = await axios.get(API_URL)
-        listLog.value = response.data
-    } catch (error) {
-        console.error('Error fetching logs:', error)
-    }
+	try {
+		const response = await axios.get(API_URL)
+		const logs = response.data
+		listLog.value = logs.map((log: any) => ({
+			logId: log.id,
+			logDate: new Date(log.logDateTime).toLocaleDateString(),
+			logUser: log.userName,
+			logInterprise: log.companyName,
+			logAction: log.action,
+		}))
+	} catch (error) {
+		console.error('Error fetching logs:', error)
+	}
 }
 
 onMounted(loadLogs)
 </script>
 
 <template>
-  <AppHeader />
+  <AppHeader/>
   <div id="log-view">
-    <TableComponent :logList="listLog" />
+    <TableComponent :log-list="listLog"></TableComponent>
   </div>
 </template>
 

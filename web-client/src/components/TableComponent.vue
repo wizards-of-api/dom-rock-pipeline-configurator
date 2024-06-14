@@ -1,38 +1,31 @@
 <script setup lang="ts">
-import type { LogViewDTO } from './types'
+import type { Log } from './lz-config/types'
 
 type Props = {
-  logList: LogViewDTO[],
+	logList: Log[],
 }
-const { logList } = defineProps<Props>()
+const { logList} = defineProps<Props>()
 </script>
-
 <template>
-  <table>
-    <caption>Tabela de log</caption>
-    <thead>
-      <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Data</th>
-        <th scope="col">Usuário</th>
-        <th scope="col">Empresa</th>
-        <th scope="col">Ação</th>
-        <th scope="col">Código de Resposta</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr v-for="log in logList" :key="log.id">
-        <td data-label="ID">{{ log.id }}</td>
-        <td data-label="Data">{{ log.logDateTime }}</td>
-        <td data-label="Usuário">{{ log.userName }}</td>
-        <td data-label="Empresa">{{ log.companyName }}</td>
-        <td data-label="Ação">{{ log.action }}</td>
-        <td data-label="Código de Resposta">{{ log.responseCode }}</td>
-      </tr>
-    </tbody>
-  </table>
-</template>
+	<table>
+  <caption>Tabela de log</caption>
+  <thead>
+      <th scope="col">Data</th>
+      <th scope="col">Usuário</th>
+      <th scope="col">Empresa</th>
+      <th scope="col">Ação</th>
+  </thead>
+  <tbody v-for="log in logList" :key="log.logId">
+    <tr>
+      <td data-label="Data">{{ log.logDate }}</td>
+      <td data-label="User">{{ log.logUSer }}</td>
+      <td data-label="enterprise">{{log.logInterprise}}</td>
+      <td data-label="action">{{ log.logAction}}</td>
+    </tr>
+  </tbody>
+</table>
 
+</template>
 <style scoped lang="scss">
 table {
   border: 1px solid #ccc;
@@ -49,7 +42,7 @@ table caption {
   margin: 0.5em 0 0.75em;
   text-align: left;
   font-weight: bold;
-  color: #ddd;
+  color: #333;
 }
 
 table thead {
@@ -130,6 +123,8 @@ table td {
     border-bottom: 0;
   }
 }
+
+/* General styling */
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
