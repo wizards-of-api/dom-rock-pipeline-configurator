@@ -42,7 +42,7 @@ public class User implements UserDetails {
     @JoinColumn(name = "permission_id")
     private Permission permission;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "company_cnpj")
     private Company companyCnpj;
 
