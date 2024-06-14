@@ -106,6 +106,7 @@ export type EmpresaConfig ={
 	fantasyName?: string
 
 }
+
 export type Log = {
 	logId: number
 	logDate: String

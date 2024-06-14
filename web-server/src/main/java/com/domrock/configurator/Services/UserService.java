@@ -82,7 +82,6 @@ public class UserService {
             String permissionString = PermissionType.values()[permissionCreated].name();
             Permission adfhqifda = permissionRepository.findByType(permissionString);
 
-
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
@@ -95,6 +94,5 @@ public class UserService {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
-
     }
 }
