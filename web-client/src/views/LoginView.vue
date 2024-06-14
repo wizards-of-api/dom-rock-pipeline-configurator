@@ -1,19 +1,37 @@
 <script setup lang="ts">
 import DRButton from '@/components/DRButton.vue'
-import Load from '@/components/Load.vue';
+import Load from '@/components/Load.vue'
+import axios from 'axios'
+import router from '@/router'
 
 const emailLogin = defineModel<string>('emailLogin')
 const passwordLogin = defineModel<string>('passwordLogin')
 const errorLogin = defineModel<boolean>('errorLogin')
 const loadLogin = defineModel<boolean>('loadLogin')
-const login = () => {
+const login = async () => {
 	loadLogin.value = true
-  setTimeout(()=>{
-    loadLogin.value = false
-  },5000)
-	console.log(emailLogin.value)
-	console.log(passwordLogin.value)
+	try {
+		const response = await axios.post('http://localhost:8080/auth/login',
+			{
+				email:emailLogin.value,
+				password:passwordLogin.value,
+			})
+		loadLogin.value = false
+		const token = response?.data?.token
+		localStorage.setItem('jwtToken', token)
+		const decodedToken = JSON.parse(atob(token.split(".")[1]))
+		localStorage.setItem('permission', JSON.stringify(decodedToken.permissionID))
+		if(decodedToken.permissionID ===1){
+			router.replace(`/admin-home`)
+		}else{
+			router.replace(`/home`)
+		}
+	}catch (error) {
+		loadLogin.value = false
+		errorLogin.value = true
+	}
 }
+
 </script>
 <template>
   <main>
