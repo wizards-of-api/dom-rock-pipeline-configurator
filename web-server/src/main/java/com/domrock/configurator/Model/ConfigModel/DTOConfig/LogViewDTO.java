@@ -13,4 +13,5 @@ public class LogViewDTO {
     private String userName;
     private String companyName;
     private String action;
+    private Integer responseCode;
 }

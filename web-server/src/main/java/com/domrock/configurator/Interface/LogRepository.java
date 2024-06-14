@@ -13,7 +13,8 @@ public interface LogRepository extends JpaRepository<Log, Integer> {
             "date_format(l.log_datetime,'%d-%m-%Y %H:%i:%s') as logDateTime," +
             "u.name as userName," +
             "c.fantasy_name as companyName," +
-            "l.log_action as action " +
+            "l.log_action as action," +
+            " l.log_response_code as responseCode " +
             "FROM log l left join user u on l.log_user_email = u.email " +
             "left join company c on l.log_company_cnpj = c.cnpj"
             , nativeQuery = true)

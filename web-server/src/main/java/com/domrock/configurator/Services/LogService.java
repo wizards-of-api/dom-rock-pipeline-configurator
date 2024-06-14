@@ -20,12 +20,13 @@ public class LogService {
     private final LogRepository logRepository;
     private final ModelMapper modelMapper;
 
-    public void saveLog(String userEmail, String companyCnpj, String action) {
+    public void saveLog(String userEmail, String companyCnpj, String action, int responseCode) {
         Log log = Log.builder()
                 .userEmail(userEmail)
                 .companyCnpj(companyCnpj)
                 .logDateTime(LocalDateTime.now())
                 .action(action)
+                .responseCode(responseCode)
                 .build();
         logRepository.save(log);
     }
