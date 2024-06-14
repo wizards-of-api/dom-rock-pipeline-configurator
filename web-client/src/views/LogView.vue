@@ -1,40 +1,63 @@
 <script setup lang="ts">
-import type { Log } from './lz-config/types'
+import {onMounted, ref} from 'vue'
+import axios from 'axios'
+import TableComponent from '@/components/TableComponent.vue'
+import AppHeader from '@/components/AppHeader.vue'
 
-type Props = {
-	logList: Log[],
+const API_URL = 'http://localhost:8080/logs'
+
+const listLog = ref([])
+
+const loadLogs = async () => {
+	try {
+		const response = await axios.get(API_URL)
+		const logs = response.data
+		listLog.value = logs.map((log: any) => ({
+			logId: log.id,
+			logDate: new Date(log.logDateTime).toLocaleDateString(),
+			logUser: log.userName,
+			logInterprise: log.companyName,
+			logAction: log.action,
+		}))
+	} catch (error) {
+		console.error('Error fetching logs:', error)
+	}
 }
-const { logList} = defineProps<Props>()
-</script>
-<template>
-	<table>
-  <caption>Tabela de log</caption>
-  <thead>
-      <th scope="col">Data</th>
-      <th scope="col">Usuário</th>
-      <th scope="col">Empresa</th>
-      <th scope="col">Ação</th>
-  </thead>
-  <tbody v-for="log in logList" :key="log.logId">
-    <tr>
-      <td data-label="Data">{{ log.logDate }}</td>
-      <td data-label="User">{{ log.logUSer }}</td>
-      <td data-label="enterprise">{{log.logInterprise}}</td>
-      <td data-label="action">{{ log.logAction}}</td>
-    </tr>
-  </tbody>
-</table>
 
+onMounted(loadLogs)
+</script>
+
+<template>
+  <AppHeader/>
+  <div id="log-view">
+    <TableComponent :log-list="listLog"></TableComponent>
+  </div>
 </template>
+
 <style scoped lang="scss">
+body {
+  font-family: "Open Sans", sans-serif;
+  line-height: 1.5;
+  color: #333;
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+}
+
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
-  margin: 1em 0;
+  margin: 1em auto;
   padding: 0;
-  width: 100%;
+  width: 90%;
+  max-width: 1200px;
   table-layout: fixed;
   font-size: 1em;
+  background-color: #fff;
 }
 
 table caption {
@@ -46,7 +69,7 @@ table caption {
 }
 
 table thead {
-  background-color: #f4f4f4;
+  background-color: #f0f0f0;
 }
 
 table th,
@@ -60,7 +83,7 @@ table th {
   font-size: 1em;
   letter-spacing: 0.05em;
   text-transform: uppercase;
-  background-color: #f8f8f8;
+  background-color: #e0e0e0;
   color: #333;
 }
 
@@ -69,7 +92,7 @@ table tbody tr:nth-child(even) {
 }
 
 table tbody tr:hover {
-  background-color: #f1f1f1;
+  background-color: #e9e9e9;
 }
 
 table td {
@@ -80,6 +103,7 @@ table td {
 @media screen and (max-width: 600px) {
   table {
     border: 0;
+    width: 100%;
   }
 
   table caption {
@@ -122,15 +146,5 @@ table td {
   table td:last-child {
     border-bottom: 0;
   }
-}
-
-/* General styling */
-body {
-  font-family: "Open Sans", sans-serif;
-  line-height: 1.5;
-  color: #333;
-  background-color: #f9f9f9;
-  margin: 0;
-  padding: 0;
 }
 </style>

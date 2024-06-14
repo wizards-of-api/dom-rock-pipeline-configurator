@@ -13,6 +13,7 @@ import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
 import CreateUserView from '@/views/CreateUserView.vue'
 import LoginView from '@/views/LoginView.vue'
+import LogView from "@/views/LogView.vue";
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -81,6 +82,11 @@ const router = createRouter({
 			path: '/login',
 			name: 'LoginView',
 			component: LoginView,
+		},
+		{
+			path: '/log-view',
+			name: 'LogView',
+			component: LogView,
 		},
 	],
 })
