@@ -1,32 +1,32 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue'
-import axios from 'axios'
+import {onMounted, ref} from 'vue'
 import TableComponent from '@/components/TableComponent.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import router from '@/router'
 import api from '@/JwtToken/token'
-import type { LogViewDTO } from '@/components/types'
+import type {LogViewDTO} from '@/components/types'
+
 const listLog = ref<LogViewDTO[]>([])
 const loadLogs = async () => {
-	try {
-		const response = await api.get('/logs/getall')
-		return response
-	} catch (error) {
-		router.replace("/login")
-	}
+  try {
+    const response = await api.get('/logs/getall')
+    return response
+  } catch (error) {
+    router.replace("/login")
+  }
 }
 
-onMounted(async()=> {
- const tartuguita = await loadLogs()
- console.log(tartuguita)
+onMounted(async () => {
+  const tartuguita = await loadLogs()
+  console.log(tartuguita)
 })
 
 </script>
 
 <template>
-  <AppHeader />
+  <AppHeader/>
   <div id="log-view">
-    <TableComponent :logList="listLog" />
+    <TableComponent :logList="listLog"/>
   </div>
 </template>
 
@@ -43,6 +43,7 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+
 table {
   border: 1px solid #ccc;
   border-collapse: collapse;
@@ -54,6 +55,7 @@ table {
   font-size: 1em;
   background-color: #fff;
 }
+
 table caption {
   font-size: 1.5em;
   margin: 0.5em 0 0.75em;
@@ -61,15 +63,18 @@ table caption {
   font-weight: bold;
   color: #333;
 }
+
 table thead {
   background-color: #f0f0f0;
 }
+
 table th,
 table td {
   padding: 0.75em;
   text-align: center;
   border: 1px solid #ddd;
 }
+
 table th {
   font-size: 1em;
   letter-spacing: 0.05em;
@@ -77,16 +82,20 @@ table th {
   background-color: #e0e0e0;
   color: #333;
 }
+
 table tbody tr:nth-child(even) {
   background-color: #f9f9f9;
 }
+
 table tbody tr:hover {
   background-color: #e9e9e9;
 }
+
 table td {
   text-align: left;
   color: #555;
 }
+
 @media screen and (max-width: 600px) {
   table {
     border: 0;
