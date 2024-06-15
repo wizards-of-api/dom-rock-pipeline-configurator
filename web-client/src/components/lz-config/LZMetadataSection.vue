@@ -34,6 +34,13 @@ onMounted(()=>{
 	frequencyType.value = String(valuesExistingInThisFile?.frequencyType?.toUpperCase()) ??""
 })
 
+onMounted(()=>{
+	name.value = valuesExistingInThisFile?.name ? String(valuesExistingInThisFile?.name) : ""
+	fileOrigin.value = valuesExistingInThisFile?.fileOrigin ?? ""
+	frequencyNumber.value = valuesExistingInThisFile?.frequencyNumber ? String(valuesExistingInThisFile?.frequencyNumber): ""
+	frequencyType.value = String(valuesExistingInThisFile?.frequencyType?.toUpperCase()) ??""
+})
+
 </script>
 <template>
 	<DRSectionTitle title="Metadata"> </DRSectionTitle>

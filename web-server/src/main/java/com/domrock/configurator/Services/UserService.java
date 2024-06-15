@@ -86,6 +86,8 @@ public class UserService {
             Permission adfhqifda = permissionRepository.findByType(permissionString);
 
 
+            Permission permission = permissionRepository.findByType(permissionType);
+            user.getPermissions().add(permission);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
@@ -99,5 +101,15 @@ public class UserService {
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
 
+    public UserDTO removeUserPermission(String email, String permissionType) {
+        User user = userRepository.findById(email).orElse(null);
+        if (user == null) {
+            throw new NoSuchElementException("No user found with email: " + email);
+        } else {
+            Permission permission = permissionRepository.findByType(permissionType);
+            user.getPermissions().remove(permission);
+            userRepository.save(user);
+            return modelMapper.map(user, UserDTO.class);
+        }
     }
 }

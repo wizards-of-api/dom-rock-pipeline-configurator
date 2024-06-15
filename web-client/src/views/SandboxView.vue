@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import TableComponent from '@/components/TableComponent.vue'
+import DRButton from '@/components/DRButton.vue'
+import DRTextInput from '@/components/DRTextInput.vue'
+import DRDropDown from '@/components/DRDropDown.vue'
+import DRCheckBox from '@/components/DRCheckBox.vue'
+import Load from '@/components/Load.vue'
+
 import { ref } from 'vue'
 /*
 This view is suposed to test components in Dev mode
@@ -62,6 +68,12 @@ const listLog = [
 		</h1>
 		<DRTextInput title="Nome da Configuração"></DRTextInput>
 		<DRDropDown title="Nome Dropdown" :option-list="['Hello', 'World']"></DRDropDown>
+<<<<<<< HEAD
+=======
+	</div>
+	<div>
+		<Load></Load>
+>>>>>>> origin
 	</div>
 	<div>
 		<Load></Load>

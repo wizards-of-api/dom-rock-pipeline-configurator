@@ -7,6 +7,7 @@ import router from '@/router'
 import type { LZConfigView } from '../lz-config/types'
 import api from '@/JwtToken/token'
 
+
 type Props = {
 	fileConfig?: LZConfigView
 }
