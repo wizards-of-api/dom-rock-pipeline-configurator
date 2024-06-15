@@ -153,6 +153,7 @@ public class LZConfigController {
 
     @GetMapping("/count-lzfiles")
     public Map<String, Long> getAllCountFilesByDay() {
+        System.out.println("passou na consulta padrão");
         List<Object[]> configsCompany = lzMetadataServices.getCountFilesByDay();
         Map<String, Long> configsDate = new LinkedHashMap<>();
 
@@ -164,5 +165,21 @@ public class LZConfigController {
         }
         return configsDate;
     }
+
+    @GetMapping("/count-lzfiles/{startYear}-between-{endYear}")
+    public Map<String, Long> getAllCountFilesBetweenYears(@PathVariable String startYear, @PathVariable String endYear) {
+        System.out.println("passou na consulta do between");
+        List<Object[]> configsCompany = lzMetadataServices.getCountFilesBetweenYears(startYear,endYear);
+        Map<String, Long> configsDate = new LinkedHashMap<>();
+
+        for (Object[] itens : configsCompany) {
+            String companyName = (String) itens[0];
+            Long configsCont = (Long) itens[1];
+            configsDate.put(companyName, configsCont);
+            System.out.println(("configuração = " + configsDate.toString()));
+        }
+        return configsDate;
+    }
+
 
 }

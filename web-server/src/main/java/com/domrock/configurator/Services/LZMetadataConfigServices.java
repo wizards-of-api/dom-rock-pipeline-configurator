@@ -104,4 +104,9 @@ public class LZMetadataConfigServices {
     public List<Object[]> getCountFilesByDay() {
         return lzConfigInterface.countFilesByDay();
     }
+    
+    
+    public List<Object[]> getCountFilesBetweenYears(String startYear, String endYear) {
+        return lzConfigInterface.countFilesBetweenYears(startYear,endYear);
+    }
 }
