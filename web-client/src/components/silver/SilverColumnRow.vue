@@ -79,6 +79,7 @@ const deleteFromTo = async (silverId:number | undefined) => {
           button-type="careful"
           :click-behavior="() => deleteFromTo(baseColumnConfig?.silverId)"
           v-if="baseColumnConfig?.columnId"
+          v-bind:disabled="false"
         >Remover</DRButton>
     </div>
 </template>

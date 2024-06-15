@@ -45,10 +45,10 @@ const gotoLZConfig = () => {
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoLZConfig">Visualizar / Editar</DRButton>
+                    <DRButton :click-behavior="gotoLZConfig" v-bind:disabled="false">Visualizar / Editar</DRButton>
                 </div>
                 <div>
-                    <DRButton button-type="careful" :click-behavior="() => deleteFile(lzConfig.fileId)">Remover</DRButton>
+                    <DRButton button-type="careful" :click-behavior="() => deleteFile(lzConfig.fileId)" v-bind:disabled="false">Remover</DRButton>
                 </div>
             </div>
         </div>

@@ -72,8 +72,8 @@ const saveFile = async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton :click-behavior="() => showLeaveModal = true" v-bind:disabled="false">Voltar</DRButton>
+				<DRButton button-type="safe" :click-behavior="saveFile" v-bind:disabled="false">Salvar</DRButton>
 			</nav>
 			<main>
 				<LZUploadSection @update="onUpdateMetadata" @update-columns="updateColumnList"></LZUploadSection>

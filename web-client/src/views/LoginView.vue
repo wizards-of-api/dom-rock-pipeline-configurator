@@ -63,7 +63,7 @@ const login = async () => {
         >
     </div>
     <div class="button_login">
-      <DRButton :click-behavior="login" size="large">Entrar</DRButton>
+      <DRButton :click-behavior="login" size="large" v-bind:disabled="false">Entrar</DRButton>
     </div>
   </div>
   </main>

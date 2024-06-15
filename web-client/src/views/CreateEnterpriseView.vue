@@ -56,7 +56,7 @@ onMounted(async () => {
 				</div>
 				<div class="enterprise_list">
 					<div class="button_register">
-						<DRButton :click-behavior="saveFile" size="large">Entrar</DRButton>
+						<DRButton :click-behavior="saveFile" size="large" v-bind:disabled="false">Entrar</DRButton>
 					</div>
 				</div>
 			</main>

@@ -49,7 +49,7 @@ onMounted(async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="goToListViewSilver">Voltar</DRButton>
+				<DRButton :click-behavior="goToListViewSilver" v-bind:disabled="false">Voltar</DRButton>
 			</nav>
 			<main>
 				<MetadataSilver :file-config="fileConfig"></MetadataSilver>

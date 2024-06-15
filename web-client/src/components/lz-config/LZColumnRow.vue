@@ -79,6 +79,7 @@ const wrapColumnConfig = () => ({
             :disabled="false"
         ></DRCheckBox>
         <DRButton
+            v-bind:disabled="false"
             style="grid-area: remove"
             button-type="careful"
             :click-behavior="() => {

@@ -136,7 +136,7 @@ onMounted(()=>{
 			></DRTextInput>
 
 			<input ref="inputFile" style="display: none;" type="file" @change="uploadFile($event)" accept=".csv"/>
-			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()">Upload</DRButton>
+			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()" v-bind:disabled="false">Upload</DRButton>
 			<DRTextInput
 				style="grid-area: file-name"
 				title="Nome do Arquivo"

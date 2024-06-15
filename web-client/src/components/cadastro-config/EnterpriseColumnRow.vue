@@ -58,6 +58,7 @@ const deleteFromTo = async (silverId:String | undefined) => {
             disabled
         ></DRTextInput>
         <DRButton
+          v-bind:disabled="false"
           style="width: 150px;"
           button-type="careful"
           :click-behavior="() => deleteFromTo(column?.cnpj)"

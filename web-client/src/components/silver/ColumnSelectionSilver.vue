@@ -86,7 +86,8 @@ const wrapColumnConfig = () => ({
 							<div class="textInfo">
 							<DRButton
 							style="grid-area: index"
-							:click-behavior="saveFile">Adicionar
+							:click-behavior="saveFile"
+							v-bind:disabled="false">Adicionar
 							</DRButton>
 							</div>
 						</div>

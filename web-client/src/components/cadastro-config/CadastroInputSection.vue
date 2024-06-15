@@ -140,7 +140,7 @@ const wrapUpdateMetadata = () => ({
 				@update="emitUpdate"
 			></DRDropDown>
 			<div class="saveButton">
-				<DRButton :click-behavior="saveFile">Cadastrar</DRButton>
+				<DRButton :click-behavior="saveFile" v-bind:disabled="false">Cadastrar</DRButton>
 			</div>
 		</div>
 	</div>

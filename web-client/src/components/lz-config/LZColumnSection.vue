@@ -64,6 +64,7 @@ onMounted(() => {
             >
             </DRDropDown>
             <DRButton
+				v-bind:disabled="false"
                 :click-behavior="addColumn"
             > Adicionar
 			</DRButton>
