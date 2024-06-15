@@ -32,10 +32,7 @@ public class JwtService {
     }
 
     public String extractCompanyCnpj(String token) {
-        return extractClaim(token, claims -> {
-            Map<String, Object> companyCnpjMap = claims.get("companyCnpj", Map.class);
-            return companyCnpjMap != null ? (String) companyCnpjMap.get("cnpj") : null;
-        });
+        return extractClaim(token, claims -> claims.get("companyCnpj", String.class));
     }
 
     public String generateToken(User user) {
