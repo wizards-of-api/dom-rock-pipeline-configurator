@@ -19,6 +19,8 @@ const nameRoute = (name:any) => {
 		return "Etapa Silver"
 	case "CreateEnterpriseView":
 		return "Cadastro de Empresas"
+	case "LogView":
+		return "Tela Log"
 	default:
 		return ""
 	}

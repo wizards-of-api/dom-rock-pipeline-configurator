@@ -1,36 +1,41 @@
 <script setup lang="ts">
-import {onMounted, ref} from 'vue'
+import { onMounted, ref } from 'vue'
 import TableComponent from '@/components/TableComponent.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import router from '@/router'
 import api from '@/JwtToken/token'
-import type {LogViewDTO} from '@/components/types'
+import type { LogViewDTO } from '@/components/types'
 
 const listLog = ref<LogViewDTO[]>([])
+
 const loadLogs = async () => {
 	try {
 		const response = await api.get('/logs/getall')
-		return response
+		return response.data
 	} catch (error) {
 		router.replace("/login")
 	}
 }
 
 onMounted(async () => {
-	const tartuguita = await loadLogs()
-	console.log(tartuguita)
+	const logs = await loadLogs()
+	console.log(logs)
+	if (logs) {
+		listLog.value = logs
+	}
 })
-
 </script>
 
 <template>
-  <AppHeader/>
+	<AppHeader>
+	</AppHeader>
   <div id="log-view">
-    <TableComponent :logList="listLog"/>
+    <TableComponent :logList="listLog" />
   </div>
 </template>
 
 <style scoped lang="scss">
+
 body {
   font-family: "Open Sans", sans-serif;
   line-height: 1.5;
