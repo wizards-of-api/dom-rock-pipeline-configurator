@@ -39,7 +39,7 @@ const wrapColumnConfig = () => ({
 const deleteFromTo = async (silverId:number | undefined) => {
 	if(silverId){
 		try {
-			await api.delete(`http://localhost:8080/silver-config/delete/${silverId}`)
+			await api.delete(`http:/silver-config/delete/${silverId}`)
 	    location.reload()
 		} catch (error) {
 			router.replace('/login')

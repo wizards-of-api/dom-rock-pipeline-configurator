@@ -58,7 +58,7 @@ const uploadFile = async ($event: Event) => {
 	formData.append('fileExtension', fileExtension.value)
 	formData.append('hasHeader', String(hasHeader.value === 'Sim'))
 	try{
-		const response = await api.post('http://localhost:8080/lz-config/upload-csv', formData)
+		const response = await api.post('/lz-config/upload-csv', formData)
 		const responseColumns = response.data.columns
 		const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
 		
@@ -101,13 +101,11 @@ onMounted(()=>{
 				columnName: data.columnName,
 				columnNumber: data.columnNumber,
 			},
-			
 		)
 	}) ?? []
 	emitUpdate()
-	emit('updateColumns',columnListUpdate)
+	emit('updateColumns', columnList)
 })
-
 </script>
 <template>
 	<div style="width: 100%" v-if="columnList || columnListUpdate">

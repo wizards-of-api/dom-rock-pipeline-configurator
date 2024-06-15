@@ -35,4 +35,16 @@ public class PermissionController {
 //            return ResponseEntity.badRequest().body(null);
 //        }
 //    }
+
+    @GetMapping("/{permissionType}/users")
+    public ResponseEntity<List<UserDTO>> getUsersByPermission(@PathVariable("permissionType") String permissionType) {
+        try {
+            List<UserDTO> userDTOS = permissionService.getUsersByPermission(permissionType);
+            return ResponseEntity.ok(userDTOS);
+        } catch (NoSuchElementException e) {
+            return ResponseEntity.notFound().build();
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 }
