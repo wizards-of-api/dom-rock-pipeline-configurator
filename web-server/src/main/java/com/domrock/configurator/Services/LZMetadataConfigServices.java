@@ -106,7 +106,7 @@ public class LZMetadataConfigServices {
     }
     
     
-    public List<Object[]> getCountFilesBetweenYears(String startYear, String endYear) {
-        return lzConfigInterface.countFilesBetweenYears(startYear,endYear);
+    public List<Object[]> getCountFilesBetweenYears(String Year) {
+        return lzConfigInterface.countFilesBetweenYears(Year);
     }
 }

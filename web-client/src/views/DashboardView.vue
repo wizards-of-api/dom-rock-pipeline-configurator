@@ -5,6 +5,8 @@ import { onMounted, ref } from 'vue'
 import DonutChart from '@/components/DonutChart.vue'
 import { generateColors } from '@/utils/colorUtils'
 import BarChart from '@/components/BarChart.vue'
+import DRSearch from '@/components/DRSearch.vue'
+import axios from 'axios'
 
 interface PieChartData {
 	labels: string[]
@@ -22,8 +24,8 @@ const pieChartData = ref<PieChartData>({
 
 const fetchPieChart = async () => {
 	try {	
-		const response = await fetch(`http://localhost:8080/company/allConfigsByCompanies`)
-		const data = await response.json()
+		const response = await axios.get(`http://localhost:8080/company/allConfigsByCompanies`)
+		const data = response.data
 
 		const labels = Object.keys(data)
 		const values = Object.values(data) as number[]
@@ -55,8 +57,8 @@ const chartData = ref<ChartData>({
 
 const fetchChartData = async () => {
 	try {
-		const response = await fetch(`http://localhost:8080/company/usersByCompany`)
-		const data = await response.json()
+		const response = await axios.get(`http://localhost:8080/company/usersByCompany`)
+		const data = response.data
 
 		const labels = Object.keys(data)
 		const values = Object.values(data) as number[]
@@ -79,23 +81,15 @@ interface BarChartData {
 	label: string
 }
 
-
-const barChartData = ref<BarChartData>({
+let barChartData = ref<BarChartData>({
 	labels: [],
 	values: [],
 	colors: [],
 	label: "quantidade de configurações",
-
 })
-  
-const fetchBarChartData = async () => {
+
+const fetchBarChartData = async (labels1: string[], values1: number[]) => {
 	try {
-		const response = await fetch(`http://localhost:8080/lz-config/count-lzfiles`)
-		const data = await response.json()
-
-		const labels1 = Object.keys(data)
-		const values1 = Object.values(data) as number[]
-
 		barChartData.value = {
 			labels: labels1,
 			values: values1,
@@ -105,13 +99,49 @@ const fetchBarChartData = async () => {
 	} catch (e) {
 		console.error('Erro buscando data do gráfico', e)
 	}
+}
 
+let handleSearch = async (updateSearchTerm: string) => {
+	try {
+		console.log("updateSearchTerm: " + updateSearchTerm + "  updateSearchTerm: " + updateSearchTerm.length)
+		if (updateSearchTerm.length != 4) {
+			console.log("passou no if")
+			let response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-0`)
+			let data = response.data
+			let labels1 = Object.keys(data)
+			let values1 = Object.values(data) as number[]
+			fetchBarChartData(labels1, values1)
+
+			response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles`)
+			data = response.data
+			labels1 = Object.keys(data)
+			values1 = Object.values(data) as number[]
+			fetchBarChartData(labels1, values1)
+		} else {
+			console.log("passou no else")
+			let response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-0`)
+			let data = response.data
+			let labels2 = Object.keys(data)
+			let values2 = Object.values(data) as number[]
+
+			fetchBarChartData(labels2, values2)
+
+			response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-${updateSearchTerm}`)
+			data = response.data
+			labels2 = Object.keys(data)
+			values2 = Object.values(data) as number[]
+
+			fetchBarChartData(labels2, values2)
+		}
+	} catch (e) {
+		console.error('Erro buscando data do gráfico', e)
+	}
 }
 
 onMounted(() => {
-	fetchBarChartData()
 	fetchChartData()
 	fetchPieChart()
+	handleSearch('')
 })
 </script>
 
@@ -134,6 +164,7 @@ onMounted(() => {
 				></DonutChart>
 			</div>
 			<div class="chart-wrapper">
+				<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
 				<BarChart
 					v-if="barChartData.labels.length"
 					:barChartData="barChartData"
@@ -173,7 +204,7 @@ main {
 }
 
 .chart-wrapper {
-	width: 200%;
+	width: 50%;
 	max-width: 500px;
 	margin: 1px 0;
 }

@@ -21,8 +21,8 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     @Query(value = "SELECT DATE_FORMAT(file_timestamp, '%m-%Y') as Month_Year, COUNT(file_id) as QTD FROM lz_config GROUP BY DATE_FORMAT(file_timestamp, '%m-%Y') ORDER BY DATE_FORMAT(file_timestamp, '%m-%Y')", nativeQuery = true)
     public List<Object[]> countFilesByDay();
 
-    @Query(value = "SELECT DATE_FORMAT(file_timestamp, '%m-%Y') AS Month_Year, COUNT(file_id) AS QTD FROM lz_config WHERE YEAR(file_timestamp) BETWEEN :startYear AND :endtYear GROUP BY DATE_FORMAT(file_timestamp, '%m-%Y') ORDER BY DATE_FORMAT(file_timestamp, '%m-%Y')", nativeQuery = true)
-    public List<Object[]> countFilesBetweenYears(@Param("startYear") String startYear, @Param("endYear") String endYear);
+    @Query(value = "SELECT DATE_FORMAT(file_timestamp, '%m-%Y') AS Month_Year, COUNT(file_id) AS QTD FROM lz_config WHERE YEAR(file_timestamp) = :Year GROUP BY DATE_FORMAT(file_timestamp, '%m-%Y') ORDER BY DATE_FORMAT(file_timestamp, '%m-%Y')", nativeQuery = true)
+    public List<Object[]> countFilesBetweenYears(@Param("Year") String Year);
 
 }
 
