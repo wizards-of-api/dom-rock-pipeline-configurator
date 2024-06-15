@@ -91,7 +91,7 @@ export type validatedBronze = {
 }
 
 export type CadastroConfig= {
-	nome: string
+	name: string
 	email: string
 	senha: string
 	super: boolean
@@ -99,6 +99,7 @@ export type CadastroConfig= {
 	bronzebool: boolean
 	silverbool: boolean
 	empresa: string
+	permission: string
 }
 
 export type EmpresaConfig ={

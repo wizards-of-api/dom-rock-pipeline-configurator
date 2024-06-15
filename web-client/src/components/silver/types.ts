@@ -41,3 +41,9 @@ export type EnterpriseModel = {
 	fantasyName?:String,
 	cnpj?:String,
 }
+
+export type CadastroModel = {
+	nome?: string,
+	permissions?: string,
+	email?: string,
+}

@@ -1,6 +1,7 @@
 package com.domrock.configurator.Controller;
 
 import com.domrock.configurator.Interface.PermissionRepository;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.AccountDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.JwtAuhenticationResponseDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.SignupRequestDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
@@ -28,10 +29,10 @@ public class UserController {
     private PermissionRepository permissionRepository;
 
     @GetMapping("/get-all-users")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<AccountDTO>> getAllUsers() {
         try {
-            List<UserDTO> userDTOS = userService.getAllUsers();
-            return ResponseEntity.ok(userDTOS);
+            List<AccountDTO> signupRequestDTOS = userService.getAllUsers();
+            return ResponseEntity.ok(signupRequestDTOS);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }

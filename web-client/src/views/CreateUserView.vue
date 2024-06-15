@@ -1,10 +1,26 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
-import { ref } from 'vue'
+import { onMounted, ref } from 'vue'
 import type { CadastroConfig } from '@/components/lz-config/types'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
+import ColumnSelectionCadastro from '@/components/cadastro-config/ColumnSelectionCadastro.vue'
+import api from '@/JwtToken/token'
+import router from '@/router'
 
-const config = ref<CadastroConfig[]>()
+const configAll = ref<CadastroConfig[]>()
+
+const getAllUsers = async () => {
+	try {
+		const response = await api.get(`/user/get-all-users`)
+		return response.data
+	} catch (error) {
+		router.replace("login")
+	}
+
+}
+onMounted(async () => {
+	configAll.value = await getAllUsers()
+})
 
 </script>
 <template>
@@ -15,8 +31,10 @@ const config = ref<CadastroConfig[]>()
 				<main>
 					<CadastroInputSection></CadastroInputSection>
 				</main>
-				<div v-if="!config">
-		</div>
+				<div class="user_register" v-if="configAll">
+					<h2>Lista de Usuários:</h2>
+					<ColumnSelectionCadastro :columns="configAll"></ColumnSelectionCadastro>
+				</div>
 			</div>
 	</div>
 </template>
@@ -32,7 +50,7 @@ main {
 
 .container {
 	width: 960px;
-	height: 540px;
+	height: 200rem;
 	background: var(--color-background-soft);
 	margin: var(--big-gap) auto;
 	border: 1px solid var(--color-separator);

@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { EnterpriseModel } from '../silver/types'
-import EnterpriseColumnRow from './EnterpriseColumnRow.vue'
+import type { CadastroModel } from '../silver/types'
+import CadastroColumnRow from '@/components/cadastro-config/CadastroColumnRow.vue'
 
 type Props = {
-    columns?: EnterpriseModel[]
+	columns?: CadastroModel[]
 }
 
 const { columns } = defineProps<Props>()
@@ -15,15 +15,15 @@ const emitUpdate = () => {
 
 </script>
 <template>
-	<EnterpriseColumnRow 
+	<CadastroColumnRow
 		v-for="columnConfig in columns"
 		:column="columnConfig"
-		:key="`${columnConfig.cnpj}`"
+		:key="`${columnConfig.email}`"
 		@update="() => {
 			emitUpdate()
 		}"
-		>
-	</EnterpriseColumnRow>
+	>
+	</CadastroColumnRow>
 </template>
 <style scoped lang="scss">
 .hash{
