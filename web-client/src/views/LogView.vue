@@ -8,17 +8,17 @@ import type {LogViewDTO} from '@/components/types'
 
 const listLog = ref<LogViewDTO[]>([])
 const loadLogs = async () => {
-  try {
-    const response = await api.get('/logs/getall')
-    return response
-  } catch (error) {
-    router.replace("/login")
-  }
+	try {
+		const response = await api.get('/logs/getall')
+		return response
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 
 onMounted(async () => {
-  const tartuguita = await loadLogs()
-  console.log(tartuguita)
+	const tartuguita = await loadLogs()
+	console.log(tartuguita)
 })
 
 </script>
