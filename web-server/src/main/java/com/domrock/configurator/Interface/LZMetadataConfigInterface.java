@@ -19,4 +19,7 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     
     @Query(value = "SELECT * FROM lz_config WHERE file_config_name LIKE %:searchedName%", nativeQuery = true)
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
+
+    @Query(value = "SELECT * FROM lz_config WHERE cnpj = :cnpj", nativeQuery = true)
+    public List<LZMetadataConfig> findAllByCnpj(@Param("cnpj") String cnpj);
 }

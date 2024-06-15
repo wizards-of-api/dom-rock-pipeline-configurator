@@ -20,6 +20,10 @@ public class LZMetadataConfigServices {
     @Autowired
     private LZMetadataConfigInterface lzConfigInterface;
 
+    public List<LZMetadataConfig> getAllLZbyCnpj(String cnpj) {
+        return lzConfigInterface.findAllByCnpj(cnpj);
+    }
+
     public LZMetadataConfig saveLzMetadataConfig(LZMetadataConfig lzConfig) {
         return lzConfigInterface.save(lzConfig);
     }

@@ -66,6 +66,16 @@ public class LZConfigController {
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
+
+    @GetMapping("/list-view/{cnpj}")
+    public ResponseEntity<List<LZMetadataConfig>> getConfigListByCnpj(@PathVariable String cnpj){
+        try {
+            List<LZMetadataConfig> allListByCnpj = lzMetadataServices.getAllLZbyCnpj(cnpj);
+            return ResponseEntity.ok(allListByCnpj);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
     
     @GetMapping("/list-view/{configName}")
     public ResponseEntity<List<LZMetadataConfig>> getConfigListByName(@PathVariable String configName){
