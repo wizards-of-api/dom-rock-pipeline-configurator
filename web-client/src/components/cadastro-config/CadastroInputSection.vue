@@ -34,13 +34,11 @@ const saveFile = async () => {
 	try{
 		await api.put('/user/create-user',
 			{
-				name:nome.value,
-				email:email.value,
-				password:senha.value,
-				empresa: empresa.value,
-				lzbool: lzbool.value,
-				bronzebool: bronzebool.value,
-				silverbool: silverbool.value,
+				name: nome.value,
+				email: email.value,
+				password: senha.value,
+				companyCnpj: empresa.value,
+				permission: permission.value,
 			},
 		)
 	}catch(erro){
