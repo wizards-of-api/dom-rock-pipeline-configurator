@@ -1,5 +1,5 @@
 <script setup lang="ts">
-
+import { onMounted } from 'vue'
 const nameRoute = (name:any) => {
 	switch(name) {
 	case "HomeView":
@@ -23,11 +23,20 @@ const nameRoute = (name:any) => {
 		return ""
 	}
 }
+var route = ""
+onMounted(()=>{
+	var user = localStorage.getItem("permissionId")
+	if(user ==="1"){
+		route = "/admin-home"
+	}else{
+		route = "/home"
+	}
+})
 </script>
 
 <template>
   <header>
-    <router-link to="/home">
+    <router-link :to="route">
       <img src="../assets/dom-rock-logo.png">
     </router-link>
     <div class="user">

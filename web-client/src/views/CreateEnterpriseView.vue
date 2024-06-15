@@ -21,6 +21,7 @@ const saveFile = async()=>{
 			await api.post(`/company/create-company`, company)
 		} catch (error) {
 			router.replace("login")
+			location.reload()
 		}
 	}else{
 		alert("Preencha todos os campos")

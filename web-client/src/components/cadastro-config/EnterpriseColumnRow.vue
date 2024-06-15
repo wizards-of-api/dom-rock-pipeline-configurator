@@ -19,7 +19,6 @@ const emitUpdate = () => {
 }
 
 onMounted(() => {
-    console.log(column)
 	fantasyName.value = column?.fantasyName,
 	cnpj.value = column?.cnpj
 })
