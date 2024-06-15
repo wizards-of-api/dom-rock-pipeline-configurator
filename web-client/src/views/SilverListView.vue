@@ -3,12 +3,17 @@ import { onMounted, ref } from 'vue'
 import AppHeader from '@/components/AppHeader.vue'
 import LVSilverContainer from '@/components/list-view/LV-silver/LVSilverContainer.vue'
 import type { validatedFileBronze } from '@/components/lz-config/types'
-import axios from 'axios'
+import router from '@/router'
+import api from '@/JwtToken/token'
 
 const configList = ref<validatedFileBronze>()
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/silver/get-bronze-validated')
-	return response.data
+	try{
+		const response = await api.get('/silver/get-bronze-validated')
+		return response.data
+	}catch(e){
+		router.replace(`/login`)
+	}
 }
 onMounted(async () => {
 	configList.value = await getConfig()

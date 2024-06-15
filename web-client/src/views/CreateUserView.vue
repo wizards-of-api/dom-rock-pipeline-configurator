@@ -1,20 +1,10 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
-import DRButton from '@/components/DRButton.vue'
-import DRModal from '@/components/DRModal.vue'
-import axios from 'axios'
-import Load from '@/components/Load.vue'
-import router from '@/router'
-import { onMounted, ref } from 'vue'
-
+import { ref } from 'vue'
 import type { CadastroConfig } from '@/components/lz-config/types'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
 
 const config = ref<CadastroConfig[]>()
-const showModal = ref(false)
-const selectedConfig = ref<CadastroConfig>()
-
-
 
 </script>
 <template>

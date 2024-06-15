@@ -1,9 +1,10 @@
 <script setup lang="ts">
+import api from '@/JwtToken/token';
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import EnterpriseColumnRow from '@/components/cadastro-config/EnterpriseColumnRow.vue';
 import type { EnterpriseModel } from '@/components/silver/types';
-import axios from 'axios';
+import router from '@/router';
 import { onMounted, ref } from 'vue';
 
 const configAll = ref<EnterpriseModel[]>([])
@@ -16,8 +17,13 @@ const saveFile = (()=>{
 })
 
 const getAllEnterprise = async () => {
-	const response = await axios.get(`http://localhost:8080/company/getAllCompanies`)
-	return response.data
+	try {
+		const response = await api.get(`/company/getAllCompanies`)
+		return response.data
+	} catch (error) {
+		router.replace("login")
+	}
+	
 }
 onMounted(async () => {
 	configAll.value = await getAllEnterprise()

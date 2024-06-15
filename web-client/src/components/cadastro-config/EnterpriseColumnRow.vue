@@ -2,7 +2,8 @@
 import DRTextInput from '../DRTextInput.vue'
 import { onMounted } from 'vue'
 import DRButton from '../DRButton.vue'
-import axios from 'axios'
+import api from '@/JwtToken/token'
+import router from '@/router'
 import type { EnterpriseModel } from '../silver/types'
 
 type Props = {
@@ -28,8 +29,12 @@ const wrapColumnConfig = () => ({
 
 const deleteFromTo = async (silverId:String | undefined) => {
 	if(silverId){
-	    await axios.delete(`http://localhost:8080/silver-config/delete/${silverId}`)
+		try {
+			await api.delete(`/silver-config/delete/${silverId}`)
 	    location.reload()
+		} catch (error) {
+			router.replace('/login')
+		}
 	}
 }
 </script>

@@ -2,12 +2,17 @@
 import DRButton from '../../DRButton.vue'
 import DRTextInput from '../../DRTextInput.vue'
 import router from '@/router'
-import axios from 'axios'
 import type { LZConfig } from '../../lz-config/types'
+import api from '@/JwtToken/token'
 
 const deleteFile = async (fileId: Number) => {
-	await axios.delete(`http://localhost:8080/lz-config/delete/${fileId}`)
-	location.reload()
+	try {
+		await api.delete(`/lz-config/delete/${fileId}`)
+		location.reload()
+	} catch (error) {
+		router.replace('/login')
+	}
+	
 }
 
 type Props = {

@@ -1,23 +1,32 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
 import AppHeader from '@/components/AppHeader.vue'
 import DRModal from '@/components/DRModal.vue'
 import LVBronzeContainer from '@/components/list-view/LV-bronze/LVBronzeContainer.vue'
 import LVBronzeResumeModal from '@/components/list-view/LV-bronze/LVBronzeResumeModal.vue'
 import type { LZConfig } from '@/components/lz-config/types'
+import api from '@/JwtToken/token'
+import router from '@/router'
 
 const configList = ref<LZConfig[]>()
 const showModal = ref(false)
 const selectedConfig = ref<LZConfig>()
 
 const getConfig = async () => {
-	const response = await axios.get('http://localhost:8080/bronze-config/list-view')
-	return response.data.content
+	try {
+		const response = await api.get('/bronze-config/list-view')
+		return response.data.content
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 
 onMounted(async () => {
-	configList.value = await getConfig()
+	try {
+		configList.value = await getConfig()
+	} catch (error) {
+		router.replace("/login")
+	}
 })
 
 const onBannerClick = (config: LZConfig) => {

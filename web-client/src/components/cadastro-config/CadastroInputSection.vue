@@ -4,9 +4,10 @@ import DRDropDown from '../DRDropDown.vue'
 import DRCheckBox from '../DRCheckBox.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
-import axios from 'axios'
-
-import type { CadastroConfig, EmpresaConfig } from '@/components/lz-config/types'
+import api from '@/JwtToken/token'
+import router from '@/router'
+import type { CadastroConfig, EmpresaConfig, LZConfigView } from '@/components/lz-config/types'
+import type { ColumnConfig } from '@/components/silver/types'
 
 const config = ref<CadastroConfig>()
 const showModal = ref(false)
@@ -34,21 +35,32 @@ const empresa = defineModel<string>('empresa')
 const companyLists = empresaConfig?.value?.map(columns => columns)
 const mapOptions = (column: EmpresaConfig) => `${column.fantasyName}`
 
-const saveFile = async () => {
-	await axios.post('http://localhost:8080/auth/signup',
-		{
-			name: nome.value,
-			email: email.value,
-			password: senha.value,
-			companyCnpj: empresa.value,
-			permission: permission.value,
-		},
-	)
-}
 
+const saveFile = async () => {
+	try{
+		await api.put('/user/create-user',
+			{
+				name:nome.value,
+				email:email.value,
+				password:senha.value,
+				isSuper:null,
+				empresa: empresa.value,
+				lzbool: lzbool.value,
+				bronzebool: bronzebool.value,
+				silverbool: silverbool.value,
+			},
+		)
+	}catch(erro){
+    	router.replace(`/login`)
+  	}
+}
 const getEmpresas = async () => {
-	const response = await axios.get(`http://localhost:8080/company/getAllCompanies`)
-	return response.data
+	try {
+		const response = await api.get(`/company/getAllCompanies`)
+		return response.data
+	} catch (error) {
+		router.replace(`/login`)
+	}
 }
 
 onMounted(async () => {
