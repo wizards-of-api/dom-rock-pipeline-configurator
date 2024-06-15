@@ -3,20 +3,24 @@ import { onMounted, ref } from 'vue'
 import axios from 'axios'
 import TableComponent from '@/components/TableComponent.vue'
 import AppHeader from '@/components/AppHeader.vue'
-const listLog = ref([])
-let data = JSON.stringify({
-  "email": "tavio@wiz.com",
-  "password": "senha123321",
-});
+import router from '@/router'
+import api from '@/JwtToken/token'
+import type { LogViewDTO } from '@/components/types'
+const listLog = ref<LogViewDTO[]>([])
 const loadLogs = async () => {
-	const response = (await axios.get('http://localhost:8080/logs/getall',{ headers: {
-		'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJwZXJtaXNzaW9uSUQiOjEsImNvbXBhbnlDbnBqIjoiMTIzNDU2Nzg5MDEyMzQiLCJ1c2VyRW1haWwiOiJ0YXZpb0B3aXouY29tIiwic3ViIjoidGF2aW9Ad2l6LmNvbSIsImlhdCI6MTcxODQxMzAxMywiZXhwIjoxNzE4NDE2NjEzfQ.CU9kt0bV-3D8u4BgsnchoMONQV6AgVgCmWUeg2QS2HA',
-    'Content-Type': 'application/json',
-  }
-  }))
+	try {
+		const response = await api.get('/logs/getall')
+		return response
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 
-onMounted(loadLogs)
+onMounted(async()=> {
+ const tartuguita = await loadLogs()
+ console.log(tartuguita)
+})
+
 </script>
 
 <template>
