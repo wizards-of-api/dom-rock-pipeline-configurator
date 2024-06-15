@@ -35,37 +35,37 @@ const login = async () => {
 </script>
 <template>
   <main>
-  <div class="load" v-if="loadLogin">
-    <Load></Load>
-  </div>
-  <div class="login_container" v-if="!loadLogin">
     <img src="../assets/dom-rock-logo.png">
-    <div class="error" v-if="errorLogin">
-      <img src="../assets/remove.png">
-      <p class="text_error">Credenciais inválidas. Verifique seu usuário e senha e tente novamente.</p>
+    <div class="load" v-if="loadLogin">
+      <Load></Load>
     </div>
-    <div class="input_email">
-      <h3>Usuário</h3>
-      <input
-        type="text"
-        class="email"
-        placeholder="Usuário"
-        v-model="emailLogin"
-      >
-    </div>
-    <div class="input_password">
-      <h3>Senha</h3>
-      <input 
-        type="password"
-        class="password"
-        placeholder="Senha"
-        v-model="passwordLogin"
+    <div class="login_container" v-if="!loadLogin">
+      <div class="error" v-if="errorLogin">
+        <img src="../assets/remove.png">
+        <p class="text_error">Credenciais inválidas. Verifique seu usuário e senha e tente novamente.</p>
+      </div>
+      <div class="input_email">
+        <h3>Usuário</h3>
+        <input
+          type="text"
+          class="email"
+          placeholder="Usuário"
+          v-model="emailLogin"
         >
+      </div>
+      <div class="input_password">
+        <h3>Senha</h3>
+        <input 
+          type="password"
+          class="password"
+          placeholder="Senha"
+          v-model="passwordLogin"
+          >
+      </div>
+      <div class="button_login">
+        <DRButton :click-behavior="login" size="large" v-bind:disabled="false">Entrar</DRButton>
+      </div>
     </div>
-    <div class="button_login">
-      <DRButton :click-behavior="login" size="large" v-bind:disabled="false">Entrar</DRButton>
-    </div>
-  </div>
   </main>
   <footer v-if="!loadLogin">
     <div class="copyright">

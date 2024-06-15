@@ -19,6 +19,7 @@ const emitUpdate = () => {
 }
 
 onMounted(() => {
+    console.log(column)
 	fantasyName.value = column?.fantasyName,
 	cnpj.value = column?.cnpj
 })
@@ -27,11 +28,11 @@ const wrapColumnConfig = () => ({
 	cnpj: cnpj?.value,
 })
 
-const deleteFromTo = async (silverId:String | undefined) => {
-	if(silverId){
+const deleteCompany = async (companyId:String | undefined) => {
+	if(companyId){
 		try {
-			await api.delete(`/silver-config/delete/${silverId}`)
-	    location.reload()
+			await api.delete(`/company/${companyId}`)
+	        location.reload()
 		} catch (error) {
 			router.replace('/login')
 		}
@@ -40,9 +41,7 @@ const deleteFromTo = async (silverId:String | undefined) => {
 </script>
 <template>
     <div
-        class="grid column-config"
-        :key=" column?.cnpj">
-        <DRSectionTitle title="Empresas:"></DRSectionTitle>
+        class="grid column-config">
         <DRTextInput
             style="grid-area: name; width: 410px;"
             title="Nome"
@@ -61,7 +60,7 @@ const deleteFromTo = async (silverId:String | undefined) => {
           v-bind:disabled="false"
           style="width: 150px;"
           button-type="careful"
-          :click-behavior="() => deleteFromTo(column?.cnpj)"
+          :click-behavior="() => deleteCompany(column?.cnpj)"
         >Remover</DRButton>
     </div>
 </template>
@@ -74,9 +73,8 @@ const deleteFromTo = async (silverId:String | undefined) => {
 	justify-content: flex-start;
 }
 .column-config {
-    margin-top: 5%;
     width: 100%;
-    grid-template-columns: 28% 28% 20% 20% 20%;
+    grid-template-columns: 28% 28% 0% 0% 0%;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
 		'name from to delete';

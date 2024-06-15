@@ -1,10 +1,9 @@
 <script setup lang="ts">
-import DRSectionTitle from '../DRSectionTitle.vue'
 import type { EnterpriseModel } from '../silver/types'
 import EnterpriseColumnRow from './EnterpriseColumnRow.vue'
 
 type Props = {
-    columns: EnterpriseModel[]
+    columns?: EnterpriseModel[]
 }
 
 const { columns } = defineProps<Props>()
@@ -16,10 +15,9 @@ const emitUpdate = () => {
 
 </script>
 <template>
-	<DRSectionTitle title="Empresas:"></DRSectionTitle>
 	<EnterpriseColumnRow 
 		v-for="columnConfig in columns"
-		:base-column-config="columnConfig"
+		:column="columnConfig"
 		:key="`${columnConfig.cnpj}`"
 		@update="() => {
 			emitUpdate()

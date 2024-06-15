@@ -1,20 +1,31 @@
 <script setup lang="ts">
-import api from '@/JwtToken/token';
+import api from '@/JwtToken/token'
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
-import EnterpriseColumnRow from '@/components/cadastro-config/EnterpriseColumnRow.vue';
-import type { EnterpriseModel } from '@/components/silver/types';
-import router from '@/router';
-import { onMounted, ref } from 'vue';
+import ColumnSelectionEnterprise from '@/components/cadastro-config/ColumnSelectionEnterprise.vue'
+import type { EnterpriseModel } from '@/components/silver/types'
+import router from '@/router'
+import { onMounted, ref } from 'vue'
 
 const configAll = ref<EnterpriseModel[]>([])
 const nome = defineModel<string>('nome')
 const cnpj = defineModel<string>('cnpj')
 
-const saveFile = (()=>{
-	console.log(nome.value)
-	console.log(cnpj.value)
-})
+const saveFile = async()=>{
+	if(nome.value && cnpj.value) {
+		const company = {
+			cnpj: cnpj.value,
+			fantasyName: nome.value,
+		}
+		try {
+			await api.post(`/company/create-company`, company)
+		} catch (error) {
+			router.replace("login")
+		}
+	}else{
+		alert("Preencha todos os campos")
+	}
+}
 
 const getAllEnterprise = async () => {
 	try {
@@ -56,11 +67,14 @@ onMounted(async () => {
 				</div>
 				<div class="enterprise_list">
 					<div class="button_register">
-						<DRButton :click-behavior="saveFile" size="large" v-bind:disabled="false">Entrar</DRButton>
+						<DRButton :click-behavior="saveFile" size="large" v-bind:disabled="false">Adicionar</DRButton>
 					</div>
 				</div>
 			</main>
-			<EnterpriseColumnRow :column="configAll"></EnterpriseColumnRow>
+			<div class="enterprise_register" v-if="configAll">
+				<h2>Lista de Empresas:</h2>
+				<ColumnSelectionEnterprise :columns="configAll"></ColumnSelectionEnterprise>
+			</div>
 		</div>
 	</div>
 </template>
@@ -94,7 +108,7 @@ main {
 
 input{
   width: 410px;
-  height: 50px;
+  height: 40px;
   border-radius: 8px;
   border: 1px solid #ffffff;
   padding: 5px;
@@ -106,4 +120,19 @@ input{
     align-items: center;
     justify-content: center;
 }
+
+.enterprise_register{
+	margin-top: 5%;
+	display: flex;
+    flex-direction: column;
+	gap: 30px;
+}
+
+.input_name, .input_cnpj{
+	display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+	gap: 10px;
+}
+
 </style>

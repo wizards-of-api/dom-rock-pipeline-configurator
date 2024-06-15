@@ -1,25 +1,26 @@
 <script setup lang="ts">
 </script>
 <template>
-	
-	<div class="spinner loading"></div>
+	<div class="container_load">
+	  <div class="spinner loading"></div>
+  </div>
   
 </template>
 <style scoped lang="scss">
 .spinner.loading {
   padding: 50px;
-  position: relative;
   text-align: center;
+  position: fixed;
+  top: 50%;         
+  left: 46%;    
+  transform: translate(-50%, -50%);
 }
 
 .spinner.loading:before {
   content: "";
-  height: 100px;
-  width: 100px;
-  margin: -15px auto auto -15px;
+  height: 150px;
+  width: 150px;
   position: absolute;
-  top: 50%;
-  left: 50%;
   border-width: 8px;
   border-style: solid;
   border-color: #222222 #00B1ED #00B1ED;
@@ -34,4 +35,5 @@
     transform: rotate(359deg);
   }
 }
+
 </style>
