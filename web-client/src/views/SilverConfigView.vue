@@ -9,14 +9,20 @@ import FromTo from '@/components/silver/FromToFile.vue'
 import router from '@/router'
 import type { LZConfigView } from '@/components/lz-config/types'
 import ImportantMessage from '@/components/ImportantMessage.vue'
+import api from '@/JwtToken/token'
 
 const configAll = ref<SilverConfig[]>([])
 const fileConfig = ref<LZConfigView>()
 const showLeaveModal = ref(false)
 
 const getAllConfigs = async () => {
-	const response = await axios.get(`http://localhost:8080/silver-config/get-by-fileid/${router.currentRoute.value.params.id}`)
-	return response.data
+	try {
+		const response = await api.get(`/silver-config/get-by-fileid/${router.currentRoute.value.params.id}`)
+		return response.data
+		
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 
 const goToListViewSilver = () => {
@@ -24,8 +30,12 @@ const goToListViewSilver = () => {
 } 
 
 const getAllColumns = async () => {
-	const response = await axios.get(`http://localhost:8080/lz-config/${router.currentRoute.value.params.id}`)
-	return response.data
+	try {
+		const response = await api.get(`/lz-config/${router.currentRoute.value.params.id}`)
+		return response.data
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 
 onMounted(async () => {

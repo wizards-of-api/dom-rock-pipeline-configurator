@@ -4,10 +4,11 @@ import DRDropDown from '../DRDropDown.vue'
 import DRCheckBox from '../DRCheckBox.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
-import axios from 'axios'
-
+import api from '@/JwtToken/token'
+import router from '@/router'
 import type { CadastroConfig, EmpresaConfig, LZConfigView } from '@/components/lz-config/types'
 import type { ColumnConfig } from '@/components/silver/types'
+
 const config = ref<CadastroConfig>()
 const showModal = ref(false)
 const selectedConfig = ref<CadastroConfig>()
@@ -38,27 +39,30 @@ const header = {
 }
 
 const saveFile = async () => {
-	await axios.put('http://localhost:8080/user/create-user',
-		{
-			name:nome.value,
-			email:email.value,
-			password:senha.value,
-			isSuper:null,
-			empresa: empresa.value,
-			lzbool: lzbool.value,
-			bronzebool: bronzebool.value,
-			silverbool: silverbool.value,
-		}, {
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': 'Bearer eyJhbGciOiJIUzI1NiJ9.eyJwZXJtaXNzaW9uSUQiOjEsInVzZXJFbWFpbCI6ImFhYW11bGVrbGVrbGVrbGVrQHdpei5jb20iLCJzdWIiOiJhYWFtdWxla2xla2xla2xla0B3aXouY29tIiwiaWF0IjoxNzE4MjMxNDUxLCJleHAiOjE3MTgyMzUwNTF9.EF8AIAp9krjMz-ebwXhAFwQKGIEhfSlWHhg41ePj11M'
+	try{
+		await api.put('/user/create-user',
+			{
+				name:nome.value,
+				email:email.value,
+				password:senha.value,
+				isSuper:null,
+				empresa: empresa.value,
+				lzbool: lzbool.value,
+				bronzebool: bronzebool.value,
+				silverbool: silverbool.value,
 			},
-		},
-)}
+		)
+	}catch(erro){
+    	router.replace(`/login`)
+  	}
+}
 const getEmpresas = async () => {
-	const response = await axios.get(`http://localhost:8080/company/getAllCompanies`)
-	return response.data
-
+	try {
+		const response = await api.get(`http://localhost:8080/company/getAllCompanies`)
+		return response.data
+	} catch (error) {
+		router.replace(`/login`)
+	}
 }
 onMounted(async () => {
 	empresaConfig.value = await getEmpresas()
