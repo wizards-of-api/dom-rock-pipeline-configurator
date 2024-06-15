@@ -1,19 +1,16 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
-
 import type { MetadataConfig, ColumnConfig, LZConfigView} from '@/components/lz-config/types'
-
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import DRModal from '@/components/DRModal.vue'
-
 import LZUploadSection from '@/components/lz-config/LZUploadSection.vue'
 import LZMetadataSection from '@/components/lz-config/LZMetadataSection.vue'
 import LZColumnSection from '@/components/lz-config/LZColumnSection.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 import router from '@/router'
+import api from '@/JwtToken/token'
 
 const config = ref<LZConfigView>()
 let columnList: ColumnConfig[] = []
@@ -46,8 +43,13 @@ const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 }
 
 const getConfig = async () => {
-	const response = await axios.get(`http://localhost:8080/lz-config/${router.currentRoute.value.params.id}`)
-	return response.data
+	try {
+		const response = await api.get(`/lz-config/${router.currentRoute.value.params.id}`)
+		return response.data
+	} catch (error) {
+		router.replace("/login")
+	}
+	
 }
 onMounted(async () => {
 	config.value = await getConfig()
@@ -78,8 +80,12 @@ const saveFile = async () => {
 		hasHeader: metadata.hasHeader ? 1: 0,
 		columns: columnList,
 	}
-	await axios.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, configUpdate)
-	router.replace(`/list-view`)
+	try {
+		await api.put(`http://localhost:8080/lz-config/update/${router.currentRoute.value.params.id}`, configUpdate)
+		router.replace(`/list-view`)
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 </script>
 <template>
@@ -96,8 +102,8 @@ const saveFile = async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton v-if="config" button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton :click-behavior="() => showLeaveModal = true" v-bind:disabled="false">Voltar</DRButton>
+				<DRButton v-if="config" button-type="safe" :click-behavior="saveFile" v-bind:disabled="false">Salvar</DRButton>
 			</nav>
 			<main v-if="metadata">
 				<LZUploadSection v-if="config" @update="onUpdateMetadata" :values-existing-in-this-file="config" @update-columns="updateColumnList"></LZUploadSection>

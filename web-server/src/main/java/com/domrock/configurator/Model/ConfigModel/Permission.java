@@ -1,11 +1,15 @@
 package com.domrock.configurator.Model.ConfigModel;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "permission", schema = "domrock")
 public class Permission {
@@ -14,7 +18,8 @@ public class Permission {
     @Column(name = "id_permission", nullable = false)
     private Integer id;
 
-    @Column(name = "type", length = 10)
+
+    @Column(name = "type")
     private String type;
 
 }

@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue'
-import axios from 'axios'
 import {  type BronzeConfig } from '@/components/bronze/types'
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
@@ -11,21 +10,31 @@ import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
 import Load from '@/components/Load.vue'
 import router from '@/router'
+import api from '@/JwtToken/token'
 
 const config = ref<BronzeConfig>()
 const showLeaveModal = ref(false)
 const showSavedModal = ref(false)
 const getConfig = async () => {
-	const response = await axios.get(`http://localhost:8080/bronze-config/${router.currentRoute.value.params.id}`)
-	return response.data
+	try {
+		const response = await api.get(`/bronze-config/${router.currentRoute.value.params.id}`)
+		return response.data
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 onMounted(async () => {
 	config.value = await getConfig()
 })
 
 const saveFile = async () => {
-	await axios.put(`http://localhost:8080/bronze-config/update/${router.currentRoute.value.params.id}`, config.value)
-	router.replace(`/list-view-bronze`)
+	try {
+		await api.put(`/bronze-config/update/${router.currentRoute.value.params.id}`, config.value)
+		router.replace(`/list-view-bronze`)
+	} catch (error) {
+		router.replace("/login")
+	}
+	
 }
 </script>
 <template>
@@ -42,8 +51,8 @@ const saveFile = async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton :click-behavior="() => showLeaveModal = true" v-bind:disabled="false">Voltar</DRButton>
+				<DRButton button-type="safe" :click-behavior="saveFile" v-bind:disabled="false">Salvar</DRButton>
 			</nav>
 			<main>
 				<MetadataBronze :config="config"></MetadataBronze>

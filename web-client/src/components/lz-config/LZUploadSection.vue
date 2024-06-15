@@ -6,7 +6,8 @@ import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import type { ColumnConfig, LZConfigView} from './types'
 import { VALID_COLUMN_TYPES } from './types'
-import axios from 'axios'
+import router from '@/router'
+import api from '@/JwtToken/token'
 
 const FILE_EXTENSION_TYPES = ['csv']
 type ResponseColumn = {
@@ -56,27 +57,31 @@ const uploadFile = async ($event: Event) => {
 	formData.append('separator', separator.value)
 	formData.append('fileExtension', fileExtension.value)
 	formData.append('hasHeader', String(hasHeader.value === 'Sim'))
-	
-	const response = await axios.post('http://localhost:8080/lz-config/upload-csv', formData)
-	const responseColumns = response.data.columns
-	const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
+	try{
+		const response = await api.post('http://localhost:8080/lz-config/upload-csv', formData)
+		const responseColumns = response.data.columns
+		const columnList: ColumnConfig[] = responseColumns.map((data: ResponseColumn) => {
 		
-		return Object.assign(
-			{
-				type: VALID_COLUMN_TYPES[0],
-				canBeNull: 0,
-				description: '',
-				status: 1,
-			},
-			{
-				columnName: data.column,
-				columnNumber: data.index,
-			},
-		)
-	})
+			return Object.assign(
+				{
+					type: VALID_COLUMN_TYPES[0],
+					canBeNull: 0,
+					description: '',
+					status: 1,
+				},
+				{
+					columnName: data.column,
+					columnNumber: data.index,
+				},
+			)
+		})
 
-	emitUpdate()
-	emit('updateColumns', columnList)
+		emitUpdate()
+		emit('updateColumns', columnList)
+	}catch(e){
+		router.replace('/login')
+	}
+	
 }
 
 onMounted(()=>{
@@ -131,7 +136,7 @@ onMounted(()=>{
 			></DRTextInput>
 
 			<input ref="inputFile" style="display: none;" type="file" @change="uploadFile($event)" accept=".csv"/>
-			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()">Upload</DRButton>
+			<DRButton style="grid-area: upload" :click-behavior="() => inputFile?.click()" v-bind:disabled="false">Upload</DRButton>
 			<DRTextInput
 				style="grid-area: file-name"
 				title="Nome do Arquivo"
