@@ -9,5 +9,5 @@ CREATE TABLE user
     updated_at    TIMESTAMP,
 
     CONSTRAINT fk_permission_id FOREIGN KEY (permission_id) REFERENCES permission (id_permission),
-    CONSTRAINT fk_company_cnpj FOREIGN KEY (company_cnpj) REFERENCES company (cnpj)
+    CONSTRAINT fk_company_cnpj FOREIGN KEY (company_cnpj) REFERENCES company (cnpj) ON DELETE cascade
 );

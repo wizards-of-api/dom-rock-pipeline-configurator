@@ -8,7 +8,7 @@ const routeScrenn = (nomeRouter:String) => {
 		router.push('user-register')
 	}
 	else if(nomeRouter === "us-enterprise"){
-		router.push('user-enterprise')
+		router.push('/enterprise-register')
 	}
 	else if(nomeRouter === "inserir"){
 		router.push('inserir')
