@@ -37,7 +37,6 @@ const saveFile = async () => {
 				name:nome.value,
 				email:email.value,
 				password:senha.value,
-				isSuper:null,
 				empresa: empresa.value,
 				lzbool: lzbool.value,
 				bronzebool: bronzebool.value,
