@@ -6,13 +6,7 @@ import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
 import api from '@/JwtToken/token'
 import router from '@/router'
-import type { CadastroConfig, EmpresaConfig, LZConfigView } from '@/components/lz-config/types'
-import type { ColumnConfig } from '@/components/silver/types'
-
-const config = ref<CadastroConfig>()
-const showModal = ref(false)
-const selectedConfig = ref<CadastroConfig>()
-const empresaMap = ref<Record<string, string>>({})
+import type { EmpresaConfig } from '@/components/lz-config/types'
 
 const empresaConfig = ref<EmpresaConfig[]>()
 
@@ -54,6 +48,7 @@ const saveFile = async () => {
     	router.replace(`/login`)
   	}
 }
+
 const getEmpresas = async () => {
 	try {
 		const response = await api.get(`/company/getAllCompanies`)
