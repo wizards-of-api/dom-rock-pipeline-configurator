@@ -32,7 +32,7 @@ const getAllEnterprise = async () => {
 		const response = await api.get(`/company/getAllCompanies`)
 		return response.data
 	} catch (error) {
-		router.replace("login")
+		await router.replace("login")
 	}
 	
 }

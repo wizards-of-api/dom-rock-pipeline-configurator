@@ -4,6 +4,8 @@ import com.domrock.configurator.Config.PasswordConfig;
 import com.domrock.configurator.Interface.PermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.*;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.AccountDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SignupRequestDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
-import java.util.HashSet;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Set;
+import java.util.*;
 
 import static java.util.stream.Collectors.toList;
 
@@ -49,14 +48,18 @@ public class UserService {
      * @return {@link UserDTO} List representing all User entities.
      * @throws NoSuchElementException if no users are found in the repository.
      */
-    public List<UserDTO> getAllUsers() {
+    public List<AccountDTO> getAllUsers() {
         List<User> users = userRepository.findAll();
+        List<AccountDTO> usersDTO = new ArrayList<>();
+        for (User user : users) {
+            AccountDTO userTemp = new AccountDTO(user.getName(),user.getEmail(),user.getPassword(),user.getCompanyCnpj().getCnpj(),user.getPermission().getType());
+            usersDTO.add(userTemp);
+        }
+
         if (users.isEmpty()) {
             throw new NoSuchElementException("Nenhum usuario encontrado");
         } else {
-            return users.stream()
-                    .map((user) -> modelMapper.map(user, UserDTO.class))
-                    .collect(toList());
+            return usersDTO;
         }
     }
 
