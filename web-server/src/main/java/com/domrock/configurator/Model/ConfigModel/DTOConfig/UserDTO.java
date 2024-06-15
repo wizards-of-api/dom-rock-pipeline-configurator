@@ -2,13 +2,11 @@ package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
 import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.Permission;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
