@@ -1,5 +1,6 @@
 package com.domrock.configurator.Services;
 
+import com.domrock.configurator.Interface.CompanyRepository;
 import com.domrock.configurator.Interface.PermissionRepository;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.JwtAuhenticationResponseDTO;
@@ -13,9 +14,11 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 @Service
 @RequiredArgsConstructor
+@CrossOrigin(origins = "http://localhost:5173")
 public class AuthenticationService {
 
     private final UserRepository userRepository;
@@ -25,6 +28,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PermissionRepository permissionRepository;
     private final ModelMapper modelMapper;
+    private final CompanyRepository companyRepository;
 
     public JwtAuhenticationResponseDTO signup(SignupRequestDTO request) {
         var user = User
@@ -33,6 +37,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .permission(permissionRepository.findById(request.getPermission()))
+                .companyCnpj(companyRepository.findByFantasyName(request.getCompanyCnpj()))
                 .build();
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         userService.createUser(userDTO);
