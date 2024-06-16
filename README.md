@@ -67,7 +67,7 @@
 + [Sprints](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/wiki/Home)
 + [Documentação](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Documentação%20Dom%20Rock%20Pipeline%20Configurator.pdf)
 + [ComoExecutar](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Como-Executar.md)
-+ [Manual do Usuário]() **em construção**
++ [Manual do Usuário](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Manual%20do%20Usuário%20Dom%20Rock%20Configurator.pdf)
 
 # Tecnologias
 <h4 align="center">
