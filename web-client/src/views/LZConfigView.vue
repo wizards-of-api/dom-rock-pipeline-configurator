@@ -45,12 +45,13 @@ const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 }
 
 const saveFile = async () => {
+	const cnpj = localStorage.getItem('cnpj')
 	const config = {
 		metadata,
 		columns: columnList,
 	}
 	try {
-		await api.post('/lz-config/save', config)
+		await api.post(`/lz-config/save/${cnpj}`, config)
 		showSavedModal.value = true
 	} catch (error) {
 		router.replace("/login")

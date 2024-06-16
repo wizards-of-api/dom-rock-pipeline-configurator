@@ -25,14 +25,10 @@ onMounted(() => {
 
 async function getAllPages() {
 	try {
-		const response = await api.get('/lz-config/list-view')
-		const todasPaginas = response.data.totalPages
+		const cnpj = localStorage.getItem('cnpj')
+		const response = await api.get(`/lz-config/list-view/company/${cnpj}`)
 		const configListCompleted: LZConfig[] = []
-
-		for (let i = 0; i < todasPaginas; i++) {
-			const pageResponse = await api.get(`/lz-config/list-view?page=${i}`)
-			configListCompleted.push(...pageResponse.data.content)
-		}
+		configListCompleted.push(...response.data)
 		configList.value = configListCompleted
 	} catch (error) {
 		router.replace('/login')

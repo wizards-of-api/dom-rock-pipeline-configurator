@@ -11,11 +11,13 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "lz_config")
@@ -55,7 +57,7 @@ public class LZMetadataConfig {
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cnpj")
     private Company company;
 

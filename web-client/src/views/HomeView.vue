@@ -22,8 +22,6 @@ const routeScrenn = (nomeRouter:String) => {
 }
 onMounted(() =>{
 	permission.value = Number(localStorage.getItem('permission'))
-	console.log(permission.value)
-
 })
 </script>
 <template>

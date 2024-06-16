@@ -31,7 +31,6 @@ public class SeedDataConfig implements CommandLineRunner {
                     .email("superuser@wiz.com")
                     .password(passwordEncoder.encode("admin"))
                     .permission(permissionRepository.findById(1))
-                    .companyCnpj(companyRepository.findById("12345678901234").orElseThrow())
                     .build();
 
             userService.createUser(admin);

@@ -14,9 +14,13 @@ public interface LZMetadataConfigInterface extends JpaRepository<LZMetadataConfi
     @Query(value = "SELECT DISTINCT l.file_id, l.file_config_name " +
             "FROM lz_config l JOIN file_column c " +
             "ON l.file_id = c.file_id " +
-            "WHERE c.column_valid != 0 AND c.column_active != 0", nativeQuery = true)
-    public List<Object[]> findBronzeValidated();
+            "WHERE c.column_valid != 0 AND c.column_active != 0 " +
+            "AND l.cnpj = :cnpj", nativeQuery = true)
+    public List<Object[]> findBronzeValidated(@Param("cnpj") String cnpj);
     
     @Query(value = "SELECT * FROM lz_config WHERE file_config_name LIKE %:searchedName%", nativeQuery = true)
     public List<LZMetadataConfig> findByName(@Param("searchedName") String searchedName);
+
+    @Query(value = "SELECT * FROM lz_config WHERE cnpj = :cnpj", nativeQuery = true)
+    public List<LZMetadataConfig> findAllByCnpj(@Param("cnpj") String cnpj);
 }

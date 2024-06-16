@@ -23,10 +23,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private PermissionRepository permissionRepository;
 
     @GetMapping("/get-all-users")
     public ResponseEntity<List<AccountDTO>> getAllUsers() {
@@ -39,36 +35,33 @@ public class UserController {
     }
     @PutMapping("/create-user")
     public ResponseEntity<JwtAuhenticationResponseDTO> createUser(@RequestBody SignupRequestDTO signupRequestDTO) {
-        try{
+
             authenticationService.signup(signupRequestDTO);
             return ResponseEntity.ok(authenticationService.signup(signupRequestDTO));
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+
+//        catch (Exception e){
+//            return ResponseEntity.notFound().build();
+//        }
 
     }
 
-    @PostMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,
-                                                 @PathVariable("permissionType") int permissionType) {
+    @PostMapping("/updateuser")
+    public ResponseEntity<AccountDTO> updateUser(@RequestBody AccountDTO accountDTO) {
         try {
-            UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
+            userService.updateUser(accountDTO);
+            return ResponseEntity.ok(accountDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @DeleteMapping("/deleteuser/{useremail}")
+    public void deleteUser(@PathVariable("useremail") String userEmail) {
+        try{
+            userService.deleteUser(userEmail);
+        } catch (Exception e) {
+            System.out.println("User with email " + userEmail + " could not be deleted.");
+        }
+    }
 
-//    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
-//    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-//                                                    @PathVariable("permissionType") int permissionType) {
-//        try {
-//            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
-//            return ResponseEntity.ok(userDTO);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(null);
-//        }
-//    }
 
 }

@@ -14,8 +14,9 @@ const selectedConfig = ref<LZConfig>()
 
 const getConfig = async () => {
 	try {
-		const response = await api.get('/lz-config/list-view')
-		return response.data.content
+		const cnpj = localStorage.getItem('cnpj')
+		const response = await api.get(`/lz-config/list-view/company/${cnpj}`)
+		return response.data
 	} catch (error) {
 		router.replace("/login")
 	}

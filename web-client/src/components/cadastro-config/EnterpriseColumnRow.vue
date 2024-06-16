@@ -19,7 +19,6 @@ const emitUpdate = () => {
 }
 
 onMounted(() => {
-    console.log(column)
 	fantasyName.value = column?.fantasyName,
 	cnpj.value = column?.cnpj
 })
@@ -50,7 +49,7 @@ const deleteCompany = async (companyId:String | undefined) => {
             disabled
         ></DRTextInput>
         <DRTextInput
-            style="grid-area: from; width: 410px;"
+            style="grid-area: cnpj; width: 410px;"
             title="Cnpj"
             v-model="cnpj"
             @update="emitUpdate"
@@ -58,7 +57,7 @@ const deleteCompany = async (companyId:String | undefined) => {
         ></DRTextInput>
         <DRButton
           v-bind:disabled="false"
-          style="width: 150px;"
+          style="grid-area: delete;  width: 150px;"
           button-type="careful"
           :click-behavior="() => deleteCompany(column?.cnpj)"
         >Remover</DRButton>
@@ -74,9 +73,9 @@ const deleteCompany = async (companyId:String | undefined) => {
 }
 .column-config {
     width: 100%;
-    grid-template-columns: 28% 28% 0% 0% 0%;
+    grid-template-columns:  min-content min-content min-content min-content min-content;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
-		'name from to delete';
+		'name cnpj delete';
 }
 </style>
