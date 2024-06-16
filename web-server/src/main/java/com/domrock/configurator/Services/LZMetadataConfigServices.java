@@ -114,8 +114,8 @@ public class LZMetadataConfigServices {
         return lzConfigInterface.findById(id);
     }
 
-    public List<BronzeValidatedDTO> getAllBronzeValidated() {
-        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated();
+    public List<BronzeValidatedDTO> getAllBronzeValidated(String cnpj) {
+        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated(cnpj);
         if (queryResult.isEmpty()) {
             List<BronzeValidatedDTO> emptyList = new ArrayList<BronzeValidatedDTO>();
             return emptyList;

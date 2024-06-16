@@ -5,10 +5,7 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.ListBronzeValidatedD
 import com.domrock.configurator.Services.LZMetadataConfigServices;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -19,9 +16,9 @@ public class SilverConfig {
     @Autowired
     private LZMetadataConfigServices lzMetadataConfigServices;
 
-    @GetMapping("/get-bronze-validated")
-    public ResponseEntity<ListBronzeValidatedDTO> getBronzeValidated() {
-        List<BronzeValidatedDTO> bronzeValidatedDTOS = lzMetadataConfigServices.getAllBronzeValidated();
+    @GetMapping("/get-bronze-validated/{cnpj}")
+    public ResponseEntity<ListBronzeValidatedDTO> getBronzeValidated(@PathVariable String cnpj) {
+        List<BronzeValidatedDTO> bronzeValidatedDTOS = lzMetadataConfigServices.getAllBronzeValidated(cnpj);
         try {
             ListBronzeValidatedDTO fileList = new ListBronzeValidatedDTO(bronzeValidatedDTOS);
             return ResponseEntity.ok(fileList);
