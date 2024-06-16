@@ -66,4 +66,12 @@ main {
 	justify-content: center;
 	gap: 30px;
 }
+
+.user_register{
+	overflow-x: auto;
+	height: 500px;
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: 2%;
+}
 </style>

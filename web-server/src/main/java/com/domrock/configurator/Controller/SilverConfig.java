@@ -26,7 +26,7 @@ public class SilverConfig {
             ListBronzeValidatedDTO fileList = new ListBronzeValidatedDTO(bronzeValidatedDTOS);
             return ResponseEntity.ok(fileList);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.ok().build();
         }
     }
 

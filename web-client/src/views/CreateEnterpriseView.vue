@@ -123,12 +123,11 @@ input{
 }
 
 .enterprise_register{
-	margin-top: 5%;
-	display: flex;
-    flex-direction: column;
-	gap: 30px;
-	height: 100Vh;
-	overflow-x: hidden;
+	overflow-x: auto;
+	height: 500px;
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: 2%;
 }
 
 .input_name, .input_cnpj{

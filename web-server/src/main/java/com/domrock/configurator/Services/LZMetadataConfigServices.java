@@ -117,7 +117,8 @@ public class LZMetadataConfigServices {
     public List<BronzeValidatedDTO> getAllBronzeValidated() {
         List<Object[]> queryResult = lzConfigInterface.findBronzeValidated();
         if (queryResult.isEmpty()) {
-            throw new NoSuchElementException("No Bronze validated data found");
+            List<BronzeValidatedDTO> emptyList = new ArrayList<BronzeValidatedDTO>();
+            return emptyList;
         } else {
             return queryResult.stream()
                     .map(objects -> new BronzeValidatedDTO((Integer) objects[0], (String) objects[1]))

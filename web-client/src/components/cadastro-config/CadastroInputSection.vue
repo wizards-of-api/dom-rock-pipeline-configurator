@@ -41,6 +41,7 @@ const saveFile = async () => {
 				permission: permission.value,
 			},
 		)
+		location.reload()
 	}catch(erro){
     	router.replace(`/login`)
   	}

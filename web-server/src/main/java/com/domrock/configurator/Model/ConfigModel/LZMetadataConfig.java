@@ -57,7 +57,7 @@ public class LZMetadataConfig {
     @OneToMany(mappedBy = "fileId", cascade = CascadeType.ALL)
     private List<ColumnConfig> columns = new ArrayList<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "cnpj")
     private Company company;
 
