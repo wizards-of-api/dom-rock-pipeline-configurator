@@ -90,9 +90,10 @@ main {
 }
 
 .container {
-	width: 80%;
+	width: 1200px;
 	height: 100vh;
-	margin:auto;
+	margin: var(--big-gap) auto;
+	background: var(--color-background-soft);
 	border: 1px solid var(--color-separator);
 	border-radius: var(--border-radius);
 	padding: var(--gap) var(--big-gap);
@@ -123,6 +124,7 @@ input{
 }
 
 .enterprise_register{
+	margin-top: 40px;
 	overflow-x: auto;
 	height: 500px;
 	width: 100%;
