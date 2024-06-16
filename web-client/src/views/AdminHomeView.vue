@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AdminAppHeader from '@/components/AdminAppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import router from '../router'
+import AppHeader from '@/components/AppHeader.vue';
 
 const routeScrenn = (nomeRouter:String) => {
 	if(nomeRouter === "us-register"){
@@ -19,8 +19,8 @@ const routeScrenn = (nomeRouter:String) => {
 }
 </script>
 <template>
-	<AdminAppHeader>
-	</AdminAppHeader>
+	<AppHeader>
+	</AppHeader>
   <main>
 	<h2>Ferramentas Adminstrativas:</h2>
 	<nav class="wrapper nav">

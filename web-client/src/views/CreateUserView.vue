@@ -49,7 +49,7 @@ main {
 }
 
 .container {
-	width: 960px;
+	width: 1000px;
 	height: 200rem;
 	background: var(--color-background-soft);
 	margin: var(--big-gap) auto;
