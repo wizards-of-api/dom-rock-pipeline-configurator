@@ -70,17 +70,6 @@ public class UserService {
         editedUser.setName(accountDTO.getName());
         editedUser.setPermission(newPermission);
         userRepository.save(editedUser);
-    public UserDTO addUserPermission(String email, int permissionCreated) {
-        User user = userRepository.findById(email).orElse(null);
-        if (user == null) {
-            throw new NoSuchElementException("No user found with email: " + email);
-        } else {
-            String permissionString = PermissionType.values()[permissionCreated].name();
-            Permission adfhqifda = permissionRepository.findByType(permissionString);
-
-            userRepository.save(user);
-            return modelMapper.map(user, UserDTO.class);
-        }
     }
 
     @Transactional
@@ -98,6 +87,5 @@ public class UserService {
     @Transactional
     public void deleteUser(String email) {
         userRepository.deleteById(email);
-        userRepository.save(user);
     }
 }
