@@ -53,24 +53,4 @@ public class CompanyService {
         }
         return modelMapper.map(company, CompanyDTO.class);
     }
-
-    /**
-     * Retrieves all users belonging to the company with the specified CNPJ.
-     *
-     * @param cnpj the CNPJ of the company.
-     * @return     {@link List<UserDTO>} representing the list of users associated with the company.
-     * @throws NoSuchElementException if no company is found with the specified CNPJ.
-     */
-    @Transactional
-    public List<UserDTO> getCompanyUsers(String cnpj) {
-        Company company = companyRepository.findById(cnpj).orElse(null);
-        if (company == null) {
-            throw new NoSuchElementException("No company found with CNPJ: " + cnpj);
-        } else {
-            return company.getUsers().stream()
-                    .map(user -> modelMapper.map(user, UserDTO.class))
-                    .collect(Collectors.toList());
-        }
-    }
-
 }

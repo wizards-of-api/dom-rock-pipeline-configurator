@@ -85,14 +85,10 @@ public class UserService {
             String permissionString = PermissionType.values()[permissionCreated].name();
             Permission adfhqifda = permissionRepository.findByType(permissionString);
 
-
-            Permission permission = permissionRepository.findByType(permissionType);
-            user.getPermissions().add(permission);
             userRepository.save(user);
             return modelMapper.map(user, UserDTO.class);
         }
     }
-
 
     @Transactional
     public void createUser(UserDTO userDTO) {
@@ -100,16 +96,5 @@ public class UserService {
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
         userRepository.save(user);
-
-    public UserDTO removeUserPermission(String email, String permissionType) {
-        User user = userRepository.findById(email).orElse(null);
-        if (user == null) {
-            throw new NoSuchElementException("No user found with email: " + email);
-        } else {
-            Permission permission = permissionRepository.findByType(permissionType);
-            user.getPermissions().remove(permission);
-            userRepository.save(user);
-            return modelMapper.map(user, UserDTO.class);
-        }
     }
 }

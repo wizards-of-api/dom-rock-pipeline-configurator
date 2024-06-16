@@ -30,17 +30,4 @@ public class PermissionService {
 //                .map(user -> modelMapper.map(user, UserDTO.class))
 //                .collect(Collectors.toList());
 //    }
-    @Autowired
-    private ModelMapper modelMapper;
-
-    public List<UserDTO> getUsersByPermission(String permissionType) {
-        Permission permission = permissionRepository.findByType(permissionType);
-        if (permission == null) {
-            throw new NoSuchElementException("Permission not found: " + permissionType);
-        }
-        Set<User> users = permission.getUsers();
-        return users.stream()
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
-    }
 }
