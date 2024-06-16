@@ -8,10 +8,10 @@ const routeScrenn = (nomeRouter:String) => {
 		router.push('user-register')
 	}
 	else if(nomeRouter === "us-enterprise"){
-		router.push('user-enterprise')
+		router.push('/enterprise-register')
 	}
-	else if(nomeRouter === "inserir"){
-		router.push('inserir')
+	else if(nomeRouter === "DashboardView"){
+		router.push('/dashboard-view')
 	}
 	else{
 		console.log("inserir")
@@ -24,10 +24,10 @@ const routeScrenn = (nomeRouter:String) => {
   <main>
 	<h2>Ferramentas Adminstrativas:</h2>
 	<nav class="wrapper nav">
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-register')">Novo Usuário</DRButton>
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-enterprise')">Nova Empresa</DRButton>
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')">Log de Ações</DRButton>
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')">Dashboards</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-register')" v-bind:disabled="false">Novo Usuário</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-enterprise')" v-bind:disabled="false">Nova Empresa</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')" v-bind:disabled="false">Log de Ações</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('DashboardView')" v-bind:disabled="false">Dashboards</DRButton>
 	</nav>
   </main>
 </template>

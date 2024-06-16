@@ -1,5 +1,11 @@
 <script setup lang="ts">
 import TableComponent from '@/components/TableComponent.vue'
+import DRButton from '@/components/DRButton.vue'
+import DRTextInput from '@/components/DRTextInput.vue'
+import DRDropDown from '@/components/DRDropDown.vue'
+import DRCheckBox from '@/components/DRCheckBox.vue'
+import Load from '@/components/Load.vue'
+
 import { ref } from 'vue'
 /*
 This view is supposed to test components in Dev mode
@@ -11,36 +17,33 @@ No route should lead to this view
 const listLog = [
 	{
 		logId: 1,
-		logDate: '10/02/1997',
-		logUSer: 'Claudio',
-		logInterprise: 'Fatec',
-		logAction: 'DELETE',
+		logDate: "10/02/1997",
+		logUSer: "Claudio",
+		logInterprise: "Fatec",
+		logAction: "DELETE",
 	},
 	{
 		logId: 2,
-		logDate: '10/02/1997',
-		logUSer: 'Fred',
-		logInterprise: 'Americanas',
-		logAction: 'UPDATE',
+		logDate: "10/02/1997",
+		logUSer: "Fred",
+		logInterprise: "Americanas",
+		logAction: "UPDATE",
 	},
 	{
 		logId: 3,
-		logDate: '10/02/1997',
-		logUSer: 'FLAVIO',
-		logInterprise: 'LOL',
-		logAction: 'DELETE',
+		logDate: "10/02/1997",
+		logUSer: "FLAVIO",
+		logInterprise: "LOL",
+		logAction: "DELETE",
 	},
 	{
 		logId: 4,
-		logDate: '10/02/1997',
-		logUSer: 'Aloisio',
-		logInterprise: "McDonald's",
-		logAction: 'DELETE',
+		logDate: "10/02/1997",
+		logUSer: "Aloisio",
+		logInterprise: "Mc donald's",
+		logAction: "DELETE",
 	},
 ]
-import DashboardView from './DashboardView.vue'
-import DRSearch from '@/components/DRSearch.vue'
-
 </script>
 
 <template>
@@ -53,7 +56,33 @@ import DRSearch from '@/components/DRSearch.vue'
 	</div>
 	<div>
 
+		<TableComponent :log-list="listLog"></TableComponent>
+    </div>
+	<!-- 
+		<h1>Foo</h1>
+		<p>
+			Lorem Ipsum
+			<strong>STRONG</strong>
+			<span class="section-title">Section Title</span>
+		</p>
+		<p>
+			<span class="section-title">Landing Zone</span>
+		</p>
+		
+		<DRButton :click-behavior="toggleHello">ABC</DRButton>
+		<h1 v-if="showHello">Hello World!</h1>
+		<h1 v-for="number in list" :key="number">
+			{{ number }}
+		</h1>
+		<DRTextInput title="Nome da Configuração"></DRTextInput>
+		<DRDropDown title="Nome Dropdown" :option-list="['Hello', 'World']"></DRDropDown>
 	</div>
+	<div>
+		<Load></Load>
+	</div>
+	<div>
+		<Load></Load>
+	</div> -->
 </template>
 
 <style lang="scss">

@@ -19,17 +19,15 @@ public class PermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
 
-    @Autowired
-    private ModelMapper modelMapper;
 
-    public List<UserDTO> getUsersByPermission(String permissionType) {
-        Permission permission = permissionRepository.findByType(permissionType);
-        if (permission == null) {
-            throw new NoSuchElementException("Permission not found: " + permissionType);
-        }
-        Set<User> users = permission.getUsers();
-        return users.stream()
-                .map(user -> modelMapper.map(user, UserDTO.class))
-                .collect(Collectors.toList());
-    }
+//    public List<UserDTO> getUsersByPermission(int permissionType) {
+//        Permission permission = permissionRepository.findById(permissionType);
+//        if (permission == null) {
+//            throw new NoSuchElementException("Permission not found: " + permissionType);
+//        }
+//        Set<User> users = userPermissionRepository.findAllUsersByPermissionId(permissionType);
+//        return users.stream()
+//                .map(user -> modelMapper.map(user, UserDTO.class))
+//                .collect(Collectors.toList());
+//    }
 }

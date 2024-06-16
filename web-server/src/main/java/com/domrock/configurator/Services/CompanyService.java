@@ -7,6 +7,7 @@ import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import com.domrock.configurator.Model.ConfigModel.User;
+import org.apache.commons.lang3.ObjectUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -40,83 +41,17 @@ public class CompanyService {
         return modelMapper.map(company, CompanyDTO.class);
     }
 
-    /**
-     * Adds a user to the company with the given CNPJ.
-     *
-     * @param cnpj      the CNPJ of the company to which the user should be added.
-     * @param userEmail the email of the user to be added.
-     * @return          {@link CompanyDTO} representing the company entity after adding the user.
-     * @throws NoSuchElementException if no company is found with the specified CNPJ,
-     *                                or if no user is found with the specified email.
-     */
     @Transactional
-    public CompanyDTO addCompanyUser(String cnpj, String userEmail) {
+    public List<Company> getAllCompanies() {
+        List<Company> companies = companyRepository.findAll();
+        return companies;
+    }
+
+    public CompanyDTO removeCompany(String cnpj) {
         Company company = companyRepository.findById(cnpj).orElse(null);
-        if (company == null) {
-            throw new NoSuchElementException("No company found with CNPJ: " + cnpj);
-        } else {
-            User user = userRepository.findById(userEmail).orElse(null);
-            if (user == null) {
-                throw new NoSuchElementException("No user found with email: " + userEmail);
-            } else {
-                company.getUsers().add(user);
-                companyRepository.save(company);
-                return modelMapper.map(company, CompanyDTO.class);
-            }
+        if(company != null){
+            companyRepository.delete(company);
         }
-    }
-
-    /**
-     * Removes a user from the company with the specified CNPJ.
-     *
-     * @param cnpj      the CNPJ of the company from which the user should be removed.
-     * @param userEmail the email of the user to be removed.
-     * @return          {@link CompanyDTO} representing the company entity after removing the user.
-     * @throws NoSuchElementException if no company is found with the specified CNPJ,
-     *                                or if no user is found with the specified email.
-     */
-    @Transactional
-    public CompanyDTO removeCompanyUser(String cnpj, String userEmail) {
-        Company company = companyRepository.findById(cnpj).orElse(null);
-        if (company == null) {
-            throw new NoSuchElementException("No company found with CNPJ: " + cnpj);
-        } else {
-            User user = userRepository.findById(userEmail).orElse(null);
-            if (user == null) {
-                throw new NoSuchElementException("No user found with email: " + userEmail);
-            } else {
-                company.getUsers().remove(user);
-                companyRepository.save(company);
-                return modelMapper.map(company, CompanyDTO.class);
-            }
-        }
-    }
-
-    /**
-     * Retrieves all users belonging to the company with the specified CNPJ.
-     *
-     * @param cnpj the CNPJ of the company.
-     * @return     {@link List<UserDTO>} representing the list of users associated with the company.
-     * @throws NoSuchElementException if no company is found with the specified CNPJ.
-     */
-    @Transactional
-    public List<UserDTO> getCompanyUsers(String cnpj) {
-        Company company = companyRepository.findById(cnpj).orElse(null);
-        if (company == null) {
-            throw new NoSuchElementException("No company found with CNPJ: " + cnpj);
-        } else {
-            return company.getUsers().stream()
-                    .map(user -> modelMapper.map(user, UserDTO.class))
-                    .collect(Collectors.toList());
-        }
-    }
-
-    // Chama o número de Usuários por Empresa
-    public List<Object[]> getNumberOfUsersByCompany() {
-        return companyRepository.getNumberOfUsersByCompany();
-    }
-
-    public List<Object[]> getConfigsbyCompanies() {
-        return companyRepository.findConfigsByCompany();
+        return modelMapper.map(company, CompanyDTO.class);
     }
 }

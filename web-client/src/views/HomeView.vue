@@ -2,6 +2,8 @@
 import AppHeader from '@/components/AppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import router from '../router'
+import { onMounted } from 'vue'
+const permission = defineModel<number>('permission')
 
 const routeScrenn = (nomeRouter:String) => {
 	switch (nomeRouter) {
@@ -18,6 +20,9 @@ const routeScrenn = (nomeRouter:String) => {
 		console.error("Nome do roteador inválido:", nomeRouter)
 	}
 }
+onMounted(() =>{
+	permission.value = Number(localStorage.getItem('permission'))
+})
 </script>
 <template>
 	<AppHeader>
@@ -25,9 +30,9 @@ const routeScrenn = (nomeRouter:String) => {
   <main>
 	<h2>Selecione a etapa:</h2>
 	<nav class="wrapper nav">
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('LZ')">Landing Zone</DRButton>
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('BRONZE')">Bronze</DRButton>
-		<DRButton button-type="home" :click-behavior="() => routeScrenn('SILVER')">Silver</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('LZ')" :disabled="permission === 6 || permission === 7 || permission === 8 ?true:false">Landing Zone</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('BRONZE')" :disabled="permission === 2 || permission === 8 ?true:false">Bronze</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('SILVER')" :disabled="permission === 2 || permission === 3 || permission === 6 ?true:false">Silver</DRButton>
 	</nav>
   </main>
 </template>

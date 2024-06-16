@@ -11,6 +11,9 @@ import SilverConfigView from '@/views/SilverConfigView.vue'
 import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import CreateUserView from '@/views/CreateUserView.vue'
+import CreateEnterpriseView from '@/views/CreateEnterpriseView.vue'
+import LoginView from '@/views/LoginView.vue'
 
 const router = createRouter({
 	history: createWebHistory(import.meta.env.BASE_URL),
@@ -74,6 +77,20 @@ const router = createRouter({
 			path: '/dashboard-view',
 			name: 'DashboardView',
 			component: DashboardView,
+		},{
+			path: '/user-register',
+			name: 'UserRegister',
+			component: CreateUserView,
+		},
+		{	
+			path: '/login',
+			name: 'LoginView',
+			component: LoginView,
+		},
+		{	
+			path: '/enterprise-register',
+			name: 'CreateEnterpriseView',
+			component: CreateEnterpriseView,
 		},
 	],
 })

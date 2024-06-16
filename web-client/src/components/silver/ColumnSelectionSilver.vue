@@ -3,8 +3,10 @@ import type { ColumnConfig} from './types'
 import DRDropDown from '../DRDropDown.vue'
 import DRTextInput from '../DRTextInput.vue'
 import DRButton from '../DRButton.vue'
-import axios from 'axios'
+import router from '@/router'
 import type { LZConfigView } from '../lz-config/types'
+import api from '@/JwtToken/token'
+
 
 type Props = {
 	fileConfig?: LZConfigView
@@ -26,8 +28,13 @@ const saveFile = async () => {
 	 	from:fromC.value,
 	 	to:toC.value,
 	}
-	await axios.post(`http://localhost:8080/silver-config/save`, toFromJson)
-	location.reload()
+	try {
+		await api.post(`/silver-config/save`, toFromJson)
+		location.reload()
+	} catch (error) {
+		router.replace('/login')
+	}
+	
 }
 const toAdd = defineModel('toAdd', {
 	get: (value: any) => {
@@ -80,7 +87,8 @@ const wrapColumnConfig = () => ({
 							<div class="textInfo">
 							<DRButton
 							style="grid-area: index"
-							:click-behavior="saveFile">Adicionar
+							:click-behavior="saveFile"
+							v-bind:disabled="false">Adicionar
 							</DRButton>
 							</div>
 						</div>

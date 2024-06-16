@@ -1,17 +1,19 @@
 package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.domrock.configurator.Model.ConfigModel.Company;
+import com.domrock.configurator.Model.ConfigModel.Permission;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserDTO {
-    private String name;
     private String email;
+    private String name;
     private String password;
-    private boolean isSuper;
+    private Permission permission;
+    private Company companyCnpj;
+
 }
