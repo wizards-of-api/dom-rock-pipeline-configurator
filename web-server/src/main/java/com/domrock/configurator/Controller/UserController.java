@@ -49,26 +49,23 @@ public class UserController {
 
     }
 
-    @PostMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,
-                                                 @PathVariable("permissionType") int permissionType) {
+    @PostMapping("/updateuser")
+    public ResponseEntity<AccountDTO> updateUser(@RequestBody AccountDTO accountDTO) {
         try {
-            UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
+            userService.updateUser(accountDTO);
+            return ResponseEntity.ok(accountDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
+    @DeleteMapping("/deleteuser/{useremail}")
+    public void deleteUser(@PathVariable("useremail") String userEmail) {
+        try{
+            userService.deleteUser(userEmail);
+        } catch (Exception e) {
+            System.out.println("User with email " + userEmail + " could not be deleted.");
+        }
+    }
 
-//    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
-//    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-//                                                    @PathVariable("permissionType") int permissionType) {
-//        try {
-//            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
-//            return ResponseEntity.ok(userDTO);
-//        } catch (Exception e) {
-//            return ResponseEntity.badRequest().body(null);
-//        }
-//    }
 
 }
