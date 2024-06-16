@@ -127,6 +127,8 @@ input{
 	display: flex;
     flex-direction: column;
 	gap: 30px;
+	height: 100Vh;
+	overflow-x: hidden;
 }
 
 .input_name, .input_cnpj{
