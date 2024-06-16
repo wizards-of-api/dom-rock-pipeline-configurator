@@ -104,7 +104,7 @@ onMounted(()=>{
 		)
 	}) ?? []
 	emitUpdate()
-	emit('updateColumns', columnList)
+	emit('updateColumns', columnListUpdate)
 })
 </script>
 <template>
