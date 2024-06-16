@@ -5,6 +5,7 @@ import DRButton from '../DRButton.vue'
 import api from '@/JwtToken/token'
 import router from '@/router'
 import type { CadastroConfig } from '@/components/lz-config/types'
+import DRDropDown from '@/components/DRDropDown.vue'
 
 
 type Props = {
@@ -31,14 +32,44 @@ const wrapColumnConfig = () => ({
 	permission : column?.permission,
 })
 
+const wrapUpdateMetadata = () => ({
+	nome: nome.value,
+	email: email.value,
+	permission: permission.value,
+})
+enum PermissionList {
+	LZ = "LZ",
+	LZ_BRONZE = "LZ-BRONZE",
+	LZ_SILVER = "LZ-SILVER",
+	LZ_BRONZE_SILVER = "LZ-BRONZE-SILVER",
+	BRONZE = "BRONZE",
+	BRONZE_SILVER = "BRONZE-SILVER",
+	SILVER = "SILVER"
+}
+const permissionOptions = Object.values(PermissionList);
+
+
 const deleteFromTo = async (email:String | undefined) => {
 	if(email){
 		try {
-			await api.delete(`/silver-config/delete/${email}`)
+			await api.delete(`/user/deleteuser/${email}`)
 			location.reload()
 		} catch (error) {
 			router.replace('/login')
 		}
+	}
+}
+
+const updateUser = async (email:String | undefined) => {
+	try{
+		await api.post('/user/updateuser', {
+			name: nome.value,
+			email: email,
+			permission: permission.value,
+
+		})
+	}catch(erro){
+		router.replace(`/login`)
 	}
 }
 </script>
@@ -53,14 +84,21 @@ const deleteFromTo = async (email:String | undefined) => {
 			v-model="nome"
 			@update="emitUpdate"
 		></DRTextInput>
-		<DRTextInput
-			style="grid-area: from; width: 16rem;"
+		<DRDropDown
+			style="grid-area: permission; width: 16rem;"
 			title="Permission"
+			:option-list="permissionOptions"
 			v-model="permission"
 			@update="emitUpdate"
-		></DRTextInput>
+		></DRDropDown>
 		<DRButton
-			style="grid-area: delete; width: 16rem;"
+			style="grid-area: alter; width: 9rem;"
+			v-bind:disabled="false"
+			button-type="home"
+			:click-behavior="() => updateUser(column?.email)"
+		>Alterar</DRButton>
+		<DRButton
+			style="grid-area: delete; width: 9rem;"
 			v-bind:disabled="false"
 			button-type="careful"
 			:click-behavior="() => deleteFromTo(column?.email)"
@@ -78,15 +116,9 @@ const deleteFromTo = async (email:String | undefined) => {
 .column-config {
 	margin-top: 5%;
 	width: 100%;
-	grid-template-columns: 28% 28% 20% 20% 20%;
+	grid-template-columns: 28% 28% 20% 15%;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
-		'name from delete';
-}
-.enterprise_register{
-	margin-top: 5%;
-	display: flex;
-	flex-direction: column;
-	gap: 30px;
+		'name permission alter delete';
 }
 </style>
