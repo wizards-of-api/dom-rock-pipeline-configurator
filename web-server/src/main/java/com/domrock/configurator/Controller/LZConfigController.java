@@ -68,7 +68,7 @@ public class LZConfigController {
     }
 
     @GetMapping("/list-view/{cnpj}")
-    public ResponseEntity<List<LZMetadataConfig>> getConfigListByCnpj(@PathVariable String cnpj){
+    public ResponseEntity<List<LZMetadataConfig>> getAllLZByCnpj(@PathVariable String cnpj){
         try {
             List<LZMetadataConfig> allListByCnpj = lzMetadataServices.getAllLZbyCnpj(cnpj);
             return ResponseEntity.ok(allListByCnpj);
