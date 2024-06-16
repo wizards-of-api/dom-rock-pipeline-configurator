@@ -23,10 +23,6 @@ public class UserController {
     private UserService userService;
     @Autowired
     private AuthenticationService authenticationService;
-    @Autowired
-    private ModelMapper modelMapper;
-    @Autowired
-    private PermissionRepository permissionRepository;
 
     @GetMapping("/get-all-users")
     public ResponseEntity<List<AccountDTO>> getAllUsers() {
@@ -39,13 +35,13 @@ public class UserController {
     }
     @PutMapping("/create-user")
     public ResponseEntity<JwtAuhenticationResponseDTO> createUser(@RequestBody SignupRequestDTO signupRequestDTO) {
-        try{
+
             authenticationService.signup(signupRequestDTO);
             return ResponseEntity.ok(authenticationService.signup(signupRequestDTO));
-        }catch (Exception e){
-            System.out.println(e.getMessage());
-            return ResponseEntity.notFound().build();
-        }
+
+//        catch (Exception e){
+//            return ResponseEntity.notFound().build();
+//        }
 
     }
 

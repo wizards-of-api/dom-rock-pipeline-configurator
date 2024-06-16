@@ -61,7 +61,7 @@ onMounted(async () => {
 })
 
 const wrapBooleanMetadata = () => {
-	let perm = 2 // valor padrão
+	let perm = 0 // valor padrão
 
 	if (bronzebool.value === false && lzbool.value === true && silverbool.value === false) {
 		perm = 2
@@ -73,7 +73,7 @@ const wrapBooleanMetadata = () => {
 		perm = 5
 	} if (bronzebool.value === true && lzbool.value === false && silverbool.value === false){
 		perm = 6
-	} if (bronzebool.value === true && lzbool.value === true && silverbool.value === false){
+	} if (bronzebool.value === true && lzbool.value === false && silverbool.value === true){
 		perm = 7
 	} if (bronzebool.value === false && lzbool.value === false && silverbool.value === true) {
 		perm = 8
