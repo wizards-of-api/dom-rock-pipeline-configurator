@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
+import LogOut from './LogOut.vue';
 
 const nameRoute = (name:any) => {
 	switch(name) {
@@ -42,7 +43,7 @@ onMounted(()=> {
     </router-link>
     <div class="user">
       <h3>{{ nameRoute($route.name) }}</h3>
-      <img src="../assets/user-icon.png" height="60px"/>
+	  <LogOut></LogOut>
     </div>
   </header>
 </template>
