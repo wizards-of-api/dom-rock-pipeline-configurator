@@ -1,4 +1,4 @@
-<h1 align="center"> DomRock Pipeline Configurator </h1>
+<h1 align="center"> Dom Rock Pipeline Configurator </h1>
 <h3 align="center">Repositório dedicado ao versionamento do projeto de API do terceiro semestre de Banco de Dados.</h3>
 
 # Tópicos
