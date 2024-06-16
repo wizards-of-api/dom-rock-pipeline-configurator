@@ -118,14 +118,14 @@ public class LZConfigController {
         return ResponseEntity.ok(responseJson);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save/{cnpj}")
     @Transactional
     @JsonView(Views.LZ.class)
-    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
+    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data, @PathVariable String cnpj){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
 
         LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
-        LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
+        LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase, cnpj);
         for (ColumnConfigDTO columnConfigDTO : data.columns()) {
             ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
             lzColumnConfigServices.saveConfigModel(columnConfig);

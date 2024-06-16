@@ -11,11 +11,13 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.MetadataConfigDTO;
 import com.fasterxml.jackson.annotation.JsonView;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
 @Entity
 @Table(name = "lz_config")

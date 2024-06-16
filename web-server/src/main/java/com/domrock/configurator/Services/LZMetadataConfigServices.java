@@ -7,6 +7,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.*;
 
+import com.domrock.configurator.Interface.CompanyRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,27 @@ import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 public class LZMetadataConfigServices {
     @Autowired
     private LZMetadataConfigInterface lzConfigInterface;
+    @Autowired
+    private CompanyRepository companyRepository;
 
     public List<LZMetadataConfig> getAllLZbyCnpj(String cnpj) {
         return lzConfigInterface.findAllByCnpj(cnpj);
     }
 
-    public LZMetadataConfig saveLzMetadataConfig(LZMetadataConfig lzConfig) {
-        return lzConfigInterface.save(lzConfig);
+    public LZMetadataConfig saveLzMetadataConfig(LZMetadataConfig lzConfig, String cnpj) {
+        LZMetadataConfig newConfig = LZMetadataConfig.builder()
+                .fileId(lzConfig.getFileId())
+                .name(lzConfig.getName())
+                .fileExtension(lzConfig.getFileExtension())
+                .fileOrigin(lzConfig.getFileOrigin())
+                .frequencyNumber(lzConfig.getFrequencyNumber())
+                .hasHeader(lzConfig.getHasHeader())
+                .frequencyType(lzConfig.getFrequencyType())
+                .fileName(lzConfig.getFileName())
+                .columns(lzConfig.getColumns())
+                .company(companyRepository.findById(cnpj).get())
+                .build();
+        return lzConfigInterface.save(newConfig);
     }
 
     public LZMetadataConfig updateConfigById(int id, LZMetadataConfig newConfigData) {
