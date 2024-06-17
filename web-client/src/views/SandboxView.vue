@@ -79,6 +79,7 @@ const listLog = [
 	</div>
 	<div>
 		<Load></Load>
+>>>>>>> feat/US0011-create-user
 	</div>
 	<div>
 		<Load></Load>

@@ -49,7 +49,7 @@ main {
 }
 
 .container {
-	width: 960px;
+	width: 1000px;
 	height: 200rem;
 	background: var(--color-background-soft);
 	margin: var(--big-gap) auto;
@@ -65,5 +65,13 @@ main {
 	align-items: flex-end;
 	justify-content: center;
 	gap: 30px;
+}
+
+.user_register{
+	overflow-x: auto;
+	height: 500px;
+	width: 100%;
+	border: 1px solid #ccc;
+	padding: 2%;
 }
 </style>

@@ -12,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -28,6 +29,7 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
     private final PermissionRepository permissionRepository;
     private final ModelMapper modelMapper;
+    private final LogService logService;
     private final CompanyRepository companyRepository;
 
     public JwtAuhenticationResponseDTO signup(SignupRequestDTO request) {
@@ -47,14 +49,25 @@ public class AuthenticationService {
     }
 
     public JwtAuhenticationResponseDTO login(LoginRequestDTO request) {
-        authenticationManager.authenticate(
-                new UsernamePasswordAuthenticationToken(
-                        request.getEmail(),
-                        request.getPassword()));
-        var user = userRepository.findByEmail(request.getEmail())
-                .orElseThrow(() -> new IllegalArgumentException("Invalid Request"));
-        var jwt = jwtService.generateToken(user);
-        return JwtAuhenticationResponseDTO.builder().token(jwt).build();
+        try {
+            authenticationManager.authenticate(
+                    new UsernamePasswordAuthenticationToken(
+                            request.getEmail(),
+                            request.getPassword()));
+
+            var user = userRepository.findByEmail(request.getEmail())
+                    .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+            // Log successful login attempt
+            logService.saveLog(request.getEmail(), null, "/auth/login", 200);
+
+            var jwt = jwtService.generateToken(user);
+            return JwtAuhenticationResponseDTO.builder().token(jwt).build();
+        } catch (AuthenticationException e) {
+            // Log unsuccessful login attempt
+            logService.saveLog(request.getEmail(), null, "/auth/login", 401);
+            throw new IllegalArgumentException("Invalid credentials", e);
+        }
     }
 
 }

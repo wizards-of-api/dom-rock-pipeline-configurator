@@ -19,7 +19,6 @@ public class PermissionService {
     @Autowired
     private PermissionRepository permissionRepository;
 
-
 //    public List<UserDTO> getUsersByPermission(int permissionType) {
 //        Permission permission = permissionRepository.findById(permissionType);
 //        if (permission == null) {

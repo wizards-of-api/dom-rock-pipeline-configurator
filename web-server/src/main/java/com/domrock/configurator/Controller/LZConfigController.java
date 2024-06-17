@@ -69,8 +69,8 @@ public class LZConfigController {
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
 
-    @GetMapping("/list-view/{cnpj}")
-    public ResponseEntity<List<LZMetadataConfig>> getAllLZByCnpj(@PathVariable String cnpj){
+    @GetMapping("/list-view/company/{cnpj}")
+    public ResponseEntity<List<LZMetadataConfig>> getAllLZByCnpj(@PathVariable String cnpj, @PageableDefault(size = 16, sort={"name"}) Pageable paginator){
         try {
             List<LZMetadataConfig> allListByCnpj = lzMetadataServices.getAllLZbyCnpj(cnpj);
             return ResponseEntity.ok(allListByCnpj);

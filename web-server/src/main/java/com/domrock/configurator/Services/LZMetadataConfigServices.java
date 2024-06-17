@@ -110,10 +110,11 @@ public class LZMetadataConfigServices {
         return lzConfigInterface.findById(id);
     }
 
-    public List<BronzeValidatedDTO> getAllBronzeValidated() {
-        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated();
+    public List<BronzeValidatedDTO> getAllBronzeValidated(String cnpj) {
+        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated(cnpj);
         if (queryResult.isEmpty()) {
-            throw new NoSuchElementException("No Bronze validated data found");
+            List<BronzeValidatedDTO> emptyList = new ArrayList<BronzeValidatedDTO>();
+            return emptyList;
         } else {
             return queryResult.stream()
                     .map(objects -> new BronzeValidatedDTO((Integer) objects[0], (String) objects[1]))

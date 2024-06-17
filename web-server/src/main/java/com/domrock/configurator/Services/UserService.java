@@ -8,11 +8,14 @@ import com.domrock.configurator.Model.ConfigModel.DTOConfig.AccountDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.time.LocalDateTime;
 import java.util.*;
@@ -50,7 +53,8 @@ public class UserService {
         List<AccountDTO> usersDTO = new ArrayList<>();
         for (User user : users) {
             AccountDTO userTemp = new AccountDTO(user.getName(),user.getEmail(),user.getPassword(),user.getCompanyCnpj().getCnpj(),user.getPermission().getType());
-            usersDTO.add(userTemp);
+            if (!userTemp.getEmail().equals("superuser@wiz.com"))
+                usersDTO.add(userTemp);
         }
 
         if (users.isEmpty()) {
@@ -74,7 +78,12 @@ public class UserService {
         User user = modelMapper.map(userDTO, User.class);
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        userRepository.save(user);
+        Optional<User> usercheck = userRepository.findByEmail(userDTO.getEmail());
+        if (usercheck.isPresent()) {
+            throw new ResponseStatusException(HttpStatus.OK);
+        }else {
+            userRepository.save(user);
+        }
     }
     @Transactional
     public void deleteUser(String email) {

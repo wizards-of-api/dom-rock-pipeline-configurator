@@ -54,4 +54,5 @@ public class CompanyService {
         }
         return modelMapper.map(company, CompanyDTO.class);
     }
+
 }

@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, ref } from 'vue';
 import type { RouteLocationRaw } from 'vue-router';
+import LogOut from './LogOut.vue';
 
 const nameRoute = (name:any) => {
 	switch(name) {
@@ -21,6 +22,12 @@ const nameRoute = (name:any) => {
 		return "Etapa Silver"
 	case "CreateEnterpriseView":
 		return "Cadastro de Empresas"
+	case "LogView":
+		return "Tela Log"
+	case "UserRegister":
+		return "Cadastro de Usuarios"
+	case "Administrador":
+		return "Administrador"
 	default:
 		return ""
 	}
@@ -35,6 +42,7 @@ onMounted(()=> {
 	}
 })
 </script>
+
 <template>
   <header>
     <router-link :to="nomeRoute">
@@ -42,7 +50,7 @@ onMounted(()=> {
     </router-link>
     <div class="user">
       <h3>{{ nameRoute($route.name) }}</h3>
-      <img src="../assets/user-icon.png" height="60px"/>
+	  <LogOut></LogOut>
     </div>
   </header>
 </template>

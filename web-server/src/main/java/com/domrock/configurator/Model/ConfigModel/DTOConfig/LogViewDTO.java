@@ -2,8 +2,6 @@ package com.domrock.configurator.Model.ConfigModel.DTOConfig;
 
 import lombok.*;
 
-import java.time.LocalDateTime;
-
 @Getter
 @Setter
 @AllArgsConstructor
@@ -11,8 +9,9 @@ import java.time.LocalDateTime;
 @Builder
 public class LogViewDTO {
     private Integer id;
-    private LocalDateTime logDateTime;
+    private String logDateTime;
     private String userName;
     private String companyName;
     private String action;
+    private Integer responseCode;
 }

@@ -54,6 +54,7 @@ const deleteFromTo = async (email:String | undefined) => {
 		try {
 			await api.delete(`/user/deleteuser/${email}`)
 			location.reload()
+			
 		} catch (error) {
 			router.replace('/login')
 		}
@@ -68,6 +69,7 @@ const updateUser = async (email:String | undefined) => {
 			permission: permission.value,
 
 		})
+		location.reload()
 	}catch(erro){
 		router.replace(`/login`)
 	}
@@ -116,7 +118,7 @@ const updateUser = async (email:String | undefined) => {
 .column-config {
 	margin-top: 5%;
 	width: 100%;
-	grid-template-columns: 28% 28% 20% 15%;
+	grid-template-columns: 28% 28% 15% 15%;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
 		'name permission alter delete';

@@ -9,6 +9,14 @@ import java.util.List;
 
 public interface LogRepository extends JpaRepository<Log, Integer> {
 
-    @Query(value = "SELECT l.id, l.logDateTime, u.name, c.fantasyName, l.action FROM Log l JOIN User u ON l.userEmail = u.email JOIN Company c ON u.companyCnpj = c.cnpj", nativeQuery = true)
-    List<LogViewDTO> findAllLogsWithUserNameAndCompanyName();
+    @Query(value = "SELECT l.log_id as id," +
+            "date_format(l.log_datetime,'%d-%m-%Y %H:%i:%s') as logDateTime," +
+            "u.name as userName," +
+            "c.fantasy_name as companyName," +
+            "l.log_action as action," +
+            " l.log_response_code as responseCode " +
+            "FROM log l left join user u on l.log_user_email = u.email " +
+            "left join company c on l.log_company_cnpj = c.cnpj"
+            , nativeQuery = true)
+    List<Object[]> findAllLogsWithUserNameAndCompanyName();
 }

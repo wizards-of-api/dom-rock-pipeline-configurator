@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import AdminAppHeader from '@/components/AdminAppHeader.vue'
 import DRButton from '@/components/DRButton.vue'
 import router from '../router'
+import AppHeader from '@/components/AppHeader.vue';
 
 const routeScrenn = (nomeRouter:String) => {
 	if(nomeRouter === "us-register"){
@@ -13,21 +13,29 @@ const routeScrenn = (nomeRouter:String) => {
 	else if(nomeRouter === "DashboardView"){
 		router.push('/dashboard-view')
 	}
+	else if(nomeRouter === "log-view"){
+		router.push('/log-view')
+	}
 	else{
 		console.log("inserir")
 	}
 }
 </script>
 <template>
-	<AdminAppHeader>
-	</AdminAppHeader>
+	<AppHeader>
+	</AppHeader>
   <main>
 	<h2>Ferramentas Adminstrativas:</h2>
 	<nav class="wrapper nav">
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-register')" v-bind:disabled="false">Novo Usuário</DRButton>
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-enterprise')" v-bind:disabled="false">Nova Empresa</DRButton>
+<<<<<<< HEAD
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')" v-bind:disabled="false">Log de Ações</DRButton>
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('DashboardView')" v-bind:disabled="false">Dashboards</DRButton>
+=======
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('log-view')" v-bind:disabled="false">Log de Ações</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')" v-bind:disabled="false">Dashboards</DRButton>
+>>>>>>> feat/US0011-create-user
 	</nav>
   </main>
 </template>
