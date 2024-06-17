@@ -28,7 +28,7 @@ body{
 
 .search {
   width: 100%;
-  position: relative;
+  position: absolute;
   display: flex;
 }
 
