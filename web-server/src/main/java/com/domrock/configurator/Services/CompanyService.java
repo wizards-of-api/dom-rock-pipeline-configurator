@@ -47,6 +47,14 @@ public class CompanyService {
         return companies;
     }
 
+    public List<Object[]> getConfigsbyCompanies() {
+        return companyRepository.findConfigsByCompany();
+    }
+
+    public List<Object[]> getNumberOfUsersByCompany() {
+        return companyRepository.getNumberOfUsersByCompany();
+    }
+
     public CompanyDTO removeCompany(String cnpj) {
         Company company = companyRepository.findById(cnpj).orElse(null);
         if(company != null){
