@@ -28,6 +28,8 @@ const nameRoute = (name:any) => {
 		return "Cadastro de Usuarios"
 	case "Administrador":
 		return "Administrador"
+	case "DashboardView":
+		return "DashBoard"
 	default:
 		return ""
 	}

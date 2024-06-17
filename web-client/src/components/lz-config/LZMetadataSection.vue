@@ -25,17 +25,7 @@ const wrapMetadata = () => ({
 	fileOrigin: fileOrigin.value,
 	frequencyNumber: Number(frequencyNumber.value),
 	frequencyType: frequencyType.value === 'DIAS' ? 'dias' : frequencyType.value === 'MESES' ? 'meses' : frequencyType.value === 'SEMANAS' ? 'semanas' : 'anos',
-<<<<<<< HEAD
 
-})
-
-onMounted(()=>{
-	name.value = valuesExistingInThisFile?.name ? String(valuesExistingInThisFile?.name) : ""
-	fileOrigin.value = valuesExistingInThisFile?.fileOrigin ?? ""
-	frequencyNumber.value = valuesExistingInThisFile?.frequencyNumber ? String(valuesExistingInThisFile?.frequencyNumber): ""
-	frequencyType.value = String(valuesExistingInThisFile?.frequencyType?.toUpperCase()) ??""
-=======
->>>>>>> feat/US0011-create-user
 })
 
 onMounted(()=>{

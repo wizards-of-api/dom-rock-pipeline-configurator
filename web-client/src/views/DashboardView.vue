@@ -6,7 +6,7 @@ import DonutChart from '@/components/DonutChart.vue'
 import { generateColors } from '@/utils/colorUtils'
 import BarChart from '@/components/BarChart.vue'
 import DRSearch from '@/components/DRSearch.vue'
-import axios from 'axios'
+import api from '@/JwtToken/token'
 
 interface PieChartData {
 	labels: string[]
@@ -24,7 +24,7 @@ const pieChartData = ref<PieChartData>({
 
 const fetchPieChart = async () => {
 	try {	
-		const response = await axios.get(`http://localhost:8080/company/allConfigsByCompanies`)
+		const response = await api.get(`/company/allConfigsByCompanies`)
 		const data = response.data
 
 		const labels = Object.keys(data)
@@ -57,7 +57,7 @@ const chartData = ref<ChartData>({
 
 const fetchChartData = async () => {
 	try {
-		const response = await axios.get(`http://localhost:8080/company/usersByCompany`)
+		const response = await api.get(`/company/usersByCompany`)
 		const data = response.data
 
 		const labels = Object.keys(data)
@@ -105,28 +105,26 @@ let handleSearch = async (updateSearchTerm: string) => {
 	try {
 		console.log("updateSearchTerm: " + updateSearchTerm + "  updateSearchTerm: " + updateSearchTerm.length)
 		if (updateSearchTerm.length != 4) {
-			console.log("passou no if")
-			let response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-0`)
+			let response = await api.get(`/lz-config/count-lzfiles/filter-0`)
 			let data = response.data
 			let labels1 = Object.keys(data)
 			let values1 = Object.values(data) as number[]
 			fetchBarChartData(labels1, values1)
 
-			response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles`)
+			response = await api.get(`/lz-config/count-lzfiles`)
 			data = response.data
 			labels1 = Object.keys(data)
 			values1 = Object.values(data) as number[]
 			fetchBarChartData(labels1, values1)
 		} else {
-			console.log("passou no else")
-			let response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-0`)
+			let response = await api.get(`/lz-config/count-lzfiles/filter-0`)
 			let data = response.data
 			let labels2 = Object.keys(data)
 			let values2 = Object.values(data) as number[]
 
 			fetchBarChartData(labels2, values2)
 
-			response = await axios.get(`http://localhost:8080/lz-config/count-lzfiles/filter-${updateSearchTerm}`)
+			response = await api.get(`/lz-config/count-lzfiles/filter-${updateSearchTerm}`)
 			data = response.data
 			labels2 = Object.keys(data)
 			values2 = Object.values(data) as number[]
