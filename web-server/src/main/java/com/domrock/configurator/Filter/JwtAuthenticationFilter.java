@@ -35,7 +35,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         final String authHeader = request.getHeader("Authorization");
         final String jwt;
         final String userEmail;
+
         if (StringUtils.isEmpty(authHeader) || !authHeader.startsWith("Bearer ")) {
+            if (!isLoginRequest(request)) {
+                logService.saveLog(null, null, getRequestAction(request), HttpServletResponse.SC_UNAUTHORIZED);
+            }
             filterChain.doFilter(request, response);
             return;
         }
@@ -53,11 +57,20 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
                 String loggedInUserEmail = jwtService.extractUserEmail(jwt);
                 String loggedInUserCompanyCnpj = jwtService.extractCompanyCnpj(jwt);
-                String action = request.getMethod();
-                logService.saveLog(loggedInUserEmail, loggedInUserCompanyCnpj, action);
+                String action = getRequestAction(request);
+                logService.saveLog(loggedInUserEmail, loggedInUserCompanyCnpj, action, HttpServletResponse.SC_OK);
+            } else {
+                logService.saveLog(null, null, getRequestAction(request), HttpServletResponse.SC_FORBIDDEN);
             }
         }
         filterChain.doFilter(request, response);
+    }
 
+    private boolean isLoginRequest(HttpServletRequest request) {
+        return request.getRequestURI().equals("/auth/login") && request.getMethod().equals("POST");
+    }
+
+    private String getRequestAction(HttpServletRequest request) {
+        return request.getRequestURI();
     }
 }

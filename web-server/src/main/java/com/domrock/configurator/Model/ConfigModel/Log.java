@@ -30,4 +30,7 @@ public class Log {
 
     @Column(name = "log_action")
     private String action;
+
+    @Column(name = "log_response_code")
+    private Integer responseCode;
 }

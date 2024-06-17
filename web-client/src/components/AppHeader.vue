@@ -22,6 +22,8 @@ const nameRoute = (name:any) => {
 		return "Etapa Silver"
 	case "CreateEnterpriseView":
 		return "Cadastro de Empresas"
+	case "LogView":
+		return "Tela Log"
 	case "UserRegister":
 		return "Cadastro de Usuarios"
 	case "Administrador":
@@ -40,6 +42,7 @@ onMounted(()=> {
 	}
 })
 </script>
+
 <template>
   <header>
     <router-link :to="nomeRoute">
