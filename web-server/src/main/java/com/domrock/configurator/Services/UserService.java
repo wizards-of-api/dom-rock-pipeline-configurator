@@ -78,12 +78,8 @@ public class UserService {
         User user = modelMapper.map(userDTO, User.class);
         user.setCreatedAt(LocalDateTime.now());
         user.setUpdatedAt(LocalDateTime.now());
-        Optional<User> usercheck = userRepository.findByEmail(userDTO.getEmail());
-        if (usercheck.isPresent()) {
-            throw new ResponseStatusException(HttpStatus.OK);
-        }else {
-            userRepository.save(user);
-        }
+        userRepository.save(user);
+
     }
     @Transactional
     public void deleteUser(String email) {
