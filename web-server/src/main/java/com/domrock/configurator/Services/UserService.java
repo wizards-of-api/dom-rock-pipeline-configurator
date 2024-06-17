@@ -53,7 +53,8 @@ public class UserService {
         List<AccountDTO> usersDTO = new ArrayList<>();
         for (User user : users) {
             AccountDTO userTemp = new AccountDTO(user.getName(),user.getEmail(),user.getPassword(),user.getCompanyCnpj().getCnpj(),user.getPermission().getType());
-            usersDTO.add(userTemp);
+            if (!userTemp.getEmail().equals("superuser@wiz.com"))
+                usersDTO.add(userTemp);
         }
 
         if (users.isEmpty()) {

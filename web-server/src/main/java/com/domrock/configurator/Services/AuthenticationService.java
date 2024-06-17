@@ -39,7 +39,7 @@ public class AuthenticationService {
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .permission(permissionRepository.findById(request.getPermission()))
-                .companyCnpj(companyRepository.findById(request.getCompanyCnpj()).orElseThrow())
+                .companyCnpj(companyRepository.findByFantasyName(request.getCompanyCnpj()))
                 .build();
         UserDTO userDTO = modelMapper.map(user, UserDTO.class);
         userService.createUser(userDTO);
