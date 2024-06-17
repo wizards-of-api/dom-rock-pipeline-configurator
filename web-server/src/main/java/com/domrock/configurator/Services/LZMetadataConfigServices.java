@@ -1,12 +1,9 @@
 package com.domrock.configurator.Services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.*;
 
+import com.domrock.configurator.Interface.CompanyRepository;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.BronzeValidatedDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,9 +16,27 @@ import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 public class LZMetadataConfigServices {
     @Autowired
     private LZMetadataConfigInterface lzConfigInterface;
+    @Autowired
+    private CompanyRepository companyRepository;
 
-    public LZMetadataConfig saveLzMetadataConfig(LZMetadataConfig lzConfig) {
-        return lzConfigInterface.save(lzConfig);
+    public List<LZMetadataConfig> getAllLZbyCnpj(String cnpj) {
+        return lzConfigInterface.findAllByCnpj(cnpj);
+    }
+
+    public LZMetadataConfig saveLzMetadataConfig(LZMetadataConfig lzConfig, String cnpj) {
+        LZMetadataConfig newConfig = LZMetadataConfig.builder()
+                .fileId(lzConfig.getFileId())
+                .name(lzConfig.getName())
+                .fileExtension(lzConfig.getFileExtension())
+                .fileOrigin(lzConfig.getFileOrigin())
+                .frequencyNumber(lzConfig.getFrequencyNumber())
+                .hasHeader(lzConfig.getHasHeader())
+                .frequencyType(lzConfig.getFrequencyType())
+                .fileName(lzConfig.getFileName())
+                .columns(lzConfig.getColumns())
+                .company(companyRepository.findById(cnpj).get())
+                .build();
+        return lzConfigInterface.save(newConfig);
     }
 
     public LZMetadataConfig updateConfigById(int id, LZMetadataConfig newConfigData) {
@@ -95,14 +110,23 @@ public class LZMetadataConfigServices {
         return lzConfigInterface.findById(id);
     }
 
-    public List<BronzeValidatedDTO> getAllBronzeValidated() {
-        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated();
+    public List<BronzeValidatedDTO> getAllBronzeValidated(String cnpj) {
+        List<Object[]> queryResult = lzConfigInterface.findBronzeValidated(cnpj);
         if (queryResult.isEmpty()) {
-            throw new NoSuchElementException("No Bronze validated data found");
+            List<BronzeValidatedDTO> emptyList = new ArrayList<BronzeValidatedDTO>();
+            return emptyList;
         } else {
             return queryResult.stream()
                     .map(objects -> new BronzeValidatedDTO((Integer) objects[0], (String) objects[1]))
                     .collect(Collectors.toList());
         }
+    }
+    public List<Object[]> getCountFilesByDay() {
+        return lzConfigInterface.countFilesByDay();
+    }
+    
+    
+    public List<Object[]> getCountFilesBetweenYears(String Year) {
+        return lzConfigInterface.countFilesBetweenYears(Year);
     }
 }

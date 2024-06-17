@@ -1,10 +1,17 @@
-# dom-rock-pipeline-configurator
-Repositório dedicado ao versionamento do projeto de API do terceiro semestre de Banco de Dados.
+<h1 align="center"> Dom Rock Pipeline Configurator </h1>
+<h3 align="center">Repositório dedicado ao versionamento do projeto de API do terceiro semestre de Banco de Dados.</h3>
+
+# Tópicos
+- [Membros](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/tree/dev?tab=readme-ov-file#team-members)
+- [Requisitos](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/tree/dev?tab=readme-ov-file#requisitos)
+- [Product Backlog](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/tree/dev?tab=readme-ov-file#product-backlog)
+- [Documentação](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/tree/dev?tab=readme-ov-file#documentação)
+- [Tecnologias](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/tree/dev?tab=readme-ov-file#tecnologias)
 
 # Team Members
 
 |Nome|Função|LinkedIn|
-| -------- |-------- |-------- |
+| -------- | -------- | -------- |
 |**Julio Cesar Ferreira de Freitas**|Product Owner|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/julio-freitas-415b73216)|
 |**Paulo Arantes Machado**|Scrum Master|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/paulo-antonio-arantes-machado-a8a89b23b)|
 |**Alita Amancio**|Desenvolvedora|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/alitaamancio)|
@@ -16,10 +23,11 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 |**André Hideaki Wakugawa**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/andrewakugawa/)|
 |**Cauê Vieira da Silva**|Desenvolvedor|[<img src="https://img.shields.io/badge/linkedin-%230077B5.svg?&style=for-the-badge&logo=linkedin&logoColor=white" />](https://www.linkedin.com/in/cau%C3%AA-vieira-ba62b4244/)|
 
-# Requisitos Funcionais
+# Requisitos
+### Requisitos Funcionais
 
 |Requisito|Descrição|
-| -------- |-------- |
+| :--------: |-------- |
 |1|Desenvolver uma interface de cadastro do cliente, solução e usuários autorizados a configurar os dados|
 |2|Desenvolver uma interface de upload de dados csv ou excel e apresentação da estrutura dos dados (campos, tipos, regras – pode ou não conter nulos, descrição do significado do campo na perspectiva do negócio)|
 |3|Desenvolver uma interface que define quais campos serão mapeados como chave de identificação dos dados.|
@@ -28,10 +36,10 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 |6|Desenvolver um dashboad a respeito dos dados configurados para um perfil administrador para visões quantitativas como clientes, tipos de fontes de dados, quantidade de campos, etc.|
 |7|Desenvolver uma interface que mostre a visão analítica completa da configuração|
 
-# Requisitos Não Funcionais
+### Requisitos Não Funcionais
 
 |Requisito|Descrição|
-| -------- |-------- |
+| :--------: | -------- |
 |8|Login e autenticação e permissão de usuários (por cliente, solução e estágio de configuração)|
 |9|Modelagem de Banco de Dados que será utilizado para gerar arquivos YAML.NÃO APLICÁVEL O YALM|
 |10|Log contendo a rastreabilidade das configurações|
@@ -40,7 +48,7 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 # Product Backlog
 
 |Rank|Prioridade|User Story|Sprint|Requisitos|
-| -------- |-------- |-------- |-------- |-------- |
+| :--------: | :--------: | -------- | :--------: | :--------: |
 |1|Alta|Eu como usuário de permissão LZ quero importar arquivos de dados em csv ou excel para configurar informações referentes aos dados do arquivo em uma visualização de tabela|1|2, 11|
 |2|Média|Eu como usuário de permissão LZ quero informar a fonte dos meus dados e a frequência na qual eles serão enviados para subir essas informações no esquema de banco de dados|1|2, 11|
 |3|Alta|Eu como usuário de permissão LZ após upload do arquivo, preciso definir os tipos de dados de cada coluna, informar se a coluna pode haver dados "null"/vazios, selecionar colunas que devem ser processadas, nomear cabeçalhos e descrever as regras de negócios de cada cabeçalho para subir essas informações no banco de dados|1|2, 11|
@@ -54,7 +62,15 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 |11|Alta|Eu como usuário administrador quero ter acesso a um log de acesso de cada usuário que eu criei, para verificar quem realizou o que, quando e qual foi a ação realizada.|4|10, 11|
 |12|Alta|Eu como usuário administrador quero visualizar dashboards quantitativos para fazer análises|4|6, 7, 11|
 
+# Documentação
+
++ [Sprints](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/wiki/Home)
++ [Documentação](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Documentação%20Dom%20Rock%20Pipeline%20Configurator.pdf)
++ [ComoExecutar](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Como-Executar.md)
++ [Manual do Usuário](https://github.com/wiz-fatec/dom-rock-pipeline-configurator/blob/dev/Manual%20do%20Usuário%20Dom%20Rock%20Configurator.pdf)
+
 # Tecnologias
+<h4 align="center">
 
 ![Java](https://img.shields.io/badge/java-%23ED8B00.svg?style=for-the-badge&logo=openjdk&logoColor=white)
 ![Spring](https://img.shields.io/badge/spring-%236DB33F.svg?style=for-the-badge&logo=spring&logoColor=white)
@@ -68,7 +84,8 @@ Repositório dedicado ao versionamento do projeto de API do terceiro semestre de
 ![Discord](https://img.shields.io/badge/Discord-%235865F2.svg?style=for-the-badge&logo=discord&logoColor=white)
 ![Slack](https://img.shields.io/badge/Slack-4A154B?style=for-the-badge&logo=slack&logoColor=white)
 
-<div align="left"><hr width=70%></div>
+</h4>
+<div align="center"><hr width=70%></div>
 
 
 

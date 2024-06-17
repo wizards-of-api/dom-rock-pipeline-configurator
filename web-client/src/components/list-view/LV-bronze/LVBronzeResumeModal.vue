@@ -49,7 +49,7 @@ const validOrInvalid = () =>{
             </div>
             <div class="button-container" style="grid-area: button;">
                 <div>
-                    <DRButton :click-behavior="gotoBronzeConfig">Visualizar/Editar</DRButton>
+                    <DRButton :click-behavior="gotoBronzeConfig" v-bind:disabled="false">Visualizar/Editar</DRButton>
                 </div>
             </div>
         </div>

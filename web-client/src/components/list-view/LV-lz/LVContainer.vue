@@ -3,8 +3,8 @@ import DRButton from '@/components/DRButton.vue'
 import router from '@/router'
 import type { LZConfig } from '@/components/lz-config/types'
 import DRSearch from '@/components/DRSearch.vue'
-import axios from 'axios'
 import {onMounted, ref} from 'vue'
+import api from '@/JwtToken/token'
 
 type Props = {
     configList: LZConfig[]
@@ -24,25 +24,28 @@ onMounted(() => {
 })
 
 async function getAllPages() {
-	const response = await axios.get('http://localhost:8080/lz-config/list-view')
-	const todasPaginas = response.data.totalPages
-	const configListCompleted: LZConfig[] = []
-
-	for (let i = 0; i < todasPaginas; i++) {
-		const pageResponse = await axios.get(`http://localhost:8080/lz-config/list-view?page=${i}`)
-		configListCompleted.push(...pageResponse.data.content)
+	try {
+		const cnpj = localStorage.getItem('cnpj')
+		const response = await api.get(`/lz-config/list-view/company/${cnpj}`)
+		const configListCompleted: LZConfig[] = []
+		configListCompleted.push(...response.data)
+		configList.value = configListCompleted
+	} catch (error) {
+		router.replace('/login')
 	}
-
-	configList.value = configListCompleted
 }
 
 const handleSearch = async (updateSearchTerm: string) => {
 	if (!updateSearchTerm || updateSearchTerm == "") {
 		await getAllPages()
 	} else {
-		const response = await axios.get(`http://localhost:8080/lz-config/list-view/${updateSearchTerm}`)
-		configList.value = response.data
-		return configList.value
+		try {
+			const response = await api.get(`/lz-config/list-view/${updateSearchTerm}`)
+			configList.value = response.data
+			return configList.value
+		} catch (error) {
+			router.replace('/login')
+		}
 	}
 }
 
@@ -52,7 +55,7 @@ const handleSearch = async (updateSearchTerm: string) => {
         <h2>Landing Zone</h2>
 		<div class = -bar>
 			<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
-			<DRButton :click-behavior="goToLZConfig">Registrar</DRButton>
+			<DRButton :click-behavior="goToLZConfig" v-bind:disabled="false">Registrar</DRButton>
 		</div>
 			<div class="grid-wrap" v-if=configList>
 				<button class="banner" v-for="config in configList" :key="config.fileId" @click="onBannerClick(config)">

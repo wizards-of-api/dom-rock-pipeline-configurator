@@ -4,5 +4,6 @@
   "eslint.workingDirectories": [
     "./web-client/.eslintrc.cjs"
   ],
-  "java.compile.nullAnalysis.mode": "disabled"
+  "java.compile.nullAnalysis.mode": "disabled",
+  "workbench.iconTheme": "material-icon-theme"
 }

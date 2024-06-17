@@ -1,4 +1,7 @@
 <script setup lang="ts">
+import { onMounted, ref } from 'vue';
+import type { RouteLocationRaw } from 'vue-router';
+import LogOut from './LogOut.vue';
 
 const nameRoute = (name:any) => {
 	switch(name) {
@@ -13,24 +16,43 @@ const nameRoute = (name:any) => {
 		return "Configurações Bronze"
 	case "BronzeConfigView":
 		return "Etapa Bronze"
-  case "SilverListView":
-    return "Configurações Silver"
-  case "SilverConfigView":
-    return "Etapa Silver"
+	case "SilverListView":
+		return "Configurações Silver"
+	case "SilverConfigView":
+		return "Etapa Silver"
+	case "CreateEnterpriseView":
+		return "Cadastro de Empresas"
+	case "LogView":
+		return "Tela Log"
+	case "UserRegister":
+		return "Cadastro de Usuarios"
+	case "Administrador":
+		return "Administrador"
+	case "DashboardView":
+		return "DashBoard"
 	default:
 		return ""
 	}
 }
+const nomeRoute = ref<RouteLocationRaw>('/home')
+onMounted(()=> {
+	const user = localStorage.getItem("permission")
+	if(user ==="1"){
+		nomeRoute.value = "/admin-home"
+	}else{
+		nomeRoute.value =  "/home"
+	}
+})
 </script>
 
 <template>
   <header>
-    <router-link to="/home">
+    <router-link :to="nomeRoute">
       <img src="../assets/dom-rock-logo.png">
     </router-link>
     <div class="user">
       <h3>{{ nameRoute($route.name) }}</h3>
-      <img src="../assets/user-icon.png" height="60px"/>
+	  <LogOut></LogOut>
     </div>
   </header>
 </template>

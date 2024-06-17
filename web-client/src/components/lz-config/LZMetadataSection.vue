@@ -24,7 +24,8 @@ const wrapMetadata = () => ({
 	name: name.value,
 	fileOrigin: fileOrigin.value,
 	frequencyNumber: Number(frequencyNumber.value),
-	frequencyType: frequencyType.value === 'Dias' ? 'dias' : frequencyType.value === 'Meses' ? 'meses' : frequencyType.value === 'Semanas' ? 'semanas' : 'anos',
+	frequencyType: frequencyType.value === 'DIAS' ? 'dias' : frequencyType.value === 'MESES' ? 'meses' : frequencyType.value === 'SEMANAS' ? 'semanas' : 'anos',
+
 })
 
 onMounted(()=>{

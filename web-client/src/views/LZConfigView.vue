@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import axios from 'axios'
 
 import type { MetadataConfig, ColumnConfig } from '@/components/lz-config/types'
 
@@ -13,6 +12,8 @@ import LZMetadataSection from '@/components/lz-config/LZMetadataSection.vue'
 import LZColumnSection from '@/components/lz-config/LZColumnSection.vue'
 import LZModalLeave from '@/components/lz-config/LZModalLeave.vue'
 import LZModalSaved from '@/components/lz-config/LZModalSaved.vue'
+import api from '@/JwtToken/token'
+import router from '@/router'
 
 
 let columnList: ColumnConfig[] = []
@@ -44,13 +45,17 @@ const onUpdateColumn = (newColumnList: ColumnConfig[]) => {
 }
 
 const saveFile = async () => {
+	const cnpj = localStorage.getItem('cnpj')
 	const config = {
 		metadata,
 		columns: columnList,
 	}
-
-	await axios.post('http://localhost:8080/lz-config/save', config)
-	showSavedModal.value = true
+	try {
+		await api.post(`/lz-config/save/${cnpj}`, config)
+		showSavedModal.value = true
+	} catch (error) {
+		router.replace("/login")
+	}
 }
 </script>
 
@@ -68,8 +73,8 @@ const saveFile = async () => {
 			<AppHeader>
 			</AppHeader>
 			<nav class="wrapper nav">
-				<DRButton :click-behavior="() => showLeaveModal = true">Voltar</DRButton>
-				<DRButton button-type="safe" :click-behavior="saveFile">Salvar</DRButton>
+				<DRButton :click-behavior="() => showLeaveModal = true" v-bind:disabled="false">Voltar</DRButton>
+				<DRButton button-type="safe" :click-behavior="saveFile" v-bind:disabled="false">Salvar</DRButton>
 			</nav>
 			<main>
 				<LZUploadSection @update="onUpdateMetadata" @update-columns="updateColumnList"></LZUploadSection>
