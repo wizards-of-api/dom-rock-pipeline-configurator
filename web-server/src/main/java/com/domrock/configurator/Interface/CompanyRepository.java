@@ -14,6 +14,7 @@ public interface CompanyRepository extends JpaRepository<Company, String> {
     List<Object[]> getNumberOfUsersByCompany();
 
     @Query(value = "select c.fantasy_name, count(lz.file_id) as contagem from company c join lz_config lz on lz.cnpj = c.cnpj group by c.fantasy_name", nativeQuery = true)
-    public List<Object[]> findConfigsByCompany();
+    List<Object[]> findConfigsByCompany();
+
     public Company findByFantasyName(String name);
 }

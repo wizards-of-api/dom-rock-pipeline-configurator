@@ -66,31 +66,31 @@ public class CompanyController {
         }
     }
 
-    // @GetMapping("/usersByCompany")
-    // public Map<String, Integer> getNumberOfUsersByCompany() {
-    //     List<Object[]> data = companyService.getNumberOfUsersByCompany();
-    //     Map<String, Integer> result = new HashMap<>();
+    @GetMapping("/usersByCompany")
+    public Map<String, Integer> getNumberOfUsersByCompany() {
+        List<Object[]> data = companyService.getNumberOfUsersByCompany();
+        Map<String, Integer> result = new HashMap<>();
         
-    //     for (Object[] record : data) {
-    //         String companyName = (String) record[0];
-    //         Long userCount = (Long) record[1];
-    //         result.put(companyName, userCount.intValue());
-    //     }
+        for (Object[] record : data) {
+            String companyName = (String) record[0];
+            Long userCount = (Long) record[1];
+            result.put(companyName, userCount.intValue());
+        }
         
-    //     return result;
-    // }
+        return result;
+    }
 
-    // @GetMapping("/allConfigsByCompanies")
-    // public Map<String, Integer> getAllConfigsByCompany() {
-    //     List<Object[]> configsCompany = companyService.getConfigsbyCompanies();
-    //     Map<String, Integer> configs = new HashMap<>();
+    @GetMapping("/allConfigsByCompanies")
+    public Map<String, Integer> getAllConfigsByCompany() {
+        List<Object[]> configsCompany = companyService.getConfigsbyCompanies();
+        Map<String, Integer> configs = new HashMap<>();
 
-    //     for (Object[] itens : configsCompany) {
-    //         String companyName = (String) itens[0];
-    //         Long configsCont = (Long) itens[1];
-    //         configs.put(companyName, configsCont.intValue());
-    //     }
+        for (Object[] itens : configsCompany) {
+            String companyName = (String) itens[0];
+            Long configsCont = (Long) itens[1];
+            configs.put(companyName, configsCont.intValue());
+        }
         
-    //     return configs;
-    // }
+        return configs;
+    }
 }
