@@ -10,6 +10,7 @@ import BronzeConfigView from '@/views/BronzeConfigView.vue'
 import SilverConfigView from '@/views/SilverConfigView.vue'
 import SilverListView from '@/views/SilverListView.vue'
 import LZConfigUpdateView from '@/views/LZConfigUpdateView.vue'
+import DashboardView from '@/views/DashboardView.vue'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
 import CreateUserView from '@/views/CreateUserView.vue'
 import CreateEnterpriseView from '@/views/CreateEnterpriseView.vue'
@@ -75,6 +76,10 @@ const router = createRouter({
 			component: SilverConfigView,
 		},
 		{
+			path: '/dashboard-view',
+			name: 'DashboardView',
+			component: DashboardView,
+		},{
 			path: '/user-register',
 			name: 'UserRegister',
 			component: CreateUserView,

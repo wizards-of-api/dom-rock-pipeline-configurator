@@ -1,9 +1,5 @@
 package com.domrock.configurator.Services;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.NoSuchElementException;
-import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.*;
 
@@ -124,5 +120,13 @@ public class LZMetadataConfigServices {
                     .map(objects -> new BronzeValidatedDTO((Integer) objects[0], (String) objects[1]))
                     .collect(Collectors.toList());
         }
+    }
+    public List<Object[]> getCountFilesByDay() {
+        return lzConfigInterface.countFilesByDay();
+    }
+    
+    
+    public List<Object[]> getCountFilesBetweenYears(String Year) {
+        return lzConfigInterface.countFilesBetweenYears(Year);
     }
 }

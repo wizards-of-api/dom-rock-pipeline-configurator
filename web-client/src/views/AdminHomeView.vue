@@ -10,6 +10,9 @@ const routeScrenn = (nomeRouter:String) => {
 	else if(nomeRouter === "us-enterprise"){
 		router.push('/enterprise-register')
 	}
+	else if(nomeRouter === "DashboardView"){
+		router.push('/dashboard-view')
+	}
 	else if(nomeRouter === "log-view"){
 		router.push('/log-view')
 	}
@@ -26,8 +29,13 @@ const routeScrenn = (nomeRouter:String) => {
 	<nav class="wrapper nav">
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-register')" v-bind:disabled="false">Novo Usuário</DRButton>
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('us-enterprise')" v-bind:disabled="false">Nova Empresa</DRButton>
+<<<<<<< HEAD
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')" v-bind:disabled="false">Log de Ações</DRButton>
+		<DRButton button-type="home" :click-behavior="() => routeScrenn('DashboardView')" v-bind:disabled="false">Dashboards</DRButton>
+=======
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('log-view')" v-bind:disabled="false">Log de Ações</DRButton>
 		<DRButton button-type="home" :click-behavior="() => routeScrenn('inserir')" v-bind:disabled="false">Dashboards</DRButton>
+>>>>>>> feat/US0011-create-user
 	</nav>
   </main>
 </template>

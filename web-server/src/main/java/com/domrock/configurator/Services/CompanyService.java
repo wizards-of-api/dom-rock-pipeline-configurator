@@ -1,6 +1,7 @@
 package com.domrock.configurator.Services;
 
 import com.domrock.configurator.Interface.CompanyRepository;
+import com.domrock.configurator.Interface.LZMetadataConfigInterface;
 import com.domrock.configurator.Interface.UserRepository;
 import com.domrock.configurator.Model.ConfigModel.Company;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.CompanyDTO;

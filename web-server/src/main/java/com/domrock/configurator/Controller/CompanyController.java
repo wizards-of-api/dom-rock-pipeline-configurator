@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 @RestController
@@ -63,4 +65,32 @@ public class CompanyController {
             return ResponseEntity.badRequest().body(null);
         }
     }
+
+    // @GetMapping("/usersByCompany")
+    // public Map<String, Integer> getNumberOfUsersByCompany() {
+    //     List<Object[]> data = companyService.getNumberOfUsersByCompany();
+    //     Map<String, Integer> result = new HashMap<>();
+        
+    //     for (Object[] record : data) {
+    //         String companyName = (String) record[0];
+    //         Long userCount = (Long) record[1];
+    //         result.put(companyName, userCount.intValue());
+    //     }
+        
+    //     return result;
+    // }
+
+    // @GetMapping("/allConfigsByCompanies")
+    // public Map<String, Integer> getAllConfigsByCompany() {
+    //     List<Object[]> configsCompany = companyService.getConfigsbyCompanies();
+    //     Map<String, Integer> configs = new HashMap<>();
+
+    //     for (Object[] itens : configsCompany) {
+    //         String companyName = (String) itens[0];
+    //         Long configsCont = (Long) itens[1];
+    //         configs.put(companyName, configsCont.intValue());
+    //     }
+        
+    //     return configs;
+    // }
 }

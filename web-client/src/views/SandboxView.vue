@@ -8,7 +8,7 @@ import Load from '@/components/Load.vue'
 
 import { ref } from 'vue'
 /*
-This view is suposed to test components in Dev mode
+This view is supposed to test components in Dev mode
 No route should lead to this view
 */
 
@@ -48,6 +48,14 @@ const listLog = [
 
 <template>
 	<div id="sandbox">
+		<DashboardView />
+		<div>
+			<h1>Selecione o Ano</h1>
+	<DRSearch></DRSearch>
+		</div>	
+	</div>
+	<div>
+
 		<TableComponent :log-list="listLog"></TableComponent>
     </div>
 	<!-- 
@@ -68,12 +76,10 @@ const listLog = [
 		</h1>
 		<DRTextInput title="Nome da Configuração"></DRTextInput>
 		<DRDropDown title="Nome Dropdown" :option-list="['Hello', 'World']"></DRDropDown>
-<<<<<<< HEAD
-=======
 	</div>
 	<div>
 		<Load></Load>
->>>>>>> origin
+>>>>>>> feat/US0011-create-user
 	</div>
 	<div>
 		<Load></Load>
@@ -83,7 +89,7 @@ const listLog = [
 <style lang="scss">
 #sandbox {
 	flex-grow: 1;
-	padding: 0 128px;
+	padding: 0 500px;
 	border: 1px solid var(--color-text);
 	border-top: 0;
 	border-bottom: 0;
@@ -91,5 +97,25 @@ const listLog = [
 	display: flex;
 	flex-direction: column;
 	align-items: flex-start;
+}
+
+#datepicker {
+	flex-grow: 1;
+	padding: 0 500px;
+	background-color: red;
+	border: 1px solid var(--color-text);
+	border-top: 0;
+	border-bottom: 0;
+	margin: 0 auto;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+  
+.chart-container {
+	width: 100%;
+	max-width: 800px;
+	height: 400px;
+	margin: 10px;
 }
 </style>
