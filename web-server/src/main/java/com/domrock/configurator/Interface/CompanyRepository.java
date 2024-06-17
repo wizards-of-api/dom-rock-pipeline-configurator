@@ -8,7 +8,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
 public interface CompanyRepository extends JpaRepository<Company, String> {
-    @Query(value = "SELECT c.fantasy_name, COUNT(u.email) FROM company c " +
+    @Query(value = "SELECT c.fantasy_name, COUNT(u.company_cnpj) FROM company c " +
                     "JOIN user u ON c.cnpj = u.company_cnpj" + 
                     "GROUP BY c.fantasy_name", nativeQuery = true)
 
