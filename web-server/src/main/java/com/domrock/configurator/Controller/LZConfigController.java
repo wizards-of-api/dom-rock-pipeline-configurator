@@ -66,6 +66,16 @@ public class LZConfigController {
         Page<LZMetadataConfig> page = lzMetadataConfigInterface.findAll(paginator);
         return new ResponseEntity<>(page, HttpStatus.OK);
     }
+
+    @GetMapping("/list-view/company/{cnpj}")
+    public ResponseEntity<List<LZMetadataConfig>> getAllLZByCnpj(@PathVariable String cnpj, @PageableDefault(size = 16, sort={"name"}) Pageable paginator){
+        try {
+            List<LZMetadataConfig> allListByCnpj = lzMetadataServices.getAllLZbyCnpj(cnpj);
+            return ResponseEntity.ok(allListByCnpj);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+    }
     
     @GetMapping("/list-view/{configName}")
     public ResponseEntity<List<LZMetadataConfig>> getConfigListByName(@PathVariable String configName){
@@ -108,14 +118,14 @@ public class LZConfigController {
         return ResponseEntity.ok(responseJson);
     }
 
-    @PostMapping("/save")
+    @PostMapping("/save/{cnpj}")
     @Transactional
     @JsonView(Views.LZ.class)
-    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data){
+    public ResponseEntity<LZMetadataConfig> postConfig(@RequestBody DataConfigDTO data, @PathVariable String cnpj){
         MetadataConfigDTO metadataConfigDTO = data.metadata();
 
         LZMetadataConfig lzMetadataConfigBase = new LZMetadataConfig(metadataConfigDTO);
-        LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase); 
+        LZMetadataConfig lzMetadataConfig = lzMetadataServices.saveLzMetadataConfig(lzMetadataConfigBase, cnpj);
         for (ColumnConfigDTO columnConfigDTO : data.columns()) {
             ColumnConfig columnConfig = new ColumnConfig(lzMetadataConfig, columnConfigDTO);
             lzColumnConfigServices.saveConfigModel(columnConfig);

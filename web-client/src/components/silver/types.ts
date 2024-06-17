@@ -36,3 +36,14 @@ export type silverFromTo ={
 	from_c: string
 	to_c: string		
 }
+
+export type EnterpriseModel = {
+	fantasyName?:String,
+	cnpj?:String,
+}
+
+export type CadastroModel = {
+	nome?: string,
+	permissions?: string,
+	email?: string,
+}

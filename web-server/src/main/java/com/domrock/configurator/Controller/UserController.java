@@ -1,6 +1,11 @@
 package com.domrock.configurator.Controller;
 
+import com.domrock.configurator.Interface.PermissionRepository;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.AccountDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.JwtAuhenticationResponseDTO;
+import com.domrock.configurator.Model.ConfigModel.DTOConfig.SignupRequestDTO;
 import com.domrock.configurator.Model.ConfigModel.DTOConfig.UserDTO;
+import com.domrock.configurator.Services.AuthenticationService;
 import com.domrock.configurator.Services.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,37 +22,46 @@ public class UserController {
     @Autowired
     private UserService userService;
     @Autowired
-    private ModelMapper modelMapper;
+    private AuthenticationService authenticationService;
 
     @GetMapping("/get-all-users")
-    public ResponseEntity<List<UserDTO>> getAllUsers() {
+    public ResponseEntity<List<AccountDTO>> getAllUsers() {
         try {
-            List<UserDTO> userDTOS = userService.getAllUsers();
-            return ResponseEntity.ok(userDTOS);
+            List<AccountDTO> signupRequestDTOS = userService.getAllUsers();
+            return ResponseEntity.ok(signupRequestDTOS);
         } catch (NoSuchElementException e) {
             return ResponseEntity.notFound().build();
         }
     }
+    @PutMapping("/create-user")
+    public ResponseEntity<JwtAuhenticationResponseDTO> createUser(@RequestBody SignupRequestDTO signupRequestDTO) {
 
-    @PostMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> addPermission(@PathVariable("userEmail") String userEmail,
-                                                 @PathVariable("permissionType") String permissionType) {
+            authenticationService.signup(signupRequestDTO);
+            return ResponseEntity.ok(authenticationService.signup(signupRequestDTO));
+
+//        catch (Exception e){
+//            return ResponseEntity.notFound().build();
+//        }
+
+    }
+
+    @PostMapping("/updateuser")
+    public ResponseEntity<AccountDTO> updateUser(@RequestBody AccountDTO accountDTO) {
         try {
-            UserDTO userDTO = userService.addUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
+            userService.updateUser(accountDTO);
+            return ResponseEntity.ok(accountDTO);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
-
-    @DeleteMapping("/{userEmail}/permissions/{permissionType}")
-    public ResponseEntity<UserDTO> removePermission(@PathVariable("userEmail") String userEmail,
-                                                    @PathVariable("permissionType") String permissionType) {
-        try {
-            UserDTO userDTO = userService.removeUserPermission(userEmail, permissionType);
-            return ResponseEntity.ok(userDTO);
+    @DeleteMapping("/deleteuser/{useremail}")
+    public void deleteUser(@PathVariable("useremail") String userEmail) {
+        try{
+            userService.deleteUser(userEmail);
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body(null);
+            System.out.println("User with email " + userEmail + " could not be deleted.");
         }
     }
+
+
 }

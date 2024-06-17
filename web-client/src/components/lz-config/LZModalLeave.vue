@@ -23,8 +23,8 @@ const gotoListView = () => {
             <h2>Deseja sair sem salvar?</h2>
         </div>
         <div class="container-buttons">
-            <DRButton :click-behavior="closeModal">Continuar editando</DRButton>
-            <DRButton button-type="careful" :click-behavior="gotoListView">Sair sem salvar</DRButton>
+            <DRButton :click-behavior="closeModal" v-bind:disabled="false">Continuar editando</DRButton>
+            <DRButton button-type="careful" :click-behavior="gotoListView" v-bind:disabled="false">Sair sem salvar</DRButton>
         </div>
     </div>
 </template>

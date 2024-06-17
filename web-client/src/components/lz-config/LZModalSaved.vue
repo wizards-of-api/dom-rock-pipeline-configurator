@@ -14,7 +14,7 @@ const gotoListView = () => {
             <h2>Salvo com Sucesso!</h2>
         </div>
         <div class="container-buttons">
-            <DRButton button-type="safe" :click-behavior="gotoListView">Continuar</DRButton>
+            <DRButton button-type="safe" :click-behavior="gotoListView" v-bind:disabled="false">Continuar</DRButton>
         </div>
     </div>
 </template>

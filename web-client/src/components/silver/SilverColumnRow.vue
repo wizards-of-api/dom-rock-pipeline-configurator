@@ -3,7 +3,8 @@ import type { SilverConfig } from './types'
 import DRTextInput from '../DRTextInput.vue'
 import { onMounted } from 'vue'
 import DRButton from '../DRButton.vue'
-import axios from 'axios';
+import api from '@/JwtToken/token'
+import router from '@/router'
 
 type Props = {
     baseColumnConfig?: SilverConfig,
@@ -37,8 +38,12 @@ const wrapColumnConfig = () => ({
 
 const deleteFromTo = async (silverId:number | undefined) => {
 	if(silverId){
-	    await axios.delete(`http://localhost:8080/silver-config/delete/${silverId}`)
+		try {
+			await api.delete(`http:/silver-config/delete/${silverId}`)
 	    location.reload()
+		} catch (error) {
+			router.replace('/login')
+		}
 	}
 }
 </script>
@@ -74,6 +79,7 @@ const deleteFromTo = async (silverId:number | undefined) => {
           button-type="careful"
           :click-behavior="() => deleteFromTo(baseColumnConfig?.silverId)"
           v-if="baseColumnConfig?.columnId"
+          v-bind:disabled="false"
         >Remover</DRButton>
     </div>
 </template>
