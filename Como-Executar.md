@@ -32,8 +32,8 @@
 `npm i`
 <div align="left"><hr width=70%></div>
 
-### 8° Execute o comando para instalar a dependência dos gráficos (char.js):<br>
-`npm install char.js`
+### 8° Execute o comando para instalar a dependência dos gráficos (chart.js):<br>
+`npm install chart.js`
 <div align="left"><hr width=70%></div>
 
 ### 9° Execute o comando para rodar o front-end da aplicação:<br>
