@@ -32,7 +32,11 @@
 `npm i`
 <div align="left"><hr width=70%></div>
 
-### 8° Execute o comando para rodar o front-end da aplicação:<br>
+### 8° Execute o comando para instalar a dependência dos gráficos (char.js):<br>
+`npm install char.js`
+<div align="left"><hr width=70%></div>
+
+### 9° Execute o comando para rodar o front-end da aplicação:<br>
 `npm run dev`
 <div align="left"><hr width=70%></div>
 
