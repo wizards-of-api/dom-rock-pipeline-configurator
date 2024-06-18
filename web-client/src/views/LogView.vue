@@ -19,7 +19,6 @@ const loadLogs = async () => {
 
 onMounted(async () => {
 	const logs = await loadLogs()
-	console.log(logs)
 	if (logs) {
 		listLog.value = logs
 	}

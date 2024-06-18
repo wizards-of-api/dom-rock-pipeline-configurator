@@ -4,18 +4,19 @@ import { onMounted } from 'vue'
 import DRButton from '../DRButton.vue'
 import api from '@/JwtToken/token'
 import router from '@/router'
-import type { CadastroConfig } from '@/components/lz-config/types'
+import type { CadastroConfig, UserList } from '@/components/lz-config/types'
 import DRDropDown from '@/components/DRDropDown.vue'
 
 
 type Props = {
-	column?: CadastroConfig,
+	column?: UserList,
 }
 
 const { column } = defineProps<Props>()
 const emit = defineEmits(['update'])
 const nome = defineModel<String>('nome')
 const email = defineModel<String>('email')
+const companyName = defineModel<String>('companyName')
 const permission = defineModel<String>('permission')
 const emitUpdate = () => {
 	emit('update', wrapColumnConfig())
@@ -24,11 +25,13 @@ const emitUpdate = () => {
 onMounted(() => {
 	nome.value = column?.name
 	email.value = column?.email
+	companyName.value = column?.companyName
 	permission.value = column?.permission
 })
 const wrapColumnConfig = () => ({
 	nome : column?.name,
 	email : column?.email,
+	companyName : column?.companyName,
 	permission : column?.permission,
 })
 
@@ -86,6 +89,13 @@ const updateUser = async (email:String | undefined) => {
 			v-model="nome"
 			@update="emitUpdate"
 		></DRTextInput>
+		<DRTextInput
+			style="grid-area: empresa; width: 16rem;"
+			title="Empresa"
+			v-model="companyName"
+			@update="emitUpdate"
+			disabled
+		></DRTextInput>
 		<DRDropDown
 			style="grid-area: permission; width: 16rem;"
 			title="Permission"
@@ -118,9 +128,9 @@ const updateUser = async (email:String | undefined) => {
 .column-config {
 	margin-top: 5%;
 	width: 100%;
-	grid-template-columns: 28% 28% 15% 15%;
+	grid-template-columns:  min-content min-content min-content min-content min-content;
 	grid-template-rows: min-content 1fr;
 	grid-template-areas:
-		'name permission alter delete';
+		'name empresa permission alter delete';
 }
 </style>
