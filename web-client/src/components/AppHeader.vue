@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { onMounted, ref } from 'vue';
-import type { RouteLocationRaw } from 'vue-router';
-import LogOut from './LogOut.vue';
+import { onMounted, ref } from 'vue'
+import type { RouteLocationRaw } from 'vue-router'
+import LogOut from './LogOut.vue'
 
 const nameRoute = (name:any) => {
 	switch(name) {
@@ -11,7 +11,7 @@ const nameRoute = (name:any) => {
 		return "Configurações Landing Zone"
 	case "LZConfigView":
 	case "LZConfigUpdateView":
-		return "Etapa Lading Zone"
+		return "Etapa Landing Zone"
 	case "BronzeListView":
 		return "Configurações Bronze"
 	case "BronzeConfigView":
@@ -50,10 +50,12 @@ onMounted(()=> {
     <router-link :to="nomeRoute">
       <img src="../assets/dom-rock-logo.png">
     </router-link>
-    <div class="user">
-      <h3>{{ nameRoute($route.name) }}</h3>
-	  <LogOut></LogOut>
-    </div>
+	<div class="name_img">
+		<h3>{{ nameRoute($route.name) }}</h3>
+		<div class="user">
+		<LogOut></LogOut>
+		</div>
+	</div>
   </header>
 </template>
 
@@ -74,6 +76,12 @@ header {
   display:flex;
   justify-content: space-between;
   align-items: center;
-  gap: 20px;
+  gap: 23px;
+}
+
+.name_img{
+	display: flex;
+	flex-direction: row;
+	align-items: center;
 }
 </style>

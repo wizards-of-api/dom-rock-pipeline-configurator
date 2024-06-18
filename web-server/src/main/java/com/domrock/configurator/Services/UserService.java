@@ -52,7 +52,7 @@ public class UserService {
         List<User> users = userRepository.findAll();
         List<AccountDTO> usersDTO = new ArrayList<>();
         for (User user : users) {
-            AccountDTO userTemp = new AccountDTO(user.getName(),user.getEmail(),user.getPassword(),user.getCompanyCnpj().getCnpj(),user.getPermission().getType());
+            AccountDTO userTemp = new AccountDTO(user.getName(),user.getEmail(),user.getPassword(),user.getCompanyCnpj().getCnpj(),user.getCompanyCnpj().getFantasyName(),user.getPermission().getType());
             if (!userTemp.getEmail().equals("superuser@wiz.com"))
                 usersDTO.add(userTemp);
         }

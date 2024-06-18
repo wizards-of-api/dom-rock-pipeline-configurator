@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import type { CadastroModel } from '../silver/types'
+import type { UserList } from '../lz-config/types'
 import CadastroColumnRow from '@/components/cadastro-config/CadastroColumnRow.vue'
 
 type Props = {
-	columns?: CadastroModel[]
+	columns?: UserList[]
 }
 
 const { columns } = defineProps<Props>()

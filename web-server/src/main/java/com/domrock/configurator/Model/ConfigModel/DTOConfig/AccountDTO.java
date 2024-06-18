@@ -14,6 +14,7 @@ public class AccountDTO {
     String email;
     String password;
     String companyCnpj;
+    String companyName;
     String permission;
 
 }
