@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import AppHeader from '@/components/AppHeader.vue'
 import { onMounted, ref } from 'vue'
-import type { CadastroConfig } from '@/components/lz-config/types'
+import type { UserList } from '@/components/lz-config/types'
 import CadastroInputSection from '@/components/cadastro-config/CadastroInputSection.vue'
 import ColumnSelectionCadastro from '@/components/cadastro-config/ColumnSelectionCadastro.vue'
 import api from '@/JwtToken/token'
 import router from '@/router'
 
-const configAll = ref<CadastroConfig[]>()
+const configAll = ref<UserList[]>()
 
 const getAllUsers = async () => {
 	try {
@@ -49,7 +49,7 @@ main {
 }
 
 .container {
-	width: 1000px;
+	width: 1350px;
 	height: 200rem;
 	background: var(--color-background-soft);
 	margin: var(--big-gap) auto;

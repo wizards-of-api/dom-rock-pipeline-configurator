@@ -111,18 +111,21 @@ const wrapUpdateMetadata = () => ({
 				title="LZ"
 				v-model="lzbool"
 				@update="emitUpdate"
+				:disabled="false"
 			></DRCheckBox>
 			<DRCheckBox
 				style="grid-area: bronze; width: 5rem;"
 				title="Bronze"
 				v-model="bronzebool"
 				@update="emitUpdate"
+				:disabled="false"
 			></DRCheckBox>
 			<DRCheckBox
 				style="grid-area: silver; width: 5rem;"
 				title="Silver"
 				v-model="silverbool"
 				@update="emitUpdate"
+				:disabled="false"
 			></DRCheckBox>
 			<DRTextInput
 				style="grid-area: email; width: 14rem"

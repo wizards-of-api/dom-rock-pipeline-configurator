@@ -7,6 +7,7 @@ import { generateColors } from '@/utils/colorUtils'
 import BarChart from '@/components/BarChart.vue'
 import DRSearch from '@/components/DRSearch.vue'
 import api from '@/JwtToken/token'
+import ImportantMessage from '@/components/ImportantMessage.vue'
 
 interface PieChartData {
 	labels: string[]
@@ -19,7 +20,7 @@ const pieChartData = ref<PieChartData>({
 	labels: [],
 	values: [], 
 	colors: [],
-	title: 'Configurações por Empresa',
+	title: '',
 })
 
 const fetchPieChart = async () => {
@@ -34,7 +35,7 @@ const fetchPieChart = async () => {
 			labels,
 			values,
 			colors: generateColors(labels.length),
-			title: 'Configurações por Empresa',
+			title: '',
 		}
 	} catch (e) {
 		console.error('Não há informações sobre esse gráfico', e)
@@ -52,7 +53,7 @@ const chartData = ref<ChartData>({
 	labels: [],
 	values: [],
 	colors: [],
-	title: 'Usuário por empresa',
+	title: '',
 })
 
 const fetchChartData = async () => {
@@ -67,7 +68,7 @@ const fetchChartData = async () => {
 			labels,
 			values,
 			colors: generateColors(labels.length),
-			title: 'Usuário por empresa',
+			title: '',
 		}
 	} catch (e) {
 		console.error('Erro buscando data do gráfico', e)
@@ -85,7 +86,7 @@ let barChartData = ref<BarChartData>({
 	labels: [],
 	values: [],
 	colors: [],
-	label: "quantidade de configurações",
+	label: "",
 })
 
 const fetchBarChartData = async (labels1: string[], values1: number[]) => {
@@ -94,7 +95,7 @@ const fetchBarChartData = async (labels1: string[], values1: number[]) => {
 			labels: labels1,
 			values: values1,
 			colors: generateColors(1),
-			label: "quantidade de configurações",
+			label: "Quantidade de configurações",
 		}
 	} catch (e) {
 		console.error('Erro buscando data do gráfico', e)
@@ -103,7 +104,6 @@ const fetchBarChartData = async (labels1: string[], values1: number[]) => {
 
 let handleSearch = async (updateSearchTerm: string) => {
 	try {
-		console.log("updateSearchTerm: " + updateSearchTerm + "  updateSearchTerm: " + updateSearchTerm.length)
 		if (updateSearchTerm.length != 4) {
 			let response = await api.get(`/lz-config/count-lzfiles/filter-0`)
 			let data = response.data
@@ -148,6 +148,9 @@ onMounted(() => {
 	<main>
 		<div id="chartsContainer">
 			<div class="chart-wrapper">
+				<div class="graph_title">
+					<h2>Configurações por Empresa</h2>
+				</div>
 				<PieChart
 					v-if="pieChartData.labels.length"
 					:pieChartData="pieChartData"
@@ -155,6 +158,9 @@ onMounted(() => {
 				></PieChart>
 			</div>
 			<div class="chart-wrapper">
+				<div class="graph_title">
+					<h2>Usuário por empresa</h2>
+				</div>
 				<DonutChart
 					v-if="chartData.labels.length"
 					:chartData="chartData"
@@ -162,6 +168,9 @@ onMounted(() => {
 				></DonutChart>
 			</div>
 			<div class="chart-wrapper">
+				<div class="graph_title">
+					<h2>Quantidade de configurações</h2>
+				</div>
 				<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
 				<BarChart
 					v-if="barChartData.labels.length"
@@ -211,5 +220,10 @@ main {
 .custom-pie-chart,
 .custom-donut-chart {
 	width: 100%;
+}
+
+.graph_title{
+	display: flex;
+	justify-content: center;
 }
 </style>

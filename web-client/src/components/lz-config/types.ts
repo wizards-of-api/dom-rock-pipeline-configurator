@@ -99,6 +99,15 @@ export type CadastroConfig= {
 	bronzebool: boolean
 	silverbool: boolean
 	empresa: string
+	
+}
+
+export type UserList= {
+	name: string
+	email: string
+	password: string
+	companyName:string
+	companyCnpj:string
 	permission: string
 }
 
