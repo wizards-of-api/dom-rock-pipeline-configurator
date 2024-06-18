@@ -18,10 +18,10 @@ const login = async () => {
 			})
 		loadLogin.value = false
 		const token = response?.data?.token
-		sessionStorage.setItem('jwtToken', token)
+		localStorage.setItem('jwtToken', token)
 		const decodedToken = JSON.parse(atob(token.split(".")[1]))
-		sessionStorage.setItem('permission', JSON.stringify(decodedToken.permissionID))
-		sessionStorage.setItem('cnpj',(decodedToken.companyCnpj))
+		localStorage.setItem('permission', JSON.stringify(decodedToken.permissionID))
+		localStorage.setItem('cnpj',(decodedToken.companyCnpj))
 		if(decodedToken.permissionID ===1){
 			router.replace(`/admin-home`)
 		}else{

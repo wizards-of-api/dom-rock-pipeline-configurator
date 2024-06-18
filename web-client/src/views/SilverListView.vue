@@ -9,7 +9,7 @@ import api from '@/JwtToken/token'
 const configList = ref<validatedFileBronze>()
 const getConfig = async () => {
 	try{
-		const cnpj = sessionStorage.getItem('cnpj')
+		const cnpj = localStorage.getItem('cnpj')
 		const response = await api.get(`/silver/get-bronze-validated/${cnpj}`)
 		return response.data
 	}catch(e){
