@@ -23,7 +23,7 @@ const nameRoute = (name:any) => {
 	case "CreateEnterpriseView":
 		return "Cadastro de Empresas"
 	case "LogView":
-		return "Tela Log"
+		return "Tabela de Logs"
 	case "UserRegister":
 		return "Cadastro de Usuarios"
 	case "Administrador":

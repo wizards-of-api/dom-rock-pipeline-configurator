@@ -169,7 +169,7 @@ onMounted(() => {
 			</div>
 			<div class="chart-wrapper">
 				<div class="graph_title">
-					<h2>Quantidade de configurações</h2>
+					<h2>Quantidade de configurações por Ano</h2>
 				</div>
 				<DRSearch @updateSearchTerm="handleSearch"> </DRSearch>
 				<BarChart
